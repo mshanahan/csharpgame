@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -16,6 +17,7 @@ namespace csharpgame
         List<Tile> tileList = new List<Tile>();
         Character player;
         List<Character> enemyList = new List<Character>();
+        List<SoundEffect> fxList = new List<SoundEffect>();
         bool arrowKeyPressed = false;
 
         public Game1()
@@ -45,16 +47,17 @@ namespace csharpgame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            // TODO: use this.Content to load your game content here
+            // LOADING: Tile Images
             Texture2D dirtImage = Content.Load<Texture2D>("Graphics/TileDirt");
             Texture2D stoneImage = Content.Load<Texture2D>("Graphics/TileRock");
+
+            //LOADING: Character Images
             Texture2D playerImage = Content.Load<Texture2D>("Graphics/PlayerToken");
             Texture2D enemyImage = Content.Load<Texture2D>("Graphics/enemyToken");
 
-            //Tile tile1 = new Tile(Tile.Type.Dirt, dirtImage, 0, 0);
-            //Tile tile2 = new Tile(Tile.Type.Dirt, dirtImage, 0, 1);
-            //Tile tile3 = new Tile(Tile.Type.Dirt, dirtImage, 1, 0);
-            //Tile tile4 = new Tile(Tile.Type.Dirt, dirtImage, 1, 1);
+            //LOADING: Sound Effects
+            SoundEffect thunk = Content.Load<SoundEffect>("SoundFX/thunk");
+            fxList.Add(thunk);
 
             Random randGen = new Random();
             for (int i=0;i<16;i++)
@@ -78,12 +81,12 @@ namespace csharpgame
             Random rnd = new Random();
 
             Tile randomTile = tileList[rnd.Next(0, tileList.Count)];
-            player = new Character(15, 10, 6, playerImage, randomTile);
+            player = new Character(15, 10, 6, playerImage, randomTile,fxList);
 
             for(int i=0;i<4;i++)
             {
                 randomTile = tileList[rnd.Next(0, tileList.Count)];
-                Character enemy = new Character(12, 10, 6, enemyImage, randomTile);
+                Character enemy = new Character(12, 10, 6, enemyImage, randomTile,fxList);
                 enemyList.Add(enemy);
             }
 
@@ -188,5 +191,8 @@ namespace csharpgame
 
             base.Draw(gameTime);
         }
+
+        public static void thunk() { 
+}
     }
 }
