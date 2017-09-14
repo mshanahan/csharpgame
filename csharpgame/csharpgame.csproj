@@ -58,6 +58,8 @@
     <Content Include="Content\Graphics\enemyToken.png" />
     <Content Include="Content\Graphics\PlayerToken.png" />
     <Content Include="Content\Graphics\TileDirt.png" />
+    <Content Include="Content\Graphics\TileRock.png" />
+    <Content Include="Content\SoundFX\thunk.wav" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
