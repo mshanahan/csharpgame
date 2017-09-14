@@ -20,6 +20,7 @@ namespace csharpgame
         public Behavior behavior { get; set; }
         private bool isPlayer = false;
         private Random rnd;
+        public float rotation = 0;
 
 
         public Character(int ac, int hp, int move, Texture2D texture, Tile currentPosition, List<SoundEffect> fxList, Random rnd)
@@ -53,6 +54,22 @@ namespace csharpgame
                 {
                     this.currentPosition = t;
                     foundTile = true;
+                    if(newX < curX)
+                    {
+                        this.rotation = 1.57079632679F;
+                    }
+                    if(newX > curX)
+                    {
+                        this.rotation = 4.71238898038F;
+                    }
+                    if(newY < curY)
+                    {
+                        this.rotation = 3.14159265359F;
+                    }
+                    if(newY > curY)
+                    {
+                        this.rotation = 0;
+                    }
                 }
              }
             if (!foundTile && this.isPlayer)

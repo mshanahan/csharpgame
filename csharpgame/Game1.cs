@@ -181,18 +181,21 @@ namespace csharpgame
                 spriteBatch.Draw(t.texture,positionVector,Color.White);
             }
 
-            int playerTileX = player.currentPosition.gridX * 50;
-            int playerTileY = player.currentPosition.gridY * 50;
+            int playerTileX = (player.currentPosition.gridX * 50) + 25;
+            int playerTileY = (player.currentPosition.gridY * 50) + 25;
             Vector2 playerVector = new Vector2(playerTileX, playerTileY);
-            spriteBatch.Draw(player.texture, playerVector, Color.White);
+            //spriteBatch.Draw(player.texture, playerVector, Color.White);
+            Vector2 origin = new Vector2(player.texture.Width/2, player.texture.Height/2);
+            spriteBatch.Draw(player.texture, playerVector, null, Color.White, player.rotation, origin, 1F, SpriteEffects.None, 0f);
 
             foreach(Character e in enemyList)
             {
-                int enemyTileX = e.currentPosition.gridX * 50;
-                int enemyTileY = e.currentPosition.gridY * 50;
+                int enemyTileX = (e.currentPosition.gridX * 50) + 25;
+                int enemyTileY = (e.currentPosition.gridY * 50) + 25;
                 Vector2 enemyVector = new Vector2(enemyTileX, enemyTileY);
-                spriteBatch.Draw(e.texture, enemyVector, Color.White);
-                //spriteBatch.Draw()
+                //spriteBatch.Draw(e.texture, enemyVector, Color.White);
+                Vector2 eOrigin = new Vector2(e.texture.Width / 2, e.texture.Height / 2);
+                spriteBatch.Draw(e.texture, enemyVector, null, Color.White, e.rotation, eOrigin, 1F, SpriteEffects.None, 0f);
             }
 
             spriteBatch.End();
