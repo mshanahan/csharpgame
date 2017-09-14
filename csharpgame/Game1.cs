@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace csharpgame
 {
@@ -11,6 +12,7 @@ namespace csharpgame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        List<Tile> tileList = new List<Tile>();
 
         public Game1()
         {
@@ -29,6 +31,7 @@ namespace csharpgame
             // TODO: Add your initialization logic here
 
             base.Initialize();
+
         }
 
         /// <summary>
@@ -46,6 +49,11 @@ namespace csharpgame
             Tile tile2 = new Tile(Tile.Type.Dirt, dirtImage, new Vector2(0, 1));
             Tile tile3 = new Tile(Tile.Type.Dirt, dirtImage, new Vector2(1, 0));
             Tile tile4 = new Tile(Tile.Type.Dirt, dirtImage, new Vector2(1, 1));
+
+            tileList.Add(tile1);
+            tileList.Add(tile2);
+            tileList.Add(tile3);
+            tileList.Add(tile4);
         }
 
         /// <summary>
@@ -81,6 +89,13 @@ namespace csharpgame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+
+            spriteBatch.Begin();
+            foreach(Tile t in tileList)
+            {
+                spriteBatch.Draw(t.texture, new Rectangle(0, 0, 800, 480), Color.White);
+            }
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

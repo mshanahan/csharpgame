@@ -22,3 +22,4 @@ C:\Users\mshanahan\source\repos\csharpgame\csharpgame\obj\x86\Debug\csharpgame.c
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\obj\x86\Debug\csharpgame.csproj.CoreCompileInputs.cache
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\obj\x86\Debug\csharpgame.exe
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\obj\x86\Debug\csharpgame.pdb
+C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\TileDirt.xnb
