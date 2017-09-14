@@ -44,11 +44,12 @@ namespace csharpgame
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
             Texture2D dirtImage = Content.Load<Texture2D>("Graphics/TileDirt");
+            Texture2D playerImage = Content.Load<Texture2D>("Graphics/PlayerToken");
 
-            Tile tile1 = new Tile(Tile.Type.Dirt, dirtImage, 0, 0);
-            Tile tile2 = new Tile(Tile.Type.Dirt, dirtImage, 0, 1);
-            Tile tile3 = new Tile(Tile.Type.Dirt, dirtImage, 1, 0);
-            Tile tile4 = new Tile(Tile.Type.Dirt, dirtImage, 1, 1);
+            //Tile tile1 = new Tile(Tile.Type.Dirt, dirtImage, 0, 0);
+            //Tile tile2 = new Tile(Tile.Type.Dirt, dirtImage, 0, 1);
+            //Tile tile3 = new Tile(Tile.Type.Dirt, dirtImage, 1, 0);
+            //Tile tile4 = new Tile(Tile.Type.Dirt, dirtImage, 1, 1);
 
             for(int i=0;i<20;i++)
             {
