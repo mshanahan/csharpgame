@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace csharpgame
@@ -13,6 +14,9 @@ namespace csharpgame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         List<Tile> tileList = new List<Tile>();
+        Character player;
+        List<Character> enemyList = new List<Character>();
+        bool arrowKeyPressed = false;
 
         public Game1()
         {
@@ -29,7 +33,6 @@ namespace csharpgame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
             base.Initialize();
 
         }
@@ -44,20 +47,35 @@ namespace csharpgame
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
             Texture2D dirtImage = Content.Load<Texture2D>("Graphics/TileDirt");
+            Texture2D playerImage = Content.Load<Texture2D>("Graphics/PlayerToken");
+            Texture2D enemyImage = Content.Load<Texture2D>("Graphics/enemyToken");
 
-            Tile tile1 = new Tile(Tile.Type.Dirt, dirtImage, 0, 0);
-            Tile tile2 = new Tile(Tile.Type.Dirt, dirtImage, 0, 1);
-            Tile tile3 = new Tile(Tile.Type.Dirt, dirtImage, 1, 0);
-            Tile tile4 = new Tile(Tile.Type.Dirt, dirtImage, 1, 1);
+            //Tile tile1 = new Tile(Tile.Type.Dirt, dirtImage, 0, 0);
+            //Tile tile2 = new Tile(Tile.Type.Dirt, dirtImage, 0, 1);
+            //Tile tile3 = new Tile(Tile.Type.Dirt, dirtImage, 1, 0);
+            //Tile tile4 = new Tile(Tile.Type.Dirt, dirtImage, 1, 1);
 
-            for(int i=0;i<20;i++)
+            for(int i=0;i<16;i++)
             {
-                for(int j=0;j<20;j++)
+                for(int j=0;j<9;j++)
                 {
                     Tile t = new Tile(Tile.Type.Dirt, dirtImage, i, j);
                     tileList.Add(t);
                 }
             }
+
+            Random rnd = new Random();
+
+            Tile randomTile = tileList[rnd.Next(0, tileList.Count)];
+            player = new Character(15, 10, 6, playerImage, randomTile);
+
+            for(int i=0;i<4;i++)
+            {
+                randomTile = tileList[rnd.Next(0, tileList.Count)];
+                Character enemy = new Character(12, 10, 6, enemyImage, randomTile);
+                enemyList.Add(enemy);
+            }
+
         }
 
         /// <summary>
@@ -78,6 +96,45 @@ namespace csharpgame
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            
+
+            if(Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
+                if (!arrowKeyPressed)
+                {
+                    player.Move(tileList, 0, -1);
+                    arrowKeyPressed = true;
+                }
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            {
+                if(!arrowKeyPressed)
+                {
+                    player.Move(tileList, 0, 1);
+                    arrowKeyPressed = true;
+                }
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
+                if (!arrowKeyPressed)
+                {
+                    player.Move(tileList, 1, 0);
+                    arrowKeyPressed = true;
+                }
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            {
+                if (!arrowKeyPressed)
+                {
+                    player.Move(tileList, -1, 0);
+                    arrowKeyPressed = true;
+                }
+            }
+
+            if(Keyboard.GetState().IsKeyUp(Keys.Left) && Keyboard.GetState().IsKeyUp(Keys.Right) && Keyboard.GetState().IsKeyUp(Keys.Up) && Keyboard.GetState().IsKeyUp(Keys.Down))
+            {
+                arrowKeyPressed = false;
+            }
 
             // TODO: Add your update logic here
 
@@ -102,6 +159,20 @@ namespace csharpgame
                 Vector2 positionVector = new Vector2(tileX * 50, tileY * 50);
                 spriteBatch.Draw(t.texture,positionVector,Color.White);
             }
+
+            int playerTileX = player.currentPosition.gridX * 50;
+            int playerTileY = player.currentPosition.gridY * 50;
+            Vector2 playerVector = new Vector2(playerTileX, playerTileY);
+            spriteBatch.Draw(player.texture, playerVector, Color.White);
+
+            foreach(Character e in enemyList)
+            {
+                int enemyTileX = e.currentPosition.gridX * 50;
+                int enemyTileY = e.currentPosition.gridY * 50;
+                Vector2 enemyVector = new Vector2(enemyTileX, enemyTileY);
+                spriteBatch.Draw(e.texture, enemyVector, Color.White);
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);

@@ -5,5 +5,7 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/Graphics/TileDirt.png</File>
+    <File>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/Graphics/PlayerToken.png</File>
+    <File>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/Graphics/enemyToken.png</File>
   </SourceFiles>
 </SourceFileCollection>
