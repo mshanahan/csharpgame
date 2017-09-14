@@ -8,5 +8,13 @@ namespace csharpgame
 {
     class Character
     {
+        private int armorclass { get; set; }
+        private int hitpoints { get; set; }
+        private int movespeed { get; set; }
+
+        public Character()
+        {
+
+        }
     }
 }
