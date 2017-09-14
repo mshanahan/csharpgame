@@ -47,6 +47,7 @@ namespace csharpgame
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
             Texture2D dirtImage = Content.Load<Texture2D>("Graphics/TileDirt");
+            Texture2D stoneImage = Content.Load<Texture2D>("Graphics/TileRock");
             Texture2D playerImage = Content.Load<Texture2D>("Graphics/PlayerToken");
             Texture2D enemyImage = Content.Load<Texture2D>("Graphics/enemyToken");
 
@@ -55,11 +56,21 @@ namespace csharpgame
             //Tile tile3 = new Tile(Tile.Type.Dirt, dirtImage, 1, 0);
             //Tile tile4 = new Tile(Tile.Type.Dirt, dirtImage, 1, 1);
 
-            for(int i=0;i<16;i++)
+            Random randGen = new Random();
+            for (int i=0;i<16;i++)
             {
                 for(int j=0;j<9;j++)
                 {
-                    Tile t = new Tile(Tile.Type.Dirt, dirtImage, i, j);
+                    int percentile = randGen.Next(1, 101);
+                    Tile t;
+                    if(percentile <= 80)
+                    {
+                        t = new Tile(Tile.Type.Dirt, dirtImage, i, j);
+                    }
+                    else
+                    {
+                        t = new Tile(Tile.Type.Rock, stoneImage, i, j);
+                    }
                     tileList.Add(t);
                 }
             }
