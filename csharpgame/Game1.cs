@@ -18,7 +18,11 @@ namespace csharpgame
         Character player;
         List<Character> enemyList = new List<Character>();
         List<SoundEffect> fxList = new List<SoundEffect>();
+        List<Texture2D> miscTexList = new List<Texture2D>();
+        List<SpriteFont> fonts = new List<SpriteFont>();
+
         bool arrowKeyPressed = false;
+        bool characterSheetPressed = false;
 
         public Game1()
         {
@@ -59,6 +63,14 @@ namespace csharpgame
             //LOADING: Sound Effects
             SoundEffect thunk = Content.Load<SoundEffect>("SoundFX/thunk");
             fxList.Add(thunk);
+
+            //LOADING: misc
+            Texture2D beigeCard = Content.Load<Texture2D>("Graphics/BeigeCard");
+            miscTexList.Add(beigeCard);
+
+            //LOADING: Fonts
+            SpriteFont arial = Content.Load<SpriteFont>("Arial");
+            fonts.Add(arial);
 
             Random randGen = new Random();
 
@@ -113,9 +125,19 @@ namespace csharpgame
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            
 
-            if(Keyboard.GetState().IsKeyDown(Keys.Up))
+
+            if (Keyboard.GetState().IsKeyDown(Keys.C))
+            {
+                characterSheetPressed = true;
+            }
+            if (Keyboard.GetState().IsKeyUp(Keys.C))
+            {
+                characterSheetPressed = false;
+            }
+
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
                 if (!arrowKeyPressed)
                 {
@@ -196,6 +218,17 @@ namespace csharpgame
                 //spriteBatch.Draw(e.texture, enemyVector, Color.White);
                 Vector2 eOrigin = new Vector2(e.texture.Width / 2, e.texture.Height / 2);
                 spriteBatch.Draw(e.texture, enemyVector, null, Color.White, e.rotation, eOrigin, 1F, SpriteEffects.None, 0f);
+            }
+
+
+            if(characterSheetPressed)
+            {
+                spriteBatch.Draw(miscTexList[0], new Vector2(0, 0), Color.White);
+                spriteBatch.DrawString(fonts[0], "Hit Points: " + player.hitpoints, new Vector2(0, 0), Color.Black);
+                spriteBatch.DrawString(fonts[0], "Armor: " + player.armorClass, new Vector2(0, 24), Color.Black);
+                spriteBatch.DrawString(fonts[0], "Damage: 1-6", new Vector2(0, 48), Color.Black);
+                spriteBatch.DrawString(fonts[0], "Weapon: Shortsword", new Vector2(0, 96), Color.Black);
+                spriteBatch.DrawString(fonts[0], "Armor: None", new Vector2(0, 120), Color.Black);
             }
 
             spriteBatch.End();

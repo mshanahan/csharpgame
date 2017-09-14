@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/Arial.spritefont</SourceFile>
+  <SourceTime>2017-03-01T09:05:30-06:00</SourceTime>
+  <DestFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/bin/Windows/Arial.xnb</DestFile>
+  <DestTime>2017-09-14T00:23:00.8025904-05:00</DestTime>
+  <Importer>FontDescriptionImporter</Importer>
+  <ImporterTime>2017-03-01T09:05:36-06:00</ImporterTime>
+  <Processor>FontDescriptionProcessor</Processor>
+  <ProcessorTime>2017-03-01T09:05:36-06:00</ProcessorTime>
+  <Parameters>
+    <Key>PremultiplyAlpha</Key>
+    <Value>True</Value>
+  </Parameters>
+  <Parameters>
+    <Key>TextureFormat</Key>
+    <Value>Compressed</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>
