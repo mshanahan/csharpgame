@@ -13,5 +13,7 @@ namespace csharpgame
         private Texture2D texture { get; set; }
         private Vector2 position { get; set; }
         private Character onboard { get; set; }
+
+        //public Tile()
     }
 }
