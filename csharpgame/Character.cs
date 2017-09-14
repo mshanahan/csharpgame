@@ -39,7 +39,7 @@ namespace csharpgame
             this.isPlayer = true;
         }
 
-        public void Move(List<Tile> tileList, int xDiff, int yDiff)
+        public void Move(List<Tile> tileList, int xDiff, int yDiff, Character player, List<Character> enemyList)
         {
             int curX = currentPosition.gridX;
             int curY = currentPosition.gridY;
@@ -78,7 +78,7 @@ namespace csharpgame
             }
         }
 
-        public void AIRoutine(List<Tile> tileList)
+        public void AIRoutine(List<Tile> tileList, Character player, List<Character> enemyList)
         {
             //Wandering behavior
             if(this.behavior == Behavior.Wandering)
@@ -86,19 +86,19 @@ namespace csharpgame
                 int movementDirection = rnd.Next(0, 4);
                 if(movementDirection == 0)
                 {
-                    this.Move(tileList, 1, 0);
+                    this.Move(tileList, 1, 0, player, enemyList);
                 }
                 if (movementDirection == 1)
                 {
-                    this.Move(tileList, -1, 0);
+                    this.Move(tileList, -1, 0, player, enemyList);
                 }
                 if (movementDirection == 2)
                 {
-                    this.Move(tileList, 0, 1);
+                    this.Move(tileList, 0, 1, player, enemyList);
                 }
                 if (movementDirection == 3)
                 {
-                    this.Move(tileList, 0, -1);
+                    this.Move(tileList, 0, -1, player, enemyList);
                 }
             }
         }
