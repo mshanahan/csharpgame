@@ -52,21 +52,35 @@ namespace csharpgame
             {
                  if(t.gridX == newX && t.gridY == newY)
                 {
-                    this.currentPosition = t;
+
                     foundTile = true;
-                    if(newX < curX)
+
+                    foreach(Character e in enemyList)
+                    {
+                        if((e.currentPosition.gridX == newX && e.currentPosition.gridY == newY) || ( player.currentPosition.gridX == newX && player.currentPosition.gridY == newY ))
+                        {
+                            foundTile = false;
+                        }
+                    }
+
+                    if (foundTile)
+                    {
+                        this.currentPosition = t;
+                    }
+
+                    if (foundTile && newX < curX)
                     {
                         this.rotation = 1.57079632679F;
                     }
-                    if(newX > curX)
+                    if(foundTile && newX > curX)
                     {
                         this.rotation = 4.71238898038F;
                     }
-                    if(newY < curY)
+                    if(foundTile && newY < curY)
                     {
                         this.rotation = 3.14159265359F;
                     }
-                    if(newY > curY)
+                    if(foundTile && newY > curY)
                     {
                         this.rotation = 0;
                     }
