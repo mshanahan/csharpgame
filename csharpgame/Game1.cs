@@ -50,10 +50,14 @@ namespace csharpgame
             Tile tile3 = new Tile(Tile.Type.Dirt, dirtImage, 1, 0);
             Tile tile4 = new Tile(Tile.Type.Dirt, dirtImage, 1, 1);
 
-            tileList.Add(tile1);
-            tileList.Add(tile2);
-            tileList.Add(tile3);
-            tileList.Add(tile4);
+            for(int i=0;i<20;i++)
+            {
+                for(int j=0;j<20;j++)
+                {
+                    Tile t = new Tile(Tile.Type.Dirt, dirtImage, i, j);
+                    tileList.Add(t);
+                }
+            }
         }
 
         /// <summary>
