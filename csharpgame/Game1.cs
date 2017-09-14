@@ -45,10 +45,10 @@ namespace csharpgame
             // TODO: use this.Content to load your game content here
             Texture2D dirtImage = Content.Load<Texture2D>("Graphics/TileDirt");
 
-            Tile tile1 = new Tile(Tile.Type.Dirt, dirtImage, new Vector2(0, 0));
-            Tile tile2 = new Tile(Tile.Type.Dirt, dirtImage, new Vector2(0, 1));
-            Tile tile3 = new Tile(Tile.Type.Dirt, dirtImage, new Vector2(1, 0));
-            Tile tile4 = new Tile(Tile.Type.Dirt, dirtImage, new Vector2(1, 1));
+            Tile tile1 = new Tile(Tile.Type.Dirt, dirtImage, 0, 0);
+            Tile tile2 = new Tile(Tile.Type.Dirt, dirtImage, 0, 1);
+            Tile tile3 = new Tile(Tile.Type.Dirt, dirtImage, 1, 0);
+            Tile tile4 = new Tile(Tile.Type.Dirt, dirtImage, 1, 1);
 
             tileList.Add(tile1);
             tileList.Add(tile2);
@@ -93,7 +93,10 @@ namespace csharpgame
             spriteBatch.Begin();
             foreach(Tile t in tileList)
             {
-                spriteBatch.Draw(t.texture, new Rectangle(0, 0, 800, 480), Color.White);
+                int tileX = t.gridX;
+                int tileY = t.gridY;
+                Vector2 positionVector = new Vector2(tileX * 50, tileY * 50);
+                spriteBatch.Draw(t.texture,positionVector,Color.White);
             }
             spriteBatch.End();
 

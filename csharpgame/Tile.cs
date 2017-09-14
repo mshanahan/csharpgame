@@ -14,8 +14,8 @@ namespace csharpgame
         public Type type { get; set; }
         public Texture2D texture { get; set; }
         //public Vector2 gridPos { get; set; }
-        public int gridX { get; set; };
-        public int gridY { get; set; };
+        public int gridX { get; set; }
+        public int gridY { get; set; }
         public Character onboard { get; set; }
 
         public Tile(Type type,Texture2D texture,int gridX,int gridY)
