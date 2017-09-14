@@ -118,6 +118,7 @@ namespace csharpgame
                 {
                     player.Move(tileList, 0, -1);
                     arrowKeyPressed = true;
+                    this.tick();
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
@@ -126,6 +127,7 @@ namespace csharpgame
                 {
                     player.Move(tileList, 0, 1);
                     arrowKeyPressed = true;
+                    this.tick();
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
@@ -134,6 +136,7 @@ namespace csharpgame
                 {
                     player.Move(tileList, 1, 0);
                     arrowKeyPressed = true;
+                    this.tick();
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
@@ -142,6 +145,7 @@ namespace csharpgame
                 {
                     player.Move(tileList, -1, 0);
                     arrowKeyPressed = true;
+                    this.tick();
                 }
             }
 
@@ -192,7 +196,10 @@ namespace csharpgame
             base.Draw(gameTime);
         }
 
-        public static void thunk() { 
-}
+        //called each time the player moves
+        public void tick()
+        {
+
+        }
     }
 }
