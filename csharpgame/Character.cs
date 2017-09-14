@@ -16,6 +16,8 @@ namespace csharpgame
         public Tile currentPosition { get; set; }
         public Texture2D texture { get; set; }
         public List<SoundEffect> fxList { get; set; }
+        public enum Behavior { Wandering }
+        public Behavior behavior { get; set; }
         
 
         public Character(int ac, int hp, int move, Texture2D texture, Tile currentPosition,List<SoundEffect> fxList)
