@@ -68,27 +68,28 @@ namespace csharpgame
                         this.currentPosition = t;
                     }
 
-                    if (foundTile && newX < curX)
-                    {
-                        this.rotation = 1.57079632679F;
-                    }
-                    if(foundTile && newX > curX)
-                    {
-                        this.rotation = 4.71238898038F;
-                    }
-                    if(foundTile && newY < curY)
-                    {
-                        this.rotation = 3.14159265359F;
-                    }
-                    if(foundTile && newY > curY)
-                    {
-                        this.rotation = 0;
-                    }
+
                 }
              }
             if (!foundTile && this.isPlayer)
             {
                 fxList[0].Play();
+            }
+            if (newX < curX)
+            {
+                this.rotation = 1.57079632679F;
+            }
+            if (newX > curX)
+            {
+                this.rotation = 4.71238898038F;
+            }
+            if (newY < curY)
+            {
+                this.rotation = 3.14159265359F;
+            }
+            if (newY > curY)
+            {
+                this.rotation = 0;
             }
         }
 
