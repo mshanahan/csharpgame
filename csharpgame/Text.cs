@@ -8,5 +8,11 @@ namespace csharpgame
 {
     class Text
     {
+
+        public string Contents { get; set; }
+        public int XPos { get; set; }
+        public int YPos { get; set; }
+        public float Transparency { get; set; }
+
     }
 }
