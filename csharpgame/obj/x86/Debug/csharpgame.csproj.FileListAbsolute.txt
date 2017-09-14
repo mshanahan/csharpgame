@@ -27,3 +27,4 @@ C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Cont
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\PlayerToken.xnb
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\TileRock.xnb
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\SoundFX\thunk.xnb
+C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\GoblinToken.xnb

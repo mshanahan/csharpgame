@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/Graphics/PlayerToken.png</SourceFile>
-  <SourceTime>2017-09-13T23:23:39.3972936-05:00</SourceTime>
-  <DestFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/bin/Windows/Graphics/PlayerToken.xnb</DestFile>
-  <DestTime>2017-09-13T23:23:41.7906737-05:00</DestTime>
+  <SourceFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/Graphics/GoblinToken.png</SourceFile>
+  <SourceTime>2017-09-13T23:39:25.5805299-05:00</SourceTime>
+  <DestFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/bin/Windows/Graphics/GoblinToken.xnb</DestFile>
+  <DestTime>2017-09-13T23:39:29.3621661-05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T09:05:36-06:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

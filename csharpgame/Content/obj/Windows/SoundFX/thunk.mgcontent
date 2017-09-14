@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/SoundFX/thunk.wav</SourceFile>
-  <SourceTime>2017-09-13T22:01:02.6337536-05:00</SourceTime>
+  <SourceTime>2017-09-13T22:20:27.2417157-05:00</SourceTime>
   <DestFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/bin/Windows/SoundFX/thunk.xnb</DestFile>
-  <DestTime>2017-09-13T22:01:06.1457988-05:00</DestTime>
+  <DestTime>2017-09-13T23:17:46.0751274-05:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2017-03-01T09:05:36-06:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

@@ -54,6 +54,7 @@ namespace csharpgame
             //LOADING: Character Images
             Texture2D playerImage = Content.Load<Texture2D>("Graphics/PlayerToken");
             Texture2D enemyImage = Content.Load<Texture2D>("Graphics/enemyToken");
+            Texture2D goblinImage = Content.Load<Texture2D>("Graphics/GoblinToken");
 
             //LOADING: Sound Effects
             SoundEffect thunk = Content.Load<SoundEffect>("SoundFX/thunk");
@@ -88,7 +89,7 @@ namespace csharpgame
             for(int i=0;i<4;i++)
             {
                 randomTile = tileList[rnd.Next(0, tileList.Count)];
-                Character enemy = new Character(12, 10, 6, enemyImage, randomTile,fxList, randGen);
+                Character enemy = new Character(12, 10, 6, goblinImage, randomTile,fxList, randGen);
                 enemyList.Add(enemy);
             }
 
@@ -167,7 +168,7 @@ namespace csharpgame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
 
@@ -191,6 +192,7 @@ namespace csharpgame
                 int enemyTileY = e.currentPosition.gridY * 50;
                 Vector2 enemyVector = new Vector2(enemyTileX, enemyTileY);
                 spriteBatch.Draw(e.texture, enemyVector, Color.White);
+                //spriteBatch.Draw()
             }
 
             spriteBatch.End();
