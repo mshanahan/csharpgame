@@ -13,13 +13,16 @@ namespace csharpgame
         public enum Type { Dirt }
         public Type type { get; set; }
         public Texture2D texture { get; set; }
-        public Vector2 gridPos { get; set; }
+        //public Vector2 gridPos { get; set; }
+        public int gridX { get; set; };
+        public int gridY { get; set; };
         public Character onboard { get; set; }
 
-        public Tile(Type type,Texture2D texture,Vector2 gridPos)
+        public Tile(Type type,Texture2D texture,int gridX,int gridY)
         {
             this.type = type;
-            this.gridPos = gridPos;
+            this.gridX = gridX;
+            this.gridY = gridY;
             this.texture = texture;
         }
     }
