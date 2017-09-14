@@ -146,6 +146,8 @@ namespace csharpgame
                     player.Move(tileList, 0, -1, player, enemyList);
                     arrowKeyPressed = true;
                     this.tick();
+                    //Text upText = new Text("This is a test of text", this.GraphicsDevice.Viewport.Width / 2, this.GraphicsDevice.Viewport.Height / 2, 0.01F, 0F, -0.5F);
+                    //textList.Add(upText);
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
@@ -186,10 +188,20 @@ namespace csharpgame
             foreach(Text t in textList)
             {
                 t.Decay();
+            }
+
+            List<Text> marked = new List<Text>();
+            foreach(Text t in textList)
+            {
                 if(t.Kill == true)
                 {
-                    textList.Remove(t);
+                    marked.Add(t);
                 }
+            }
+
+            foreach(Text m in marked)
+            {
+                textList.Remove(m);
             }
 
             base.Update(gameTime);
@@ -245,7 +257,7 @@ namespace csharpgame
 
             foreach(Text t in textList)
             {
-                spriteBatch.DrawString(fonts[0], t.Contents, new Vector2(t.XPos, t.YPos), Color.White * t.Transparency);
+                spriteBatch.DrawString(fonts[0], t.Contents, new Vector2(t.XPos, t.YPos), Color.Black * t.Transparency);
             }
 
             spriteBatch.End();
