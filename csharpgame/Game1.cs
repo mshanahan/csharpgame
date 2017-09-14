@@ -74,9 +74,9 @@ namespace csharpgame
 
             Random randGen = new Random();
 
-            for (int i=0;i<16;i++)
+            for (int i=0;i<50;i++)
             {
-                for(int j=0;j<9;j++)
+                for(int j=0;j<50;j++)
                 {
                     int percentile = randGen.Next(1, 101);
                     Tile t;
@@ -98,7 +98,7 @@ namespace csharpgame
             player = new Character(15, 10, 6, playerImage, randomTile,fxList,randGen);
             player.setPlayer();
 
-            for(int i=0;i<4;i++)
+            for(int i=0;i<20;i++)
             {
                 randomTile = tileList[rnd.Next(0, tileList.Count)];
                 Character enemy = new Character(12, 10, 6, goblinImage, randomTile,fxList, randGen);
@@ -195,17 +195,18 @@ namespace csharpgame
             // TODO: Add your drawing code here
 
             spriteBatch.Begin();
-            foreach(Tile t in tileList)
+            int playerTileX = (player.currentPosition.gridX * 50);
+            int playerTileY = (player.currentPosition.gridY * 50);
+
+            foreach (Tile t in tileList)
             {
-                int tileX = t.gridX;
-                int tileY = t.gridY;
-                Vector2 positionVector = new Vector2(tileX * 50, tileY * 50);
+                int tileX = t.gridX * 50;
+                int tileY = t.gridY * 50;
+                Vector2 positionVector = new Vector2((this.GraphicsDevice.Viewport.Width / 2)+tileX -playerTileX, (this.GraphicsDevice.Viewport.Height / 2)+tileY -playerTileY);
                 spriteBatch.Draw(t.texture,positionVector,Color.White);
             }
 
-            int playerTileX = (player.currentPosition.gridX * 50) + 25;
-            int playerTileY = (player.currentPosition.gridY * 50) + 25;
-            Vector2 playerVector = new Vector2(playerTileX, playerTileY);
+            Vector2 playerVector = new Vector2((this.GraphicsDevice.Viewport.Width/2) + 25, (this.GraphicsDevice.Viewport.Height / 2) + 25);
             //spriteBatch.Draw(player.texture, playerVector, Color.White);
             Vector2 origin = new Vector2(player.texture.Width/2, player.texture.Height/2);
             spriteBatch.Draw(player.texture, playerVector, null, Color.White, player.rotation, origin, 1F, SpriteEffects.None, 0f);
@@ -214,7 +215,7 @@ namespace csharpgame
             {
                 int enemyTileX = (e.currentPosition.gridX * 50) + 25;
                 int enemyTileY = (e.currentPosition.gridY * 50) + 25;
-                Vector2 enemyVector = new Vector2(enemyTileX, enemyTileY);
+                Vector2 enemyVector = new Vector2((this.GraphicsDevice.Viewport.Width / 2) + enemyTileX - playerTileX, (this.GraphicsDevice.Viewport.Height / 2) + enemyTileY - playerTileY);
                 //spriteBatch.Draw(e.texture, enemyVector, Color.White);
                 Vector2 eOrigin = new Vector2(e.texture.Width / 2, e.texture.Height / 2);
                 spriteBatch.Draw(e.texture, enemyVector, null, Color.White, e.rotation, eOrigin, 1F, SpriteEffects.None, 0f);
