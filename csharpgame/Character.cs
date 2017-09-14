@@ -11,6 +11,7 @@ namespace csharpgame
         private int armorclass { get; set; }
         private int hitpoints { get; set; }
         private int movespeed { get; set; }
+        private Tile currentPosition { get; set; }
 
         public Character()
         {
