@@ -45,6 +45,7 @@ namespace csharpgame
             // TODO: use this.Content to load your game content here
             Texture2D dirtImage = Content.Load<Texture2D>("Graphics/TileDirt");
             Texture2D playerImage = Content.Load<Texture2D>("Graphics/PlayerToken");
+            Texture2D enemyImage = Content.Load<Texture2D>("Graphics/enemyToken");
 
             //Tile tile1 = new Tile(Tile.Type.Dirt, dirtImage, 0, 0);
             //Tile tile2 = new Tile(Tile.Type.Dirt, dirtImage, 0, 1);
