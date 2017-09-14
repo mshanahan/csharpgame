@@ -16,14 +16,11 @@ namespace csharpgame
         private Vector2 gridPos { get; set; }
         private Character onboard { get; set; }
 
-        public Tile(Type type,GraphicsDevice graphicsDevice,Vector2 gridPos)
+        public Tile(Type type,Texture2D texture,Vector2 gridPos)
         {
             this.type = type;
             this.gridPos = gridPos;
-            if(type == Type.Dirt)
-            {
-                this.texture = new Texture2D(graphicsDevice, 50, 50);
-            }
+            this.texture = texture;
         }
     }
 }

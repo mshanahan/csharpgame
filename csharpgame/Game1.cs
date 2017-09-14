@@ -39,8 +39,13 @@ namespace csharpgame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
             // TODO: use this.Content to load your game content here
+            Texture2D dirtImage = Content.Load<Texture2D>("Graphics/TileDirt");
+
+            Tile tile1 = new Tile(Tile.Type.Dirt, dirtImage, new Vector2(0, 0));
+            Tile tile2 = new Tile(Tile.Type.Dirt, dirtImage, new Vector2(0, 1));
+            Tile tile3 = new Tile(Tile.Type.Dirt, dirtImage, new Vector2(1, 0));
+            Tile tile4 = new Tile(Tile.Type.Dirt, dirtImage, new Vector2(1, 1));
         }
 
         /// <summary>
