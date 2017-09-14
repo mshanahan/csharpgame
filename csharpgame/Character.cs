@@ -53,7 +53,7 @@ namespace csharpgame
                     foundTile = true;
                 }
              }
-            if (!foundTile)
+            if (!foundTile && this.isPlayer)
             {
                 fxList[0].Play();
             }
@@ -65,7 +65,23 @@ namespace csharpgame
             if(this.behavior == Behavior.Wandering)
             {
                 Random rnd = new Random();
-
+                int movementDirection = rnd.Next(0, 4);
+                if(movementDirection == 0)
+                {
+                    this.Move(tileList, 1, 0);
+                }
+                if (movementDirection == 1)
+                {
+                    this.Move(tileList, -1, 0);
+                }
+                if (movementDirection == 2)
+                {
+                    this.Move(tileList, 0, 1);
+                }
+                if (movementDirection == 3)
+                {
+                    this.Move(tileList, 0, -1);
+                }
             }
         }
     }
