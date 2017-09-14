@@ -18,6 +18,7 @@ namespace csharpgame
         public List<SoundEffect> fxList { get; set; }
         public enum Behavior { Wandering }
         public Behavior behavior { get; set; }
+        public bool isPlayer = false;
         
 
         public Character(int ac, int hp, int move, Texture2D texture, Tile currentPosition,List<SoundEffect> fxList)
@@ -28,6 +29,11 @@ namespace csharpgame
             this.texture = texture;
             this.currentPosition = currentPosition;
             this.fxList = fxList;
+        }
+
+        public void setPlayer()
+        {
+            this.isPlayer = true;
         }
 
         public void Move(List<Tile> tileList, int xDiff, int yDiff)
@@ -55,6 +61,12 @@ namespace csharpgame
 
         public void AIRoutine(List<Tile> tileList)
         {
+            //Wandering behavior
+            if(this.behavior == Behavior.Wandering)
+            {
+                Random rnd = new Random();
+
+            }
         }
     }
 }

@@ -82,6 +82,7 @@ namespace csharpgame
 
             Tile randomTile = tileList[rnd.Next(0, tileList.Count)];
             player = new Character(15, 10, 6, playerImage, randomTile,fxList);
+            player.setPlayer();
 
             for(int i=0;i<4;i++)
             {
