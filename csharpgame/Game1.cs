@@ -243,6 +243,11 @@ namespace csharpgame
                 spriteBatch.DrawString(fonts[0], "Armor: None", new Vector2(0, 120), Color.Black);
             }
 
+            foreach(Text t in textList)
+            {
+                spriteBatch.DrawString(fonts[0], t.Contents, new Vector2(t.XPos, t.YPos), Color.White * t.Transparency);
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);
