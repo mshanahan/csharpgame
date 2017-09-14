@@ -16,6 +16,7 @@ namespace csharpgame
         List<Tile> tileList = new List<Tile>();
         Character player;
         List<Character> enemyList = new List<Character>();
+        bool arrowKeyPressed = false;
 
         public Game1()
         {
@@ -95,6 +96,45 @@ namespace csharpgame
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            
+
+            if(Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
+                if (!arrowKeyPressed)
+                {
+                    player.Move(tileList, 0, -1);
+                    arrowKeyPressed = true;
+                }
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            {
+                if(!arrowKeyPressed)
+                {
+                    player.Move(tileList, 0, 1);
+                    arrowKeyPressed = true;
+                }
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
+                if (!arrowKeyPressed)
+                {
+                    player.Move(tileList, 1, 0);
+                    arrowKeyPressed = true;
+                }
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            {
+                if (!arrowKeyPressed)
+                {
+                    player.Move(tileList, -1, 0);
+                    arrowKeyPressed = true;
+                }
+            }
+
+            if(Keyboard.GetState().IsKeyUp(Keys.Left) && Keyboard.GetState().IsKeyUp(Keys.Right) && Keyboard.GetState().IsKeyUp(Keys.Up) && Keyboard.GetState().IsKeyUp(Keys.Down))
+            {
+                arrowKeyPressed = false;
+            }
 
             // TODO: Add your update logic here
 

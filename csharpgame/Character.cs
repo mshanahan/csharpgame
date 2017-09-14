@@ -30,19 +30,19 @@ namespace csharpgame
             int curY = currentPosition.gridY;
 
             int newX = curX + xDiff;
-            int newY = curX + yDiff;
+            int newY = curY + yDiff;
 
-            Predicate < Tile > pred = doesTileExistAtPoint;
+            Console.WriteLine("cx " + curX);
+            Console.WriteLine("cy " + curY);
+            Console.WriteLine("nx " + newX);
+            Console.WriteLine("ny " + newY);
 
-            bool doesTileExistAtPoint(Tile obj)
+            foreach(Tile t in tileList)
             {
-                return obj.gridX == newX && obj.gridY == newY;
-            }
-
-            Tile newTile = tileList.Find(pred);
-            if(newTile != null)
-            {
-                this.currentPosition = newTile;
+                if(t.gridX == newX && t.gridY == newY)
+                {
+                    this.currentPosition = t;
+                }
             }
         }
     }
