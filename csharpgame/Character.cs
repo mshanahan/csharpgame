@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,12 +13,14 @@ namespace csharpgame
         public int hitpoints { get; set; }
         public int moveSpeed { get; set; }
         public Tile currentPosition { get; set; }
+        public Texture2D texture { get; set; }
 
-        public Character(int ac,int hp,int move,Tile currentPosition)
+        public Character(int ac, int hp, int move, Texture2D texture, Tile currentPosition)
         {
             this.armorClass = ac;
             this.hitpoints = hp;
             this.moveSpeed = move;
+            this.texture = texture;
             this.currentPosition = currentPosition;
         }
 

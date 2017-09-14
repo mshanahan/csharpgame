@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace csharpgame
@@ -13,6 +14,8 @@ namespace csharpgame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         List<Tile> tileList = new List<Tile>();
+        Character player;
+        List<Character> enemyList = new List<Character>();
 
         public Game1()
         {
@@ -51,14 +54,27 @@ namespace csharpgame
             //Tile tile3 = new Tile(Tile.Type.Dirt, dirtImage, 1, 0);
             //Tile tile4 = new Tile(Tile.Type.Dirt, dirtImage, 1, 1);
 
-            for(int i=0;i<20;i++)
+            for(int i=0;i<16;i++)
             {
-                for(int j=0;j<20;j++)
+                for(int j=0;j<9;j++)
                 {
                     Tile t = new Tile(Tile.Type.Dirt, dirtImage, i, j);
                     tileList.Add(t);
                 }
             }
+
+            Random rnd = new Random();
+
+            Tile randomTile = tileList[rnd.Next(0, tileList.Count)];
+            player = new Character(15, 10, 6, playerImage, randomTile);
+
+            for(int i=0;i<4;i++)
+            {
+                randomTile = tileList[rnd.Next(0, tileList.Count)];
+                Character enemy = new Character(12, 10, 6, enemyImage, randomTile);
+                enemyList.Add(enemy);
+            }
+
         }
 
         /// <summary>
@@ -103,6 +119,20 @@ namespace csharpgame
                 Vector2 positionVector = new Vector2(tileX * 50, tileY * 50);
                 spriteBatch.Draw(t.texture,positionVector,Color.White);
             }
+
+            int playerTileX = player.currentPosition.gridX * 50;
+            int playerTileY = player.currentPosition.gridY * 50;
+            Vector2 playerVector = new Vector2(playerTileX, playerTileY);
+            spriteBatch.Draw(player.texture, playerVector, Color.White);
+
+            foreach(Character e in enemyList)
+            {
+                int enemyTileX = e.currentPosition.gridX * 50;
+                int enemyTileY = e.currentPosition.gridY * 50;
+                Vector2 enemyVector = new Vector2(enemyTileX, enemyTileY);
+                spriteBatch.Draw(e.texture, enemyVector, Color.White);
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);
