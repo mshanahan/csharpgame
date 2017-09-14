@@ -141,7 +141,7 @@ namespace csharpgame
             {
                 if (!arrowKeyPressed)
                 {
-                    player.Move(tileList, 0, -1);
+                    player.Move(tileList, 0, -1, player, enemyList);
                     arrowKeyPressed = true;
                     this.tick();
                 }
@@ -150,7 +150,7 @@ namespace csharpgame
             {
                 if(!arrowKeyPressed)
                 {
-                    player.Move(tileList, 0, 1);
+                    player.Move(tileList, 0, 1, player, enemyList);
                     arrowKeyPressed = true;
                     this.tick();
                 }
@@ -159,7 +159,7 @@ namespace csharpgame
             {
                 if (!arrowKeyPressed)
                 {
-                    player.Move(tileList, 1, 0);
+                    player.Move(tileList, 1, 0, player, enemyList);
                     arrowKeyPressed = true;
                     this.tick();
                 }
@@ -168,7 +168,7 @@ namespace csharpgame
             {
                 if (!arrowKeyPressed)
                 {
-                    player.Move(tileList, -1, 0);
+                    player.Move(tileList, -1, 0, player, enemyList);
                     arrowKeyPressed = true;
                     this.tick();
                 }
@@ -242,7 +242,7 @@ namespace csharpgame
         {
             foreach(Character e in enemyList)
             {
-                e.AIRoutine(tileList);
+                e.AIRoutine(tileList, player, enemyList);
             }
         }
     }
