@@ -21,6 +21,8 @@ namespace csharpgame
         List<Texture2D> miscTexList = new List<Texture2D>();
         List<SpriteFont> fonts = new List<SpriteFont>();
 
+        List<Text> textList = new List<Text>();
+
         bool arrowKeyPressed = false;
         bool characterSheetPressed = false;
 
@@ -180,6 +182,15 @@ namespace csharpgame
             }
 
             // TODO: Add your update logic here
+
+            foreach(Text t in textList)
+            {
+                t.Decay();
+                if(t.Kill == true)
+                {
+                    textList.Remove(t);
+                }
+            }
 
             base.Update(gameTime);
         }
