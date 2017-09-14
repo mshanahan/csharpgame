@@ -74,9 +74,9 @@ namespace csharpgame
 
             Random randGen = new Random();
 
-            for (int i=0;i<16;i++)
+            for (int i=0;i<50;i++)
             {
-                for(int j=0;j<9;j++)
+                for(int j=0;j<50;j++)
                 {
                     int percentile = randGen.Next(1, 101);
                     Tile t;
@@ -95,10 +95,10 @@ namespace csharpgame
             Random rnd = new Random();
 
             Tile randomTile = tileList[rnd.Next(0, tileList.Count)];
-            player = new Character(15, 10, 6, playerImage, tileList[0],fxList,randGen);
+            player = new Character(15, 10, 6, playerImage, randomTile,fxList,randGen);
             player.setPlayer();
 
-            for(int i=0;i<4;i++)
+            for(int i=0;i<20;i++)
             {
                 randomTile = tileList[rnd.Next(0, tileList.Count)];
                 Character enemy = new Character(12, 10, 6, goblinImage, randomTile,fxList, randGen);
