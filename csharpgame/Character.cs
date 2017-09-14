@@ -18,10 +18,11 @@ namespace csharpgame
         public List<SoundEffect> fxList { get; set; }
         public enum Behavior { Wandering }
         public Behavior behavior { get; set; }
-        public bool isPlayer = false;
-        
+        private bool isPlayer = false;
+        private Random rnd;
 
-        public Character(int ac, int hp, int move, Texture2D texture, Tile currentPosition,List<SoundEffect> fxList)
+
+        public Character(int ac, int hp, int move, Texture2D texture, Tile currentPosition, List<SoundEffect> fxList, Random rnd)
         {
             this.armorClass = ac;
             this.hitpoints = hp;
@@ -29,6 +30,7 @@ namespace csharpgame
             this.texture = texture;
             this.currentPosition = currentPosition;
             this.fxList = fxList;
+            this.rnd = rnd;
         }
 
         public void setPlayer()
@@ -64,7 +66,6 @@ namespace csharpgame
             //Wandering behavior
             if(this.behavior == Behavior.Wandering)
             {
-                Random rnd = new Random();
                 int movementDirection = rnd.Next(0, 4);
                 if(movementDirection == 0)
                 {

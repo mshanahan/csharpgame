@@ -60,6 +60,7 @@ namespace csharpgame
             fxList.Add(thunk);
 
             Random randGen = new Random();
+
             for (int i=0;i<16;i++)
             {
                 for(int j=0;j<9;j++)
@@ -81,13 +82,13 @@ namespace csharpgame
             Random rnd = new Random();
 
             Tile randomTile = tileList[rnd.Next(0, tileList.Count)];
-            player = new Character(15, 10, 6, playerImage, randomTile,fxList);
+            player = new Character(15, 10, 6, playerImage, randomTile,fxList,randGen);
             player.setPlayer();
 
             for(int i=0;i<4;i++)
             {
                 randomTile = tileList[rnd.Next(0, tileList.Count)];
-                Character enemy = new Character(12, 10, 6, enemyImage, randomTile,fxList);
+                Character enemy = new Character(12, 10, 6, enemyImage, randomTile,fxList, randGen);
                 enemyList.Add(enemy);
             }
 
@@ -200,7 +201,10 @@ namespace csharpgame
         //called each time the player moves
         public void tick()
         {
-
+            foreach(Character e in enemyList)
+            {
+                e.AIRoutine(tileList);
+            }
         }
     }
 }
