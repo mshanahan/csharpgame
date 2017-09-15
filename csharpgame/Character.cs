@@ -10,6 +10,7 @@ namespace csharpgame
 {
     class Character
     {
+        public string Name { get; set; }
         public int armorClass { get; set; }
         public int hitpoints { get; set; }
         public int moveSpeed { get; set; }
@@ -23,8 +24,9 @@ namespace csharpgame
         public float rotation = 0;
 
 
-        public Character(int ac, int hp, int move, Texture2D texture, Tile currentPosition, List<SoundEffect> fxList, Random rnd)
+        public Character(string Name, int ac, int hp, int move, Texture2D texture, Tile currentPosition, List<SoundEffect> fxList, Random rnd)
         {
+            this.Name = Name;
             this.armorClass = ac;
             this.hitpoints = hp;
             this.moveSpeed = move;

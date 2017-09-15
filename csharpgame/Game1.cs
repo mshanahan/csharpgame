@@ -97,13 +97,13 @@ namespace csharpgame
             Random rnd = new Random();
 
             Tile randomTile = tileList[rnd.Next(0, tileList.Count)];
-            player = new Character(15, 10, 6, playerImage, randomTile,fxList,randGen);
+            player = new Character("Player", 15, 10, 6, playerImage, randomTile,fxList,randGen);
             player.setPlayer();
 
             for(int i=0;i<20;i++)
             {
                 randomTile = tileList[rnd.Next(0, tileList.Count)];
-                Character enemy = new Character(12, 10, 6, goblinImage, randomTile,fxList, randGen);
+                Character enemy = new Character("Goblin", 12, 10, 6, goblinImage, randomTile,fxList, randGen);
                 enemyList.Add(enemy);
             }
 
