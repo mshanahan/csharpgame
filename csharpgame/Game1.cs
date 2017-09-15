@@ -42,7 +42,7 @@ namespace csharpgame
         {
             // TODO: Add your initialization logic here
             base.Initialize();
-
+            //Environment env = Environment.Current();
         }
 
         /// <summary>
