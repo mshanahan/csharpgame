@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,17 @@ using System.Threading.Tasks;
 
 namespace csharpgame
 {
-    class Character
+    public class Character
     {
-        public int armorClass { get; set; }
-        public int hitpoints { get; set; }
-        public int moveSpeed { get; set; }
+
+        public Game1 Game { get; set; }
+        public string Name { get; set; }
+        public int CurrentHitpoints { get; set; }
+        public int MaxHitpoints { get; set; }
+        public int Armor { get; set; }
+        public int Attack { get; set; }
+        public int Damage { get; set; }
+
         public Tile currentPosition { get; set; }
         public Texture2D texture { get; set; }
         public List<SoundEffect> fxList { get; set; }
@@ -23,11 +30,15 @@ namespace csharpgame
         public float rotation = 0;
 
 
-        public Character(int ac, int hp, int move, Texture2D texture, Tile currentPosition, List<SoundEffect> fxList, Random rnd)
+        public Character(Game1 Game,  string Name, int hitpoints, int armor, int attack, int damage, Texture2D texture, Tile currentPosition, List<SoundEffect> fxList, Random rnd)
         {
-            this.armorClass = ac;
-            this.hitpoints = hp;
-            this.moveSpeed = move;
+            this.Game = Game;
+            this.Name = Name;
+            this.CurrentHitpoints = hitpoints;
+            this.MaxHitpoints = hitpoints;
+            this.Armor = armor;
+            this.Attack = attack;
+            this.Damage = damage;
             this.texture = texture;
             this.currentPosition = currentPosition;
             this.fxList = fxList;
@@ -55,11 +66,22 @@ namespace csharpgame
 
                     foundTile = true;
 
+                    if ((player.currentPosition.gridX == newX && player.currentPosition.gridY == newY))
+                    {
+                        this.AttackCharacter(this.Game.player);
+                        fxList[0].Play();
+                        foundTile = false;
+                    }
+
                     foreach(Character e in enemyList)
                     {
-                        if((e.currentPosition.gridX == newX && e.currentPosition.gridY == newY) || ( player.currentPosition.gridX == newX && player.currentPosition.gridY == newY ))
+                        if((e.currentPosition.gridX == newX && e.currentPosition.gridY == newY))
                         {
                             foundTile = false;
+                            if(this.isPlayer)
+                            {
+                                this.AttackCharacter(e);
+                            }
                         }
                     }
 
@@ -90,6 +112,20 @@ namespace csharpgame
             if (newY > curY)
             {
                 this.rotation = 0;
+            }
+        }
+
+        public void AttackCharacter(Character attacked)
+        {
+            int attackRoll = this.rnd.Next(1, 21);
+            if(attackRoll > attacked.Armor)
+            {
+                attacked.CurrentHitpoints = attacked.CurrentHitpoints - this.Damage;
+                this.Game.textList.Add(new Text("Hit! " + this.Damage + " damage", (this.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (this.Game.player.currentPosition.gridX * 50), (this.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (this.Game.player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
+            }
+            else
+            {
+                this.Game.textList.Add(new Text("Miss!", (this.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (this.Game.player.currentPosition.gridX * 50), (this.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (this.Game.player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
             }
         }
 
