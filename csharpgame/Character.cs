@@ -117,15 +117,16 @@ namespace csharpgame
 
         public void AttackCharacter(Character attacked)
         {
+            Environment env = Environment.Current();
             int attackRoll = this.rnd.Next(1, 21);
             if(attackRoll > attacked.Armor)
             {
                 attacked.CurrentHitpoints = attacked.CurrentHitpoints - this.Damage;
-                this.Game.textList.Add(new Text("Hit! " + this.Damage + " damage", (this.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (this.Game.player.currentPosition.gridX * 50), (this.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (this.Game.player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
+                env.Add(new Text("Hit! " + this.Damage + " damage", (this.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (this.Game.player.currentPosition.gridX * 50), (this.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (this.Game.player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
             }
             else
             {
-                this.Game.textList.Add(new Text("Miss!", (this.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (this.Game.player.currentPosition.gridX * 50), (this.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (this.Game.player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
+                env.Add(new Text("Miss!", (this.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (this.Game.player.currentPosition.gridX * 50), (this.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (this.Game.player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
             }
         }
 
