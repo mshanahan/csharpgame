@@ -31,7 +31,7 @@ namespace csharpgame
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            env = Environment.Current(this);
+            env = Environment.Current();
         }
 
         /// <summary>
@@ -96,16 +96,15 @@ namespace csharpgame
                 }
             }
 
-            Random rnd = new Random();
-
-            Tile randomTile = env.TileList[rnd.Next(0, env.TileList.Count)];
-            player = new Character(this, "Player",10,10,0,2,playerImage, randomTile,env.SoundFXList,randGen);
+            Tile randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
+            player = new Character("Player",10,10,0,2,playerImage, randomTile);
             player.setPlayer();
+            env.Setup(this, player);
 
-            for(int i=0;i<20;i++)
+            for (int i=0;i<20;i++)
             {
-                randomTile = env.TileList[rnd.Next(0, env.TileList.Count)];
-                Character enemy = new Character(this, "Goblin",4,10,0,1, goblinImage, randomTile,env.SoundFXList, randGen);
+                randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
+                Character enemy = new Character("Goblin",4,10,0,1, goblinImage, randomTile);
                 env.Add(enemy);
             }
 
@@ -145,7 +144,7 @@ namespace csharpgame
             {
                 if (!arrowKeyPressed)
                 {
-                    player.Move(env.TileList, 0, -1, player, env.NPCList);
+                    player.Move(0, -1);
                     arrowKeyPressed = true;
                     this.tick();
                     //Text upText = new Text("This is a test of text", this.GraphicsDevice.Viewport.Width / 2, this.GraphicsDevice.Viewport.Height / 2, 0.01F, 0F, -0.5F);
@@ -156,7 +155,7 @@ namespace csharpgame
             {
                 if(!arrowKeyPressed)
                 {
-                    player.Move(env.TileList, 0, 1, player, env.NPCList);
+                    player.Move(0, 1);
                     arrowKeyPressed = true;
                     this.tick();
                 }
@@ -165,7 +164,7 @@ namespace csharpgame
             {
                 if (!arrowKeyPressed)
                 {
-                    player.Move(env.TileList, 1, 0, player, env.NPCList);
+                    player.Move(1, 0);
                     arrowKeyPressed = true;
                     this.tick();
                 }
@@ -174,7 +173,7 @@ namespace csharpgame
             {
                 if (!arrowKeyPressed)
                 {
-                    player.Move(env.TileList, -1, 0, player, env.NPCList);
+                    player.Move(-1, 0);
                     arrowKeyPressed = true;
                     this.tick();
                 }
@@ -275,7 +274,7 @@ namespace csharpgame
         {
             foreach(Character e in env.NPCList)
             {
-                e.AIRoutine(env.TileList, player, env.NPCList);
+                e.AIRoutine();
             }
         }
         

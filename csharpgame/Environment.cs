@@ -22,19 +22,7 @@ namespace csharpgame
         public List<SpriteFont> FontList { get; private set; }
         public List<Texture2D> UIElementList { get; private set; }
         public List<Text> DecayingTextList { get; private set; }
-
-        public static Environment Current(Game1 game)
-        {
-            if(CurrentEnvironment == null)
-            {
-                CurrentEnvironment = new Environment(game);
-                EnvironmentList.Add(CurrentEnvironment);
-                return CurrentEnvironment;
-            }
-            CurrentEnvironment.Game = game;
-            CurrentEnvironment.Player = game.player;
-            return CurrentEnvironment;
-        }
+        public Random Random = new Random();
 
         public static Environment Current()
         {
@@ -45,18 +33,6 @@ namespace csharpgame
                 return CurrentEnvironment;
             }
             return CurrentEnvironment;
-        }
-
-        public Environment(Game1 game)
-        {
-            this.Game = game;
-            this.TileList = new List<Tile>();
-            this.Player = game.player;
-            this.NPCList = new List<Character>();
-            this.SoundFXList = new List<SoundEffect>();
-            this.FontList = new List<SpriteFont>();
-            this.UIElementList = new List<Texture2D>();
-            this.DecayingTextList = new List<Text>();
         }
 
         public Environment()
@@ -131,6 +107,17 @@ namespace csharpgame
         public void Remove(Text t)
         {
             DecayingTextList.Remove(t);
+        }
+
+        /// <summary>
+        /// Sets up the Environment with a Game and a Player.
+        /// </summary>
+        /// <param name="g">The Game</param>
+        /// <param name="p">The Player</param>
+        public void Setup(Game1 g, Character p)
+        {
+            this.Game = g;
+            this.Player = p;
         }
 
     }
