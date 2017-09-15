@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace csharpgame
 {
-    class Text
+    public class Text
     {
 
         public string Contents { get; set; }

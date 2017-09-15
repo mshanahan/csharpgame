@@ -14,14 +14,14 @@ namespace csharpgame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        List<Tile> tileList = new List<Tile>();
-        Character player;
-        List<Character> enemyList = new List<Character>();
-        List<SoundEffect> fxList = new List<SoundEffect>();
-        List<Texture2D> miscTexList = new List<Texture2D>();
-        List<SpriteFont> fonts = new List<SpriteFont>();
+        public List<Tile> tileList = new List<Tile>();
+        public Character player;
+        public List<Character> enemyList = new List<Character>();
+        public List<SoundEffect> fxList = new List<SoundEffect>();
+        public List<Texture2D> miscTexList = new List<Texture2D>();
+        public List<SpriteFont> fonts = new List<SpriteFont>();
 
-        List<Text> textList = new List<Text>();
+        public List<Text> textList = new List<Text>();
 
         bool arrowKeyPressed = false;
         bool characterSheetPressed = false;
@@ -97,13 +97,13 @@ namespace csharpgame
             Random rnd = new Random();
 
             Tile randomTile = tileList[rnd.Next(0, tileList.Count)];
-            player = new Character("Player",10,10,0,2,playerImage, randomTile,fxList,randGen);
+            player = new Character(this, "Player",10,10,0,2,playerImage, randomTile,fxList,randGen);
             player.setPlayer();
 
             for(int i=0;i<20;i++)
             {
                 randomTile = tileList[rnd.Next(0, tileList.Count)];
-                Character enemy = new Character("Goblin",4,10,0,1, goblinImage, randomTile,fxList, randGen);
+                Character enemy = new Character(this, "Goblin",4,10,0,1, goblinImage, randomTile,fxList, randGen);
                 enemyList.Add(enemy);
             }
 
@@ -276,5 +276,6 @@ namespace csharpgame
                 e.AIRoutine(tileList, player, enemyList);
             }
         }
+        
     }
 }

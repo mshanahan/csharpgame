@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace csharpgame
 {
-    class Tile
+    public class Tile
     {
         public enum Type { Dirt, Rock }
         public Type type { get; set; }
