@@ -16,13 +16,6 @@ namespace csharpgame
         SpriteBatch spriteBatch;
         Environment env;
         public Character player;
-        //public List<Tile> tileList = new List<Tile>();
-        //public Character player;
-        //public List<Character> enemyList = new List<Character>();
-        //public List<SoundEffect> fxList = new List<SoundEffect>();
-        //public List<Texture2D> miscTexList = new List<Texture2D>();
-        //public List<SpriteFont> fonts = new List<SpriteFont>();
-        //public List<Text> textList = new List<Text>();
 
         bool arrowKeyPressed = false;
         bool characterSheetPressed = false;
@@ -140,38 +133,27 @@ namespace csharpgame
             }
 
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            if (!arrowKeyPressed)
             {
-                if (!arrowKeyPressed)
+                if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 {
                     player.Move(0, -1);
                     arrowKeyPressed = true;
                     this.tick();
-                    //Text upText = new Text("This is a test of text", this.GraphicsDevice.Viewport.Width / 2, this.GraphicsDevice.Viewport.Height / 2, 0.01F, 0F, -0.5F);
-                    //textList.Add(upText);
                 }
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                if(!arrowKeyPressed)
+                if (Keyboard.GetState().IsKeyDown(Keys.Down))
                 {
                     player.Move(0, 1);
                     arrowKeyPressed = true;
                     this.tick();
                 }
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
-            {
-                if (!arrowKeyPressed)
+                if (Keyboard.GetState().IsKeyDown(Keys.Right))
                 {
                     player.Move(1, 0);
                     arrowKeyPressed = true;
                     this.tick();
                 }
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                if (!arrowKeyPressed)
+                if (Keyboard.GetState().IsKeyDown(Keys.Left))
                 {
                     player.Move(-1, 0);
                     arrowKeyPressed = true;
@@ -179,7 +161,7 @@ namespace csharpgame
                 }
             }
 
-            if(Keyboard.GetState().IsKeyUp(Keys.Left) && Keyboard.GetState().IsKeyUp(Keys.Right) && Keyboard.GetState().IsKeyUp(Keys.Up) && Keyboard.GetState().IsKeyUp(Keys.Down))
+            if (Keyboard.GetState().IsKeyUp(Keys.Left) && Keyboard.GetState().IsKeyUp(Keys.Right) && Keyboard.GetState().IsKeyUp(Keys.Up) && Keyboard.GetState().IsKeyUp(Keys.Down))
             {
                 arrowKeyPressed = false;
             }
