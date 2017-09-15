@@ -11,9 +11,12 @@ namespace csharpgame
     class Character
     {
         public string Name { get; set; }
-        public int armorClass { get; set; }
-        public int hitpoints { get; set; }
-        public int moveSpeed { get; set; }
+        public int CurrentHitpoints { get; set; }
+        public int MaxHitpoints { get; set; }
+        public int Armor { get; set; }
+        public int Attack { get; set; }
+        public int Damage { get; set; }
+
         public Tile currentPosition { get; set; }
         public Texture2D texture { get; set; }
         public List<SoundEffect> fxList { get; set; }
@@ -24,12 +27,14 @@ namespace csharpgame
         public float rotation = 0;
 
 
-        public Character(string Name, int ac, int hp, int move, Texture2D texture, Tile currentPosition, List<SoundEffect> fxList, Random rnd)
+        public Character(string Name, int hitpoints, int armor, int attack, int damage, Texture2D texture, Tile currentPosition, List<SoundEffect> fxList, Random rnd)
         {
             this.Name = Name;
-            this.armorClass = ac;
-            this.hitpoints = hp;
-            this.moveSpeed = move;
+            this.CurrentHitpoints = hitpoints;
+            this.MaxHitpoints = hitpoints;
+            this.Armor = armor;
+            this.Attack = attack;
+            this.Damage = damage;
             this.texture = texture;
             this.currentPosition = currentPosition;
             this.fxList = fxList;
