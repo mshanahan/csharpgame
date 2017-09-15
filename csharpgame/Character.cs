@@ -66,12 +66,22 @@ namespace csharpgame
 
                     foundTile = true;
 
+                    if ((player.currentPosition.gridX == newX && player.currentPosition.gridY == newY))
+                    {
+                        this.AttackCharacter(this.Game.player);
+                        fxList[0].Play();
+                        foundTile = false;
+                    }
+
                     foreach(Character e in enemyList)
                     {
-                        if((e.currentPosition.gridX == newX && e.currentPosition.gridY == newY) || ( player.currentPosition.gridX == newX && player.currentPosition.gridY == newY ))
+                        if((e.currentPosition.gridX == newX && e.currentPosition.gridY == newY))
                         {
                             foundTile = false;
-                            //Game1.textList.Add(new Text("hi", 0, 0, -0.01F, 0, -0.01F));
+                            if(this.isPlayer)
+                            {
+                                this.AttackCharacter(e);
+                            }
                         }
                     }
 
