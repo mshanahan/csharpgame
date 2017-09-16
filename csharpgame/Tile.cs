@@ -10,10 +10,9 @@ namespace csharpgame
 {
     public class Tile
     {
-        public enum Type { Dirt, Rock }
+        public enum Type { StoneFloor, StoneWall }
         public Type type { get; set; }
         public Texture2D texture { get; set; }
-        //public Vector2 gridPos { get; set; }
         public int gridX { get; set; }
         public int gridY { get; set; }
 

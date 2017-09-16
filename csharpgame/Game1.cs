@@ -51,6 +51,8 @@ namespace csharpgame
             // LOADING: Tile Images
             Texture2D dirtImage = Content.Load<Texture2D>("Graphics/TileDirt");
             Texture2D stoneImage = Content.Load<Texture2D>("Graphics/TileRock");
+            Texture2D StoneFloorTile = Content.Load<Texture2D>("Graphics/StoneFloorTile");
+            Texture2D StoneWallTile = Content.Load<Texture2D>("Graphics/StoneWallTile");
 
             //LOADING: Character Images
             Texture2D playerImage = Content.Load<Texture2D>("Graphics/PlayerToken");
@@ -76,13 +78,13 @@ namespace csharpgame
                 {
                     int percentile = env.Random.Next(1, 101);
                     Tile t;
-                    if (percentile <= 80)
+                    if (i == 0 || i == 49 || j == 0 || j == 49)
                     {
-                        t = new Tile(Tile.Type.Dirt, dirtImage, i, j);
+                        t = new Tile(Tile.Type.StoneWall, StoneWallTile, i, j);
                     }
                     else
                     {
-                        t = new Tile(Tile.Type.Rock, stoneImage, i, j);
+                        t = new Tile(Tile.Type.StoneFloor, StoneFloorTile, i, j);
                     }
                     env.Add(t);
                 }
