@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -229,6 +230,30 @@ namespace csharpgame
             foreach (Text t in DecayingTextList)
             {
                 s.DrawString(FontList[0], t.Contents, new Vector2(t.XPos, t.YPos), Color.Black * t.Transparency);
+            }
+        }
+
+        public void ReadMap(String directory, List<Texture2D> StoneFloor, Texture2D StoneWall)
+        {
+            //FileStream reader = new FileStream(directory, FileMode.Open, FileAccess.Read, FileShare.Read);
+            StreamReader reader = new StreamReader(directory);
+            int index = 0;
+            string currentRow;
+            while ((currentRow = reader.ReadLine()) != null)
+            {
+                for(int i=0;i<currentRow.Length;i++)
+                {
+                    char currentTile = currentRow[i];
+                    if(currentTile == 'S')
+                    {
+                        this.Add(new Tile(Tile.Type.StoneFloor, StoneFloor, i, index));
+                    }
+                    if (currentTile == 'W')
+                    {
+                        this.Add(new Tile(Tile.Type.StoneWall, StoneWall, i, index));
+                    }
+                }
+                index++;
             }
         }
     }

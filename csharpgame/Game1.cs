@@ -78,26 +78,28 @@ namespace csharpgame
             SpriteFont arial = Content.Load<SpriteFont>("Arial");
             env.Add(arial);
 
-            for (int i = 0; i < 50; i++)
-            {
-                for (int j = 0; j < 50; j++)
-                {
-                    int percentile = env.Random.Next(1, 101);
-                    Tile t;
-                    if (i == 0 || i == 49 || j == 0 || j == 49)
-                    {
-                        t = new Tile(Tile.Type.StoneWall, StoneWallTile, i, j);
-                    }
-                    else
-                    {
-                        t = new Tile(Tile.Type.StoneFloor, StoneFloorVariants, i, j);
-                    }
-                    env.Add(t);
-                }
-            }
+            //for (int i = 0; i < 50; i++)
+            //{
+            //    for (int j = 0; j < 50; j++)
+            //    {
+            //        int percentile = env.Random.Next(1, 101);
+            //        Tile t;
+            //        if (i == 0 || i == 49 || j == 0 || j == 49)
+            //        {
+            //            t = new Tile(Tile.Type.StoneWall, StoneWallTile, i, j);
+            //        }
+            //        else
+            //        {
+            //            t = new Tile(Tile.Type.StoneFloor, StoneFloorVariants, i, j);
+            //        }
+            //        env.Add(t);
+            //    }
+            //}
+
+            env.ReadMap("Content/Maps/prototype.txt", StoneFloorVariants, StoneWallTile);
 
             Tile randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
-            player = new Character("Player", 10, 10, 0, 2, playerImage, playerImage, randomTile);
+            player = new Character("Player", 10, 10, 0, 2, playerImage, playerImage, env.TileList[0]);
             player.setPlayer();
             env.Setup(this, player);
 
