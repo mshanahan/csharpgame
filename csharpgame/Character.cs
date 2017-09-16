@@ -21,13 +21,14 @@ namespace csharpgame
         public int Damage { get; set; }
         public Tile currentPosition { get; set; }
         public Texture2D texture { get; set; }
+        public Texture2D DeathTexture { get; set; }
 
         public Behavior behavior { get; set; }
         private bool isPlayer = false;
         public float rotation = 0;
 
 
-        public Character(string Name, int hitpoints, int armor, int attack, int damage, Texture2D texture, Tile currentPosition)
+        public Character(string Name, int hitpoints, int armor, int attack, int damage, Texture2D texture, Texture2D DeathTexture, Tile currentPosition)
         {
             this.Name = Name;
             this.CurrentHitpoints = hitpoints;

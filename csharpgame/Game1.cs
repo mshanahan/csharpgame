@@ -56,6 +56,7 @@ namespace csharpgame
             Texture2D playerImage = Content.Load<Texture2D>("Graphics/PlayerToken");
             Texture2D enemyImage = Content.Load<Texture2D>("Graphics/enemyToken");
             Texture2D goblinImage = Content.Load<Texture2D>("Graphics/GoblinToken");
+            Texture2D goblinCorpseImage = Content.Load<Texture2D>("Graphics/GoblinDead");
 
             //LOADING: Sound Effects
             SoundEffect thunk = Content.Load<SoundEffect>("SoundFX/thunk");
@@ -90,14 +91,14 @@ namespace csharpgame
             }
 
             Tile randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
-            player = new Character("Player", 10, 10, 0, 2, playerImage, randomTile);
+            player = new Character("Player", 10, 10, 0, 2, playerImage, playerImage, randomTile);
             player.setPlayer();
             env.Setup(this, player);
 
             for (int i = 0; i < 20; i++)
             {
                 randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
-                Character enemy = new Character("Goblin", 4, 10, 0, 1, goblinImage, randomTile);
+                Character enemy = new Character("Goblin", 4, 10, 0, 1, goblinImage, goblinCorpseImage, randomTile);
                 env.Add(enemy);
             }
 
