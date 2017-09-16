@@ -198,40 +198,20 @@ namespace csharpgame
         {
             GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
-
             spriteBatch.Begin();
-            int playerTileX = (player.currentPosition.gridX * 50);
-            int playerTileY = (player.currentPosition.gridY * 50);
 
-            foreach (Tile t in env.TileList)
-            {
-                int tileX = t.gridX * 50;
-                int tileY = t.gridY * 50;
-                Vector2 positionVector = new Vector2((this.GraphicsDevice.Viewport.Width / 2)+tileX -playerTileX, (this.GraphicsDevice.Viewport.Height / 2)+tileY -playerTileY);
-                spriteBatch.Draw(t.texture,positionVector,Color.White);
-            }
+            //draw all Tiles in the Environment...
+            env.DrawTiles(spriteBatch); //draw all NPCs in the Environment...
 
             Vector2 playerVector = new Vector2((this.GraphicsDevice.Viewport.Width/2) + 25, (this.GraphicsDevice.Viewport.Height / 2) + 25);
-            //spriteBatch.Draw(player.texture, playerVector, Color.White);
             Vector2 origin = new Vector2(player.texture.Width/2, player.texture.Height/2);
             spriteBatch.Draw(player.texture, playerVector, null, Color.White, player.rotation, origin, 1F, SpriteEffects.None, 0f);
 
-            foreach(Character e in env.NPCList)
-            {
-                int enemyTileX = (e.currentPosition.gridX * 50) + 25;
-                int enemyTileY = (e.currentPosition.gridY * 50) + 25;
-                Vector2 enemyVector = new Vector2((this.GraphicsDevice.Viewport.Width / 2) + enemyTileX - playerTileX, (this.GraphicsDevice.Viewport.Height / 2) + enemyTileY - playerTileY);
-                Vector2 enemyTextVector = new Vector2((this.GraphicsDevice.Viewport.Width / 2) + enemyTileX - playerTileX - 25, (this.GraphicsDevice.Viewport.Height / 2) + enemyTileY - playerTileY + 25);
-                Vector2 enemyTextVectorLower = new Vector2((this.GraphicsDevice.Viewport.Width / 2) + enemyTileX - playerTileX - 25, (this.GraphicsDevice.Viewport.Height / 2) + enemyTileY - playerTileY + 40);
-                //spriteBatch.Draw(e.texture, enemyVector, Color.White);
-                Vector2 eOrigin = new Vector2(e.texture.Width / 2, e.texture.Height / 2);
-                spriteBatch.Draw(e.texture, enemyVector, null, Color.White, e.rotation, eOrigin, 1F, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(env.FontList[0], e.Name + "\r\n" + e.CurrentHitpoints + "/" + e.MaxHitpoints, enemyTextVector, Color.Red);
-            }
+            env.DrawNPCs(spriteBatch); //draw all NPCs in the Environment...
 
 
-            if(characterSheetPressed)
+
+            if (characterSheetPressed) //PLACEHOLDER: this can be cleaned up once UIElement is implemented
             {
                 spriteBatch.Draw(env.UIElementList[0], new Vector2(0, 0), Color.White);
                 spriteBatch.DrawString(env.FontList[0], "Hit Points: " + player.CurrentHitpoints + "/" + player.MaxHitpoints, new Vector2(0, 0), Color.Black);

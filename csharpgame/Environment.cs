@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,8 @@ namespace csharpgame
         public List<SpriteFont> FontList { get; private set; }
         public List<Texture2D> UIElementList { get; private set; }
         public List<Text> DecayingTextList { get; private set; }
+        public object GraphicsDevice { get; private set; }
+
         public Random Random = new Random();
 
         public static Environment Current()
@@ -120,5 +123,50 @@ namespace csharpgame
             this.Player = p;
         }
 
+        public void DrawTiles(SpriteBatch s)
+        {
+            foreach (Tile t in TileList)
+            {
+                int TileScreenX = t.gridX * 50;
+                int TileScreenY = t.gridY * 50;
+
+                int PlayerGridX = Player.currentPosition.gridX;
+                int PlayerGridY = Player.currentPosition.gridY;
+                int PlayerScreenX = PlayerGridX * 50;
+                int PlayerScreenY = PlayerGridY * 50;
+
+                Vector2 Location = new Vector2((Game.GraphicsDevice.Viewport.Width / 2) + TileScreenX - PlayerScreenX, (Game.GraphicsDevice.Viewport.Height / 2) + TileScreenY - PlayerScreenY);
+                s.Draw(t.texture, Location, Color.White);
+            }
+        }
+
+        public void DrawNPCs(SpriteBatch s)
+        {
+            
+            foreach(Character npc in NPCList)
+            {
+                int NPCGridX = npc.currentPosition.gridX;
+                int NPCGridY = npc.currentPosition.gridY;
+                int PlayerGridX = Player.currentPosition.gridX;
+                int PlayerGridY = Player.currentPosition.gridY;
+
+                int NPCScreenX = (NPCGridX * 50) + 25;
+                int NPCScreenY = (NPCGridY * 50) + 25;
+                int PlayerScreenX = PlayerGridX * 50;
+                int PlayerScreenY = PlayerGridY * 50;
+
+                Vector2 Location = new Vector2(
+                    (Game.GraphicsDevice.Viewport.Width / 2) + NPCScreenX - PlayerScreenX,
+                    (Game.GraphicsDevice.Viewport.Height / 2) + NPCScreenY - PlayerScreenY);
+                Vector2 TextLocation = new Vector2(
+                    (Game.GraphicsDevice.Viewport.Width / 2) + NPCScreenX - PlayerScreenX - 25,
+                    (Game.GraphicsDevice.Viewport.Height / 2) + NPCScreenY - PlayerScreenY + 25);
+                Vector2 SpriteOrigin = new Vector2(npc.texture.Width / 2, npc.texture.Height / 2);
+
+                s.Draw(npc.texture, Location, null, Color.White, npc.rotation, SpriteOrigin, 1F, SpriteEffects.None, 0f);
+                s.DrawString(FontList[0], npc.Name + "\r\n" + npc.CurrentHitpoints + "/" + npc.MaxHitpoints, TextLocation, Color.Red);
+            }
+
+        }
     }
 }
