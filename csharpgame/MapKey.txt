@@ -1,4 +1,5 @@
 ﻿S = Stone Floor
 W = Stone Wall
+G = Stagnant Water
 
 Change uppercase to lowercase to create a Monster Spawners

@@ -56,7 +56,7 @@ namespace csharpgame
 
                     foundTile = true;
 
-                    if(t.type == Tile.Type.Wall)
+                    if(t.type == Tile.Type.Wall || t.type == Tile.Type.Liquid)
                     {
                         foundTile = false;
                         if(this.isPlayer) env.SoundFXList[0].Play(); //thunk

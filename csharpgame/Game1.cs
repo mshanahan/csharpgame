@@ -56,7 +56,6 @@ namespace csharpgame
             Texture2D StoneFloorTile = Content.Load<Texture2D>("Graphics/StoneFloorTile");
             Texture2D StoneFloorTileV2 = Content.Load<Texture2D>("Graphics/StoneFloorTileVar2");
             Texture2D StoneFloorTileV3 = Content.Load<Texture2D>("Graphics/StoneFloorTileVar3");
-
             List<Texture2D> StoneFloorVariants = new List<Texture2D>();
             StoneFloorVariants.Add(StoneFloorTile);
             StoneFloorVariants.Add(StoneFloorTileV2);
@@ -65,6 +64,9 @@ namespace csharpgame
 
             Texture2D StoneWallTile = Content.Load<Texture2D>("Graphics/StoneWallTile");
             TileWallStone.Texture = StoneWallTile;
+
+            Texture2D TileWaterStagnantGraphic = Content.Load<Texture2D>("Graphics/TileWaterStagnant");
+            TileWaterStagnant.Texture = TileWaterStagnantGraphic;
 
             //LOADING: Character Images
             Texture2D playerImage = Content.Load<Texture2D>("Graphics/PlayerToken");
