@@ -63,8 +63,10 @@
     <Content Include="Content\Graphics\GoblinDead.png" />
     <Content Include="Content\Graphics\GoblinToken.png" />
     <Content Include="Content\Graphics\PlayerToken.png" />
-    <Content Include="Content\Graphics\TileDirt.png" />
-    <Content Include="Content\Graphics\TileRock.png" />
+    <Content Include="Content\Graphics\StoneFloorTile.png" />
+    <Content Include="Content\Graphics\StoneFloorTileVar2.png" />
+    <Content Include="Content\Graphics\StoneFloorTileVar3.png" />
+    <Content Include="Content\Graphics\StoneWallTIle.png" />
     <Content Include="Content\SoundFX\thunk.wav" />
     <Content Include="Icon.ico" />
   </ItemGroup>

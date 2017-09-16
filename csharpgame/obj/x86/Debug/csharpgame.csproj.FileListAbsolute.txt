@@ -22,12 +22,14 @@ C:\Users\mshanahan\source\repos\csharpgame\csharpgame\obj\x86\Debug\csharpgame.c
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\obj\x86\Debug\csharpgame.csproj.CoreCompileInputs.cache
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\obj\x86\Debug\csharpgame.exe
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\obj\x86\Debug\csharpgame.pdb
-C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\TileDirt.xnb
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\enemyToken.xnb
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\PlayerToken.xnb
-C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\TileRock.xnb
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\SoundFX\thunk.xnb
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\GoblinToken.xnb
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Arial.xnb
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\BeigeCard.xnb
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\GoblinDead.xnb
+C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\StoneFloorTile.xnb
+C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\StoneWallTIle.xnb
+C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\StoneFloorTileVar2.xnb
+C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\StoneFloorTileVar3.xnb

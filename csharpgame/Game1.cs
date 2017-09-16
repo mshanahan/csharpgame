@@ -49,8 +49,16 @@ namespace csharpgame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // LOADING: Tile Images
-            Texture2D dirtImage = Content.Load<Texture2D>("Graphics/TileDirt");
-            Texture2D stoneImage = Content.Load<Texture2D>("Graphics/TileRock");
+            Texture2D StoneFloorTile = Content.Load<Texture2D>("Graphics/StoneFloorTile");
+            Texture2D StoneFloorTileV2 = Content.Load<Texture2D>("Graphics/StoneFloorTileVar2");
+            Texture2D StoneFloorTileV3 = Content.Load<Texture2D>("Graphics/StoneFloorTileVar3");
+
+            List<Texture2D> StoneFloorVariants = new List<Texture2D>();
+            StoneFloorVariants.Add(StoneFloorTile);
+            StoneFloorVariants.Add(StoneFloorTileV2);
+            StoneFloorVariants.Add(StoneFloorTileV3);
+
+            Texture2D StoneWallTile = Content.Load<Texture2D>("Graphics/StoneWallTile");
 
             //LOADING: Character Images
             Texture2D playerImage = Content.Load<Texture2D>("Graphics/PlayerToken");
@@ -76,13 +84,13 @@ namespace csharpgame
                 {
                     int percentile = env.Random.Next(1, 101);
                     Tile t;
-                    if (percentile <= 80)
+                    if (i == 0 || i == 49 || j == 0 || j == 49)
                     {
-                        t = new Tile(Tile.Type.Dirt, dirtImage, i, j);
+                        t = new Tile(Tile.Type.StoneWall, StoneWallTile, i, j);
                     }
                     else
                     {
-                        t = new Tile(Tile.Type.Rock, stoneImage, i, j);
+                        t = new Tile(Tile.Type.StoneFloor, StoneFloorVariants, i, j);
                     }
                     env.Add(t);
                 }
@@ -96,7 +104,7 @@ namespace csharpgame
             for (int i = 0; i < 20; i++)
             {
                 randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
-                Character enemy = new Character("Goblin", 4, 10, 0, 1, goblinImage, goblinCorpseImage, randomTile);
+                Character enemy = new Character("Goblin", env.Random.Next(1,7), 10, 0, 1, goblinImage, goblinCorpseImage, randomTile);
                 enemy.behavior = Character.Behavior.Wandering;
                 env.Add(enemy);
             }
