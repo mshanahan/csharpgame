@@ -51,6 +51,7 @@ namespace csharpgame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
             // LOADING: Tile Images
             Texture2D StoneFloorTile = Content.Load<Texture2D>("Graphics/StoneFloorTile");
             Texture2D StoneFloorTileV2 = Content.Load<Texture2D>("Graphics/StoneFloorTileVar2");
@@ -60,12 +61,13 @@ namespace csharpgame
             StoneFloorVariants.Add(StoneFloorTile);
             StoneFloorVariants.Add(StoneFloorTileV2);
             StoneFloorVariants.Add(StoneFloorTileV3);
+            TileFloorStone.Textures = StoneFloorVariants;
 
             Texture2D StoneWallTile = Content.Load<Texture2D>("Graphics/StoneWallTile");
 
             //LOADING: Character Images
             Texture2D playerImage = Content.Load<Texture2D>("Graphics/PlayerToken");
-            Texture2D enemyImage = Content.Load<Texture2D>("Graphics/enemyToken");
+
             Texture2D goblinImage = Content.Load<Texture2D>("Graphics/GoblinToken");
             Goblin.GoblinImage = goblinImage;
             Texture2D goblinCorpseImage = Content.Load<Texture2D>("Graphics/GoblinDead");
@@ -101,7 +103,8 @@ namespace csharpgame
             //    }
             //}
 
-            env.ReadMap("Content/Maps/prototype.txt", StoneFloorVariants, StoneWallTile);
+            Tuple<char, Tile.Type, List<Texture2D>> StoneFloor = new Tuple<char, Tile.Type, List<Texture2D>>('S', Tile.Type.Floor, StoneFloorVariants);
+            env.ReadMap("Content/Maps/prototype.txt", StoneFloor, null);
 
             Tile randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
             player = new Character(env.TileList[1]);
