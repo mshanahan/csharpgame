@@ -31,3 +31,5 @@ C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Cont
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\GoblinDead.xnb
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\StoneFloorTile.xnb
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\StoneWallTIle.xnb
+C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\StoneFloorTileVar2.xnb
+C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\StoneFloorTileVar3.xnb
