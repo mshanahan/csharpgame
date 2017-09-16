@@ -129,15 +129,29 @@ namespace csharpgame
             {
                 int TileScreenX = t.gridX * 50;
                 int TileScreenY = t.gridY * 50;
-
                 int PlayerGridX = Player.currentPosition.gridX;
                 int PlayerGridY = Player.currentPosition.gridY;
                 int PlayerScreenX = PlayerGridX * 50;
                 int PlayerScreenY = PlayerGridY * 50;
 
-                Vector2 Location = new Vector2((Game.GraphicsDevice.Viewport.Width / 2) + TileScreenX - PlayerScreenX, (Game.GraphicsDevice.Viewport.Height / 2) + TileScreenY - PlayerScreenY);
+                Vector2 Location = new Vector2(
+                    (Game.GraphicsDevice.Viewport.Width / 2) + TileScreenX - PlayerScreenX, 
+                    (Game.GraphicsDevice.Viewport.Height / 2) + TileScreenY - PlayerScreenY);
+
                 s.Draw(t.texture, Location, Color.White);
             }
+        }
+
+        public void DrawPlayer(SpriteBatch s)
+        {
+            Vector2 Location = new Vector2(
+                (Game.GraphicsDevice.Viewport.Width / 2) + 25, 
+                (Game.GraphicsDevice.Viewport.Height / 2) + 25);
+            Vector2 SpriteOrigin = new Vector2(
+                Player.texture.Width / 2, 
+                Player.texture.Height / 2);
+
+            s.Draw(Player.texture, Location, null, Color.White, Player.rotation, SpriteOrigin, 1F, SpriteEffects.None, 0f);
         }
 
         public void DrawNPCs(SpriteBatch s)
@@ -149,7 +163,6 @@ namespace csharpgame
                 int NPCGridY = npc.currentPosition.gridY;
                 int PlayerGridX = Player.currentPosition.gridX;
                 int PlayerGridY = Player.currentPosition.gridY;
-
                 int NPCScreenX = (NPCGridX * 50) + 25;
                 int NPCScreenY = (NPCGridY * 50) + 25;
                 int PlayerScreenX = PlayerGridX * 50;
@@ -167,6 +180,14 @@ namespace csharpgame
                 s.DrawString(FontList[0], npc.Name + "\r\n" + npc.CurrentHitpoints + "/" + npc.MaxHitpoints, TextLocation, Color.Red);
             }
 
+        }
+
+        public void DrawDecayingText(SpriteBatch s)
+        {
+            foreach (Text t in DecayingTextList)
+            {
+                s.DrawString(FontList[0], t.Contents, new Vector2(t.XPos, t.YPos), Color.Black * t.Transparency);
+            }
         }
     }
 }

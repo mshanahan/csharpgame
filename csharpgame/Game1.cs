@@ -199,17 +199,11 @@ namespace csharpgame
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
-
-            //draw all Tiles in the Environment...
-            env.DrawTiles(spriteBatch); //draw all NPCs in the Environment...
-
-            Vector2 playerVector = new Vector2((this.GraphicsDevice.Viewport.Width/2) + 25, (this.GraphicsDevice.Viewport.Height / 2) + 25);
-            Vector2 origin = new Vector2(player.texture.Width/2, player.texture.Height/2);
-            spriteBatch.Draw(player.texture, playerVector, null, Color.White, player.rotation, origin, 1F, SpriteEffects.None, 0f);
-
+            
+            env.DrawTiles(spriteBatch); //draw all Tiles in the Environment...
+            env.DrawPlayer(spriteBatch); //draw the Player...
             env.DrawNPCs(spriteBatch); //draw all NPCs in the Environment...
-
-
+            env.DrawDecayingText(spriteBatch); //draw all Decaying Text in the Environment...
 
             if (characterSheetPressed) //PLACEHOLDER: this can be cleaned up once UIElement is implemented
             {
@@ -221,13 +215,7 @@ namespace csharpgame
                 spriteBatch.DrawString(env.FontList[0], "Armor: None", new Vector2(0, 120), Color.Black);
             }
 
-            foreach(Text t in env.DecayingTextList)
-            {
-                spriteBatch.DrawString(env.FontList[0], t.Contents, new Vector2(t.XPos, t.YPos), Color.Black * t.Transparency);
-            }
-
             spriteBatch.End();
-
             base.Draw(gameTime);
         }
 
