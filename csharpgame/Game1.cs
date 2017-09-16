@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace csharpgame
 {
@@ -23,6 +24,8 @@ namespace csharpgame
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = Screen.PrimaryScreen.Bounds.Width;
+            graphics.PreferredBackBufferHeight = Screen.PrimaryScreen.Bounds.Height;
             Content.RootDirectory = "Content";
             env = Environment.Current();
         }
@@ -129,21 +132,21 @@ namespace csharpgame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == Microsoft.Xna.Framework.Input.ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Escape))
                 Exit();
 
 
-            if (Keyboard.GetState().IsKeyDown(Keys.C))
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.C))
             {
                 characterSheetPressed = true;
             }
-            if (Keyboard.GetState().IsKeyUp(Keys.C))
+            if (Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.C))
             {
                 characterSheetPressed = false;
             }
 
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Up))
             {
                 if (!arrowKeyPressed)
                 {
@@ -152,7 +155,7 @@ namespace csharpgame
                     this.tick();
                 }
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Down))
             {
                 if (!arrowKeyPressed)
                 {
@@ -161,7 +164,7 @@ namespace csharpgame
                     this.tick();
                 }
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Right))
             {
                 if (!arrowKeyPressed)
                 {
@@ -170,7 +173,7 @@ namespace csharpgame
                     this.tick();
                 }
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Left))
             {
                 if (!arrowKeyPressed)
                 {
@@ -180,7 +183,11 @@ namespace csharpgame
                 }
             }
 
-            if (Keyboard.GetState().IsKeyUp(Keys.Left) && Keyboard.GetState().IsKeyUp(Keys.Right) && Keyboard.GetState().IsKeyUp(Keys.Up) && Keyboard.GetState().IsKeyUp(Keys.Down))
+            if (
+                Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Left)
+                && Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Right)
+                && Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Up)
+                && Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Down))
             {
                 arrowKeyPressed = false;
             }
