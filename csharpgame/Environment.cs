@@ -44,6 +44,7 @@ namespace csharpgame
             this.TileList = new List<Tile>();
             this.Player = null;
             this.NPCList = new List<Character>();
+            this.CorpseList = new List<Corpse>();
             this.SoundFXList = new List<SoundEffect>();
             this.FontList = new List<SpriteFont>();
             this.UIElementList = new List<Texture2D>();
@@ -66,6 +67,15 @@ namespace csharpgame
         public void Add(Character c)
         {
             NPCList.Add(c);
+        }
+
+        /// <summary>
+        /// Adds a Corpse to the Environment.
+        /// </summary>
+        /// <param name="c">The Corpse to add</param>
+        public void Add(Corpse c)
+        {
+            CorpseList.Add(c);
         }
 
         /// <summary>
@@ -102,6 +112,15 @@ namespace csharpgame
         public void Add(Text t)
         {
             DecayingTextList.Add(t);
+        }
+
+        /// <summary>
+        /// Removes an NPC from the Environment
+        /// </summary>
+        /// <param name="c">The Character to remove</param>
+        public void Remove(Character c)
+        {
+            NPCList.Remove(c);
         }
 
         /// <summary>

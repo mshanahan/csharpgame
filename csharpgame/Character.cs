@@ -26,6 +26,7 @@ namespace csharpgame
         public Behavior behavior { get; set; }
         private bool isPlayer = false;
         public float rotation = 0;
+        public bool markedForDeath = false;
 
 
         public Character(string Name, int hitpoints, int armor, int attack, int damage, Texture2D texture, Texture2D DeathTexture, Tile currentPosition)
@@ -70,14 +71,21 @@ namespace csharpgame
                         foundTile = false;
                     }
 
-                    foreach (Character e in env.NPCList)
+                    //foreach (Character e in env.NPCList)
+                    for(int i=0;i<env.NPCList.Count;i++)
                     {
+                        Character e = env.NPCList[i];
                         if ((e.currentPosition.gridX == newX && e.currentPosition.gridY == newY))
                         {
                             foundTile = false;
                             if (this.isPlayer)
                             {
                                 this.AttackCharacter(e);
+                                if (e.markedForDeath)
+                                {
+                                    e.KillCharacter();
+                                    i--;
+                                }
                             }
                         }
                     }
@@ -119,6 +127,7 @@ namespace csharpgame
             if (attackRoll > attacked.Armor)
             {
                 attacked.CurrentHitpoints = attacked.CurrentHitpoints - this.Damage;
+                if (attacked.CurrentHitpoints <= 0 && !attacked.isPlayer) attacked.markedForDeath = true;
                 env.Add(new Text("Hit! " + this.Damage + " damage", (env.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (env.Game.player.currentPosition.gridX * 50), (env.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (env.Game.player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
             }
             else
@@ -127,10 +136,12 @@ namespace csharpgame
             }
         }
 
-        public void KillCharacter(Character c)
+        public void KillCharacter()
         {
             Environment env = Environment.Current();
-            Corpse newCorpse = new Corpse(this.texture, this.currentPosition, this.rotation);
+            Corpse newCorpse = new Corpse(this.DeathTexture, this.currentPosition, this.rotation);
+            env.Add(newCorpse);
+            env.Remove(this);
         }
 
         public void AIRoutine()
