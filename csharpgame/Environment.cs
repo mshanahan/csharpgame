@@ -274,8 +274,12 @@ namespace csharpgame
                         ThisTile = new TileWallStone(x, y);
                         this.Add(ThisTile);
                     }
-
-                    if(Char.IsLower(currentTile) && ThisTile != null)
+                    if (Char.ToUpper(currentTile) == 'G')
+                    {
+                        ThisTile = new TileWaterStagnant(x, y);
+                        this.Add(ThisTile);
+                    }
+                    if (Char.IsLower(currentTile) && ThisTile != null)
                     {
                         //sum all the weights
                         int summedWeight = 0;

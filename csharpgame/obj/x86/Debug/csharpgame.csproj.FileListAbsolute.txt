@@ -34,3 +34,4 @@ C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Cont
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\StoneFloorTileVar2.xnb
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\StoneFloorTileVar3.xnb
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Maps\prototype.txt
+C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\TileWaterStagnant.xnb
