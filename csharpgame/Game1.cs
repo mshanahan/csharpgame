@@ -14,14 +14,8 @@ namespace csharpgame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        public List<Tile> tileList = new List<Tile>();
+        Environment env;
         public Character player;
-        public List<Character> enemyList = new List<Character>();
-        public List<SoundEffect> fxList = new List<SoundEffect>();
-        public List<Texture2D> miscTexList = new List<Texture2D>();
-        public List<SpriteFont> fonts = new List<SpriteFont>();
-
-        public List<Text> textList = new List<Text>();
 
         bool arrowKeyPressed = false;
         bool characterSheetPressed = false;
@@ -30,6 +24,7 @@ namespace csharpgame
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            env = Environment.Current();
         }
 
         /// <summary>
@@ -42,7 +37,7 @@ namespace csharpgame
         {
             // TODO: Add your initialization logic here
             base.Initialize();
-
+            //Environment env = Environment.Current();
         }
 
         /// <summary>
@@ -64,25 +59,25 @@ namespace csharpgame
 
             //LOADING: Sound Effects
             SoundEffect thunk = Content.Load<SoundEffect>("SoundFX/thunk");
-            fxList.Add(thunk);
+            env.Add(thunk);
 
             //LOADING: misc
             Texture2D beigeCard = Content.Load<Texture2D>("Graphics/BeigeCard");
-            miscTexList.Add(beigeCard);
+            env.Add(beigeCard);
 
             //LOADING: Fonts
             SpriteFont arial = Content.Load<SpriteFont>("Arial");
-            fonts.Add(arial);
+            env.Add(arial);
 
             Random randGen = new Random();
 
-            for (int i=0;i<50;i++)
+            for (int i = 0; i < 50; i++)
             {
-                for(int j=0;j<50;j++)
+                for (int j = 0; j < 50; j++)
                 {
                     int percentile = randGen.Next(1, 101);
                     Tile t;
-                    if(percentile <= 80)
+                    if (percentile <= 80)
                     {
                         t = new Tile(Tile.Type.Dirt, dirtImage, i, j);
                     }
@@ -90,21 +85,20 @@ namespace csharpgame
                     {
                         t = new Tile(Tile.Type.Rock, stoneImage, i, j);
                     }
-                    tileList.Add(t);
+                    env.Add(t);
                 }
             }
 
-            Random rnd = new Random();
-
-            Tile randomTile = tileList[rnd.Next(0, tileList.Count)];
-            player = new Character(this, "Player",10,10,0,2,playerImage, randomTile,fxList,randGen);
+            Tile randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
+            player = new Character("Player", 10, 10, 0, 2, playerImage, randomTile);
             player.setPlayer();
+            env.Setup(this, player);
 
-            for(int i=0;i<20;i++)
+            for (int i = 0; i < 20; i++)
             {
-                randomTile = tileList[rnd.Next(0, tileList.Count)];
-                Character enemy = new Character(this, "Goblin",4,10,0,1, goblinImage, randomTile,fxList, randGen);
-                enemyList.Add(enemy);
+                randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
+                Character enemy = new Character("Goblin", 4, 10, 0, 1, goblinImage, randomTile);
+                env.Add(enemy);
             }
 
         }
@@ -143,18 +137,16 @@ namespace csharpgame
             {
                 if (!arrowKeyPressed)
                 {
-                    player.Move(tileList, 0, -1, player, enemyList);
+                    player.Move(0, -1);
                     arrowKeyPressed = true;
                     this.tick();
-                    //Text upText = new Text("This is a test of text", this.GraphicsDevice.Viewport.Width / 2, this.GraphicsDevice.Viewport.Height / 2, 0.01F, 0F, -0.5F);
-                    //textList.Add(upText);
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
-                if(!arrowKeyPressed)
+                if (!arrowKeyPressed)
                 {
-                    player.Move(tileList, 0, 1, player, enemyList);
+                    player.Move(0, 1);
                     arrowKeyPressed = true;
                     this.tick();
                 }
@@ -163,7 +155,7 @@ namespace csharpgame
             {
                 if (!arrowKeyPressed)
                 {
-                    player.Move(tileList, 1, 0, player, enemyList);
+                    player.Move(1, 0);
                     arrowKeyPressed = true;
                     this.tick();
                 }
@@ -172,36 +164,36 @@ namespace csharpgame
             {
                 if (!arrowKeyPressed)
                 {
-                    player.Move(tileList, -1, 0, player, enemyList);
+                    player.Move(-1, 0);
                     arrowKeyPressed = true;
                     this.tick();
                 }
             }
 
-            if(Keyboard.GetState().IsKeyUp(Keys.Left) && Keyboard.GetState().IsKeyUp(Keys.Right) && Keyboard.GetState().IsKeyUp(Keys.Up) && Keyboard.GetState().IsKeyUp(Keys.Down))
+            if (Keyboard.GetState().IsKeyUp(Keys.Left) && Keyboard.GetState().IsKeyUp(Keys.Right) && Keyboard.GetState().IsKeyUp(Keys.Up) && Keyboard.GetState().IsKeyUp(Keys.Down))
             {
                 arrowKeyPressed = false;
             }
 
             // TODO: Add your update logic here
 
-            foreach(Text t in textList)
+            foreach (Text t in env.DecayingTextList)
             {
                 t.Decay();
             }
 
             List<Text> marked = new List<Text>();
-            foreach(Text t in textList)
+            foreach (Text t in env.DecayingTextList)
             {
-                if(t.Kill == true)
+                if (t.Kill == true)
                 {
                     marked.Add(t);
                 }
             }
 
-            foreach(Text m in marked)
+            foreach (Text m in marked)
             {
-                textList.Remove(m);
+                env.Remove(m);
             }
 
             base.Update(gameTime);
@@ -215,67 +207,35 @@ namespace csharpgame
         {
             GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
-
             spriteBatch.Begin();
-            int playerTileX = (player.currentPosition.gridX * 50);
-            int playerTileY = (player.currentPosition.gridY * 50);
 
-            foreach (Tile t in tileList)
+            env.DrawTiles(spriteBatch); //draw all Tiles in the Environment...
+            env.DrawPlayer(spriteBatch); //draw the Player...
+            env.DrawNPCs(spriteBatch); //draw all NPCs in the Environment...
+            env.DrawDecayingText(spriteBatch); //draw all Decaying Text in the Environment...
+
+            if (characterSheetPressed) //PLACEHOLDER: this can be cleaned up once UIElement is implemented
             {
-                int tileX = t.gridX * 50;
-                int tileY = t.gridY * 50;
-                Vector2 positionVector = new Vector2((this.GraphicsDevice.Viewport.Width / 2)+tileX -playerTileX, (this.GraphicsDevice.Viewport.Height / 2)+tileY -playerTileY);
-                spriteBatch.Draw(t.texture,positionVector,Color.White);
-            }
-
-            Vector2 playerVector = new Vector2((this.GraphicsDevice.Viewport.Width/2) + 25, (this.GraphicsDevice.Viewport.Height / 2) + 25);
-            //spriteBatch.Draw(player.texture, playerVector, Color.White);
-            Vector2 origin = new Vector2(player.texture.Width/2, player.texture.Height/2);
-            spriteBatch.Draw(player.texture, playerVector, null, Color.White, player.rotation, origin, 1F, SpriteEffects.None, 0f);
-
-            foreach(Character e in enemyList)
-            {
-                int enemyTileX = (e.currentPosition.gridX * 50) + 25;
-                int enemyTileY = (e.currentPosition.gridY * 50) + 25;
-                Vector2 enemyVector = new Vector2((this.GraphicsDevice.Viewport.Width / 2) + enemyTileX - playerTileX, (this.GraphicsDevice.Viewport.Height / 2) + enemyTileY - playerTileY);
-                Vector2 enemyTextVector = new Vector2((this.GraphicsDevice.Viewport.Width / 2) + enemyTileX - playerTileX - 25, (this.GraphicsDevice.Viewport.Height / 2) + enemyTileY - playerTileY + 25);
-                Vector2 enemyTextVectorLower = new Vector2((this.GraphicsDevice.Viewport.Width / 2) + enemyTileX - playerTileX - 25, (this.GraphicsDevice.Viewport.Height / 2) + enemyTileY - playerTileY + 40);
-                //spriteBatch.Draw(e.texture, enemyVector, Color.White);
-                Vector2 eOrigin = new Vector2(e.texture.Width / 2, e.texture.Height / 2);
-                spriteBatch.Draw(e.texture, enemyVector, null, Color.White, e.rotation, eOrigin, 1F, SpriteEffects.None, 0f);
-                spriteBatch.DrawString(fonts[0], e.Name + "\r\n" + e.CurrentHitpoints + "/" + e.MaxHitpoints, enemyTextVector, Color.Red);
-            }
-
-
-            if(characterSheetPressed)
-            {
-                spriteBatch.Draw(miscTexList[0], new Vector2(0, 0), Color.White);
-                spriteBatch.DrawString(fonts[0], "Hit Points: " + player.CurrentHitpoints + "/" + player.MaxHitpoints, new Vector2(0, 0), Color.Black);
-                spriteBatch.DrawString(fonts[0], "Armor: " + player.Armor, new Vector2(0, 24), Color.Black);
-                spriteBatch.DrawString(fonts[0], "Damage: " + player.Damage, new Vector2(0, 48), Color.Black);
-                spriteBatch.DrawString(fonts[0], "Weapon: Shortsword", new Vector2(0, 96), Color.Black);
-                spriteBatch.DrawString(fonts[0], "Armor: None", new Vector2(0, 120), Color.Black);
-            }
-
-            foreach(Text t in textList)
-            {
-                spriteBatch.DrawString(fonts[0], t.Contents, new Vector2(t.XPos, t.YPos), Color.Black * t.Transparency);
+                spriteBatch.Draw(env.UIElementList[0], new Vector2(0, 0), Color.White);
+                spriteBatch.DrawString(env.FontList[0], "Hit Points: " + player.CurrentHitpoints + "/" + player.MaxHitpoints, new Vector2(0, 0), Color.Black);
+                spriteBatch.DrawString(env.FontList[0], "Armor: " + player.Armor, new Vector2(0, 24), Color.Black);
+                spriteBatch.DrawString(env.FontList[0], "Damage: " + player.Damage, new Vector2(0, 48), Color.Black);
+                spriteBatch.DrawString(env.FontList[0], "Weapon: Shortsword", new Vector2(0, 96), Color.Black);
+                spriteBatch.DrawString(env.FontList[0], "Armor: None", new Vector2(0, 120), Color.Black);
             }
 
             spriteBatch.End();
-
             base.Draw(gameTime);
         }
 
         //called each time the player moves
         public void tick()
         {
-            foreach(Character e in enemyList)
+            foreach (Character e in env.NPCList)
             {
-                e.AIRoutine(tileList, player, enemyList);
+                e.AIRoutine();
             }
         }
-        
+
     }
 }

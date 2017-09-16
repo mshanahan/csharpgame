@@ -11,28 +11,24 @@ namespace csharpgame
 {
     public class Character
     {
+        public enum Behavior { Wandering }
 
-        public Game1 Game { get; set; }
         public string Name { get; set; }
         public int CurrentHitpoints { get; set; }
         public int MaxHitpoints { get; set; }
         public int Armor { get; set; }
         public int Attack { get; set; }
         public int Damage { get; set; }
-
         public Tile currentPosition { get; set; }
         public Texture2D texture { get; set; }
-        public List<SoundEffect> fxList { get; set; }
-        public enum Behavior { Wandering }
+
         public Behavior behavior { get; set; }
         private bool isPlayer = false;
-        private Random rnd;
         public float rotation = 0;
 
 
-        public Character(Game1 Game,  string Name, int hitpoints, int armor, int attack, int damage, Texture2D texture, Tile currentPosition, List<SoundEffect> fxList, Random rnd)
+        public Character(string Name, int hitpoints, int armor, int attack, int damage, Texture2D texture, Tile currentPosition)
         {
-            this.Game = Game;
             this.Name = Name;
             this.CurrentHitpoints = hitpoints;
             this.MaxHitpoints = hitpoints;
@@ -41,8 +37,6 @@ namespace csharpgame
             this.Damage = damage;
             this.texture = texture;
             this.currentPosition = currentPosition;
-            this.fxList = fxList;
-            this.rnd = rnd;
         }
 
         public void setPlayer()
@@ -50,8 +44,9 @@ namespace csharpgame
             this.isPlayer = true;
         }
 
-        public void Move(List<Tile> tileList, int xDiff, int yDiff, Character player, List<Character> enemyList)
+        public void Move(int xDiff, int yDiff)
         {
+            Environment env = Environment.Current();
             int curX = currentPosition.gridX;
             int curY = currentPosition.gridY;
 
@@ -59,26 +54,26 @@ namespace csharpgame
             int newY = curY + yDiff;
 
             bool foundTile = false;
-            foreach (Tile t in tileList)
+            foreach (Tile t in env.TileList)
             {
-                 if(t.gridX == newX && t.gridY == newY)
+                if (t.gridX == newX && t.gridY == newY)
                 {
 
                     foundTile = true;
 
-                    if ((player.currentPosition.gridX == newX && player.currentPosition.gridY == newY))
+                    if ((env.Player.currentPosition.gridX == newX && env.Player.currentPosition.gridY == newY))
                     {
-                        this.AttackCharacter(this.Game.player);
-                        fxList[0].Play();
+                        this.AttackCharacter(env.Game.player);
+                        env.SoundFXList[0].Play();
                         foundTile = false;
                     }
 
-                    foreach(Character e in enemyList)
+                    foreach (Character e in env.NPCList)
                     {
-                        if((e.currentPosition.gridX == newX && e.currentPosition.gridY == newY))
+                        if ((e.currentPosition.gridX == newX && e.currentPosition.gridY == newY))
                         {
                             foundTile = false;
-                            if(this.isPlayer)
+                            if (this.isPlayer)
                             {
                                 this.AttackCharacter(e);
                             }
@@ -92,10 +87,10 @@ namespace csharpgame
 
 
                 }
-             }
+            }
             if (!foundTile && this.isPlayer)
             {
-                fxList[0].Play();
+                env.SoundFXList[0].Play();
             }
             if (newX < curX)
             {
@@ -117,39 +112,42 @@ namespace csharpgame
 
         public void AttackCharacter(Character attacked)
         {
-            int attackRoll = this.rnd.Next(1, 21);
-            if(attackRoll > attacked.Armor)
+            Environment env = Environment.Current();
+            int attackRoll = env.Random.Next(1, 21);
+            if (attackRoll > attacked.Armor)
             {
                 attacked.CurrentHitpoints = attacked.CurrentHitpoints - this.Damage;
-                this.Game.textList.Add(new Text("Hit! " + this.Damage + " damage", (this.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (this.Game.player.currentPosition.gridX * 50), (this.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (this.Game.player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
+                env.Add(new Text("Hit! " + this.Damage + " damage", (env.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (env.Game.player.currentPosition.gridX * 50), (env.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (env.Game.player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
             }
             else
             {
-                this.Game.textList.Add(new Text("Miss!", (this.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (this.Game.player.currentPosition.gridX * 50), (this.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (this.Game.player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
+                env.Add(new Text("Miss!", (env.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (env.Game.player.currentPosition.gridX * 50), (env.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (env.Game.player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
             }
         }
 
-        public void AIRoutine(List<Tile> tileList, Character player, List<Character> enemyList)
+        public void AIRoutine()
         {
+            Environment env = Environment.Current();
+
             //Wandering behavior
-            if(this.behavior == Behavior.Wandering)
+            if (this.behavior == Behavior.Wandering)
             {
-                int movementDirection = rnd.Next(0, 4);
-                if(movementDirection == 0)
+                int movementDirection = env.Random.Next(0, 4);
+                if (movementDirection == 0)
                 {
-                    this.Move(tileList, 1, 0, player, enemyList);
+                    this.Move(1, 0);
                 }
                 if (movementDirection == 1)
                 {
-                    this.Move(tileList, -1, 0, player, enemyList);
+                    this.Move(-1, 0);
                 }
                 if (movementDirection == 2)
                 {
-                    this.Move(tileList, 0, 1, player, enemyList);
+                    this.Move(0, 1);
                 }
                 if (movementDirection == 3)
                 {
-                    this.Move(tileList, 0, -1, player, enemyList);
+                    this.Move(0, -1);
                 }
             }
         }

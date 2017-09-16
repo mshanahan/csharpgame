@@ -17,7 +17,7 @@ namespace csharpgame
         public int gridX { get; set; }
         public int gridY { get; set; }
 
-        public Tile(Type type,Texture2D texture,int gridX,int gridY)
+        public Tile(Type type, Texture2D texture, int gridX, int gridY)
         {
             this.type = type;
             this.gridX = gridX;
