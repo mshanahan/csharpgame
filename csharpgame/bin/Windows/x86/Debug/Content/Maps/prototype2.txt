@@ -1,0 +1,34 @@
+﻿SSSW          WWWWW    WWWWWWWW              WWWWWW
+SSSW          WSSSW    WSSSSSSW             WSSSSSSW 
+SSSW          WSsSW    WSSSsSSW           WSSSSSSSSSSW
+SSSW          WSSSW    WSSSSSSW          WSSSSSSSSSSSSW
+SSSW           WSSW    WWWSSWWW          WSSSSSsSSSSSSW
+SSSW           WSSW      WSSW            WSSSSSSSSSSSSW
+SSSWWWWWWWWWWWWWSSWWWWWWWWSSWWWWWWWWWWWWWWSSSSSSSSSSSSW                               WWWWWWWWWWW
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSW                               WSSSSSSSSSW
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSW                               WSSSSSSSSSW
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSW                               WSSSSSSSSSW
+WWWWWWWWWWWWWWWWSSWWWWWWWWSSWWWWWWWWWWWWWWSSSSSSSSSSSSW                               WSSWWWWWWWW
+              WWSSW      WSSW            WSSSSSsSSSSSSW                               WSSW
+              WSSSW    WWWSSWWW          WSSSSSSSSSSSSW                             WWWSSWW
+              WSsSW    WSSSSSSW          WSSSSSSSSSSSSW                  WWWWW    WWWSSSSSSWW
+              WSSSW    WSSSsSSW           WSSSSSSSSSSW                   WSSSW   WWSSSSSSSSSSW
+              WWWWW    WSSSSSSW             WSSSSSSW                     WSSSWWWWWSSSSSSSSSSSSW
+                       WWWWWWWW              WSSSWW                      WSSSSSSSSSSSSSSSSSSSSSW
+                                             WSSSW                       WSSSSSSSSSSSSSSSSSSSSSSW
+                                          WWWWSSSW                       WSSSWWSSSSSSSSSsSSSSSSSW
+                                          WSSSSSSW    WWWWWWWWWWWWWWWWWWWWWWWWWSSSSSSSSSSSSSSSSSSW 
+                                          WSSSSSSW    WSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSW
+                                          WSSSSSSWWWWWWSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSGGGSSSSSSSSW
+                                          WSSsSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSGGGSSSSSSSSW
+                                          WSSSSSSWWWWWWSSSSSSSSSSSSsSSSSSSSSSSSSSSSSSSSGGGSSSSSSSSW
+                                          WSSSSSSW    WSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSW
+                                          WWWWWWWW    WSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSW
+                                                      WWWWWWWWWWWWWWWWWWWWWWWWWSSSSSSSSSsSSSSSSSSW
+                                                                              WSSSSSSSSSSSSSSSSSSW
+                                                                               WSSSSSSSSSSSSSSSSW
+                                                                               WSSSSSSSSSSSSSSSSW
+                                                                                WSSSSSSSSSSSSSSW
+                                                                                  WSSSSSSSSSSW
+                                                                                    WSSSSSSW
+                                                                                    WWWWWWWW

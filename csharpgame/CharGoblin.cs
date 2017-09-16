@@ -29,7 +29,7 @@ namespace csharpgame
         public static void Spawn(Tile t)
         {
             Environment env = Environment.Current();
-            int count = env.Random.Next(1, 9);
+            int count = env.Random.Next(1, 5);
             for(int i=0;i<count;i++)
             {
                 env.Add(new CharGoblin(t));

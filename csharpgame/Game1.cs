@@ -108,7 +108,7 @@ namespace csharpgame
             List<Tuple<int, Action < Tile >>> WeightList = new List<Tuple<int, Action<Tile>>>();
             Tuple<int, Action<Tile>> GoblinWeight = new Tuple<int, Action<Tile>>(1, new Action<Tile>(CharGoblin.Spawn));
             WeightList.Add(GoblinWeight);
-            env.ReadMap("Content/Maps/prototype.txt", WeightList);
+            env.ReadMap("Content/Maps/prototype2.txt", WeightList);
 
             Tile randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
             player = new Character(env.TileList[1]);
