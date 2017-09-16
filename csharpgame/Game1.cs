@@ -70,13 +70,11 @@ namespace csharpgame
             SpriteFont arial = Content.Load<SpriteFont>("Arial");
             env.Add(arial);
 
-            Random randGen = new Random();
-
             for (int i = 0; i < 50; i++)
             {
                 for (int j = 0; j < 50; j++)
                 {
-                    int percentile = randGen.Next(1, 101);
+                    int percentile = env.Random.Next(1, 101);
                     Tile t;
                     if (percentile <= 80)
                     {
@@ -99,6 +97,7 @@ namespace csharpgame
             {
                 randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
                 Character enemy = new Character("Goblin", 4, 10, 0, 1, goblinImage, goblinCorpseImage, randomTile);
+                enemy.behavior = Character.Behavior.Wandering;
                 env.Add(enemy);
             }
 

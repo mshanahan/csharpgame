@@ -11,7 +11,7 @@ namespace csharpgame
 {
     public class Character
     {
-        public enum Behavior { Wandering }
+        public enum Behavior { None, Alert, Idle, Wandering }
 
         public string Name { get; set; }
         public int CurrentHitpoints { get; set; }
@@ -148,6 +148,33 @@ namespace csharpgame
         {
             Environment env = Environment.Current();
 
+            //Alert behavior
+            if(this.behavior == Behavior.Alert)
+            {
+                int xDiff = env.Player.currentPosition.gridX - this.currentPosition.gridX;
+                int xMult = 1;
+                if(xDiff < 0)
+                {
+                    xDiff = xDiff * -1;
+                    xMult = -1;
+                }
+                int yDiff = env.Player.currentPosition.gridY - this.currentPosition.gridY;
+                int yMult = 1;
+                if(yDiff < 0)
+                {
+                    yDiff = yDiff * -1;
+                    yMult = -1;
+                }
+
+                int moveX = 0;
+                int moveY = 0;
+
+                if (xDiff > yDiff) moveX = 1 * xMult;
+                else moveY = 1 * yMult;
+                Console.WriteLine(moveX + ", " + moveY);
+                this.Move(moveX, moveY);
+            }
+
             //Wandering behavior
             if (this.behavior == Behavior.Wandering)
             {
@@ -168,6 +195,9 @@ namespace csharpgame
                 {
                     this.Move(0, -1);
                 }
+
+                int distanceToPlayer = Tile.distanceBetween(this.currentPosition, env.Player.currentPosition);
+                if (distanceToPlayer <= 6) this.behavior = Behavior.Alert;
             }
         }
     }
