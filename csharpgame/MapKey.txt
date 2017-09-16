@@ -1,3 +1,4 @@
-﻿s = Stone Floor
-S = Stone Floor [Monster Spawner]
+﻿S = Stone Floor
 W = Stone Wall
+
+Change uppercase to lowercase to create a Monster Spawners
