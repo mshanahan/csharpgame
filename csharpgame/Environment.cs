@@ -135,7 +135,7 @@ namespace csharpgame
                 int PlayerScreenY = PlayerGridY * 50;
 
                 Vector2 Location = new Vector2(
-                    (Game.GraphicsDevice.Viewport.Width / 2) + TileScreenX - PlayerScreenX, 
+                    (Game.GraphicsDevice.Viewport.Width / 2) + TileScreenX - PlayerScreenX,
                     (Game.GraphicsDevice.Viewport.Height / 2) + TileScreenY - PlayerScreenY);
 
                 s.Draw(t.texture, Location, Color.White);
@@ -145,10 +145,10 @@ namespace csharpgame
         public void DrawPlayer(SpriteBatch s)
         {
             Vector2 Location = new Vector2(
-                (Game.GraphicsDevice.Viewport.Width / 2) + 25, 
+                (Game.GraphicsDevice.Viewport.Width / 2) + 25,
                 (Game.GraphicsDevice.Viewport.Height / 2) + 25);
             Vector2 SpriteOrigin = new Vector2(
-                Player.texture.Width / 2, 
+                Player.texture.Width / 2,
                 Player.texture.Height / 2);
 
             s.Draw(Player.texture, Location, null, Color.White, Player.rotation, SpriteOrigin, 1F, SpriteEffects.None, 0f);
@@ -156,8 +156,8 @@ namespace csharpgame
 
         public void DrawNPCs(SpriteBatch s)
         {
-            
-            foreach(Character npc in NPCList)
+
+            foreach (Character npc in NPCList)
             {
                 int NPCGridX = npc.currentPosition.gridX;
                 int NPCGridY = npc.currentPosition.gridY;

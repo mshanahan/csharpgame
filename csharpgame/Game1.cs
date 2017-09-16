@@ -71,13 +71,13 @@ namespace csharpgame
 
             Random randGen = new Random();
 
-            for (int i=0;i<50;i++)
+            for (int i = 0; i < 50; i++)
             {
-                for(int j=0;j<50;j++)
+                for (int j = 0; j < 50; j++)
                 {
                     int percentile = randGen.Next(1, 101);
                     Tile t;
-                    if(percentile <= 80)
+                    if (percentile <= 80)
                     {
                         t = new Tile(Tile.Type.Dirt, dirtImage, i, j);
                     }
@@ -90,14 +90,14 @@ namespace csharpgame
             }
 
             Tile randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
-            player = new Character("Player",10,10,0,2,playerImage, randomTile);
+            player = new Character("Player", 10, 10, 0, 2, playerImage, randomTile);
             player.setPlayer();
             env.Setup(this, player);
 
-            for (int i=0;i<20;i++)
+            for (int i = 0; i < 20; i++)
             {
                 randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
-                Character enemy = new Character("Goblin",4,10,0,1, goblinImage, randomTile);
+                Character enemy = new Character("Goblin", 4, 10, 0, 1, goblinImage, randomTile);
                 env.Add(enemy);
             }
 
@@ -132,43 +132,43 @@ namespace csharpgame
                 characterSheetPressed = false;
             }
 
-            
-                if (Keyboard.GetState().IsKeyDown(Keys.Up))
-                {
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
                 if (!arrowKeyPressed)
                 {
                     player.Move(0, -1);
                     arrowKeyPressed = true;
                     this.tick();
                 }
-                }
-                if (Keyboard.GetState().IsKeyDown(Keys.Down))
-                {
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            {
                 if (!arrowKeyPressed)
                 {
                     player.Move(0, 1);
                     arrowKeyPressed = true;
                     this.tick();
                 }
-                }
-                if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                {
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
                 if (!arrowKeyPressed)
                 {
                     player.Move(1, 0);
                     arrowKeyPressed = true;
                     this.tick();
                 }
-                }
-                if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                {
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            {
                 if (!arrowKeyPressed)
                 {
                     player.Move(-1, 0);
                     arrowKeyPressed = true;
                     this.tick();
                 }
-                }
+            }
 
             if (Keyboard.GetState().IsKeyUp(Keys.Left) && Keyboard.GetState().IsKeyUp(Keys.Right) && Keyboard.GetState().IsKeyUp(Keys.Up) && Keyboard.GetState().IsKeyUp(Keys.Down))
             {
@@ -177,21 +177,21 @@ namespace csharpgame
 
             // TODO: Add your update logic here
 
-            foreach(Text t in env.DecayingTextList)
+            foreach (Text t in env.DecayingTextList)
             {
                 t.Decay();
             }
 
             List<Text> marked = new List<Text>();
-            foreach(Text t in env.DecayingTextList)
+            foreach (Text t in env.DecayingTextList)
             {
-                if(t.Kill == true)
+                if (t.Kill == true)
                 {
                     marked.Add(t);
                 }
             }
 
-            foreach(Text m in marked)
+            foreach (Text m in marked)
             {
                 env.Remove(m);
             }
@@ -208,7 +208,7 @@ namespace csharpgame
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
-            
+
             env.DrawTiles(spriteBatch); //draw all Tiles in the Environment...
             env.DrawPlayer(spriteBatch); //draw the Player...
             env.DrawNPCs(spriteBatch); //draw all NPCs in the Environment...
@@ -231,11 +231,11 @@ namespace csharpgame
         //called each time the player moves
         public void tick()
         {
-            foreach(Character e in env.NPCList)
+            foreach (Character e in env.NPCList)
             {
                 e.AIRoutine();
             }
         }
-        
+
     }
 }

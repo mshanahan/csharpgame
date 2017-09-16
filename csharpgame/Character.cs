@@ -21,7 +21,7 @@ namespace csharpgame
         public int Damage { get; set; }
         public Tile currentPosition { get; set; }
         public Texture2D texture { get; set; }
-        
+
         public Behavior behavior { get; set; }
         private bool isPlayer = false;
         public float rotation = 0;
@@ -56,7 +56,7 @@ namespace csharpgame
             bool foundTile = false;
             foreach (Tile t in env.TileList)
             {
-                 if(t.gridX == newX && t.gridY == newY)
+                if (t.gridX == newX && t.gridY == newY)
                 {
 
                     foundTile = true;
@@ -68,12 +68,12 @@ namespace csharpgame
                         foundTile = false;
                     }
 
-                    foreach(Character e in env.NPCList)
+                    foreach (Character e in env.NPCList)
                     {
-                        if((e.currentPosition.gridX == newX && e.currentPosition.gridY == newY))
+                        if ((e.currentPosition.gridX == newX && e.currentPosition.gridY == newY))
                         {
                             foundTile = false;
-                            if(this.isPlayer)
+                            if (this.isPlayer)
                             {
                                 this.AttackCharacter(e);
                             }
@@ -87,7 +87,7 @@ namespace csharpgame
 
 
                 }
-             }
+            }
             if (!foundTile && this.isPlayer)
             {
                 env.SoundFXList[0].Play();
@@ -114,7 +114,7 @@ namespace csharpgame
         {
             Environment env = Environment.Current();
             int attackRoll = env.Random.Next(1, 21);
-            if(attackRoll > attacked.Armor)
+            if (attackRoll > attacked.Armor)
             {
                 attacked.CurrentHitpoints = attacked.CurrentHitpoints - this.Damage;
                 env.Add(new Text("Hit! " + this.Damage + " damage", (env.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (env.Game.player.currentPosition.gridX * 50), (env.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (env.Game.player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
@@ -130,10 +130,10 @@ namespace csharpgame
             Environment env = Environment.Current();
 
             //Wandering behavior
-            if(this.behavior == Behavior.Wandering)
+            if (this.behavior == Behavior.Wandering)
             {
                 int movementDirection = env.Random.Next(0, 4);
-                if(movementDirection == 0)
+                if (movementDirection == 0)
                 {
                     this.Move(1, 0);
                 }

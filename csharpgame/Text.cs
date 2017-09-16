@@ -36,7 +36,7 @@ namespace csharpgame
             this.Transparency = this.Transparency - DecayRate;
             this.XPos = this.XPos + XMovement;
             this.YPos = this.YPos + YMovement;
-            if(this.Transparency <= 0)
+            if (this.Transparency <= 0)
             {
                 this.Kill = true;
             }
