@@ -64,10 +64,16 @@ namespace csharpgame
 
                     foundTile = true;
 
+                    if(t.type == Tile.Type.StoneWall)
+                    {
+                        foundTile = false;
+                        if(this.isPlayer) env.SoundFXList[0].Play(); //thunk
+                    }
+
                     if ((env.Player.currentPosition.gridX == newX && env.Player.currentPosition.gridY == newY))
                     {
                         this.AttackCharacter(env.Game.player);
-                        env.SoundFXList[0].Play();
+                        env.SoundFXList[0].Play(); //thunk
                         foundTile = false;
                     }
 

@@ -99,7 +99,7 @@ namespace csharpgame
             env.ReadMap("Content/Maps/prototype.txt", StoneFloorVariants, StoneWallTile);
 
             Tile randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
-            player = new Character("Player", 10, 10, 0, 2, playerImage, playerImage, env.TileList[0]);
+            player = new Character("Player", 10, 10, 0, 2, playerImage, playerImage, env.TileList[1]);
             player.setPlayer();
             env.Setup(this, player);
 
