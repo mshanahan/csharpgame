@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace csharpgame
 {
@@ -23,6 +24,8 @@ namespace csharpgame
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = Screen.PrimaryScreen.Bounds.Width;
+            graphics.PreferredBackBufferHeight = Screen.PrimaryScreen.Bounds.Height;
             Content.RootDirectory = "Content";
             env = Environment.Current();
         }
@@ -48,23 +51,30 @@ namespace csharpgame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
             // LOADING: Tile Images
             Texture2D StoneFloorTile = Content.Load<Texture2D>("Graphics/StoneFloorTile");
             Texture2D StoneFloorTileV2 = Content.Load<Texture2D>("Graphics/StoneFloorTileVar2");
             Texture2D StoneFloorTileV3 = Content.Load<Texture2D>("Graphics/StoneFloorTileVar3");
-
             List<Texture2D> StoneFloorVariants = new List<Texture2D>();
             StoneFloorVariants.Add(StoneFloorTile);
             StoneFloorVariants.Add(StoneFloorTileV2);
             StoneFloorVariants.Add(StoneFloorTileV3);
+            TileFloorStone.Textures = StoneFloorVariants;
 
             Texture2D StoneWallTile = Content.Load<Texture2D>("Graphics/StoneWallTile");
+            TileWallStone.Texture = StoneWallTile;
+
+            Texture2D TileWaterStagnantGraphic = Content.Load<Texture2D>("Graphics/TileWaterStagnant");
+            TileWaterStagnant.Texture = TileWaterStagnantGraphic;
 
             //LOADING: Character Images
             Texture2D playerImage = Content.Load<Texture2D>("Graphics/PlayerToken");
-            Texture2D enemyImage = Content.Load<Texture2D>("Graphics/enemyToken");
+
             Texture2D goblinImage = Content.Load<Texture2D>("Graphics/GoblinToken");
+            CharGoblin.GoblinImage = goblinImage;
             Texture2D goblinCorpseImage = Content.Load<Texture2D>("Graphics/GoblinDead");
+            CharGoblin.GoblinDeathImage = goblinCorpseImage;
 
             //LOADING: Sound Effects
             SoundEffect thunk = Content.Load<SoundEffect>("SoundFX/thunk");
@@ -78,36 +88,48 @@ namespace csharpgame
             SpriteFont arial = Content.Load<SpriteFont>("Arial");
             env.Add(arial);
 
-            for (int i = 0; i < 50; i++)
-            {
-                for (int j = 0; j < 50; j++)
-                {
-                    int percentile = env.Random.Next(1, 101);
-                    Tile t;
-                    if (i == 0 || i == 49 || j == 0 || j == 49)
-                    {
-                        t = new Tile(Tile.Type.StoneWall, StoneWallTile, i, j);
-                    }
-                    else
-                    {
-                        t = new Tile(Tile.Type.StoneFloor, StoneFloorVariants, i, j);
-                    }
-                    env.Add(t);
-                }
-            }
+            //for (int i = 0; i < 50; i++)
+            //{
+            //    for (int j = 0; j < 50; j++)
+            //    {
+            //        int percentile = env.Random.Next(1, 101);
+            //        Tile t;
+            //        if (i == 0 || i == 49 || j == 0 || j == 49)
+            //        {
+            //            t = new Tile(Tile.Type.StoneWall, StoneWallTile, i, j);
+            //        }
+            //        else
+            //        {
+            //            t = new Tile(Tile.Type.StoneFloor, StoneFloorVariants, i, j);
+            //        }
+            //        env.Add(t);
+            //    }
+            //}
+            List<Tuple<int, Action < Tile >>> WeightList = new List<Tuple<int, Action<Tile>>>();
+            Tuple<int, Action<Tile>> GoblinWeight = new Tuple<int, Action<Tile>>(1, new Action<Tile>(CharGoblin.Spawn));
+            WeightList.Add(GoblinWeight);
+            env.ReadMap("Content/Maps/prototype2.txt", WeightList);
 
             Tile randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
-            player = new Character("Player", 10, 10, 0, 2, playerImage, playerImage, randomTile);
+            player = new Character(env.TileList[1]);
+            player.Name = "Player";
+            player.Attack = 0;
+            player.Damage = 2;
+            player.Armor = 10;
+            player.CurrentHitpoints = 10;
+            player.MaxHitpoints = 10;
             player.setPlayer();
+            player.texture = playerImage;
+            player.DeathTexture = playerImage;
             env.Setup(this, player);
 
-            for (int i = 0; i < 20; i++)
-            {
-                randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
-                Character enemy = new Character("Goblin", env.Random.Next(1,7), 10, 0, 1, goblinImage, goblinCorpseImage, randomTile);
-                enemy.behavior = Character.Behavior.Wandering;
-                env.Add(enemy);
-            }
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
+            //    Character enemy = new CharGoblin(randomTile);
+            //    enemy.behavior = Character.Behavior.Wandering;
+            //    env.Add(enemy);
+            //}
 
         }
 
@@ -127,21 +149,21 @@ namespace csharpgame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == Microsoft.Xna.Framework.Input.ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Escape))
                 Exit();
 
 
-            if (Keyboard.GetState().IsKeyDown(Keys.C))
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.C))
             {
                 characterSheetPressed = true;
             }
-            if (Keyboard.GetState().IsKeyUp(Keys.C))
+            if (Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.C))
             {
                 characterSheetPressed = false;
             }
 
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Up))
             {
                 if (!arrowKeyPressed)
                 {
@@ -150,7 +172,7 @@ namespace csharpgame
                     this.tick();
                 }
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Down))
             {
                 if (!arrowKeyPressed)
                 {
@@ -159,7 +181,7 @@ namespace csharpgame
                     this.tick();
                 }
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Right))
             {
                 if (!arrowKeyPressed)
                 {
@@ -168,7 +190,7 @@ namespace csharpgame
                     this.tick();
                 }
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Left))
             {
                 if (!arrowKeyPressed)
                 {
@@ -178,7 +200,11 @@ namespace csharpgame
                 }
             }
 
-            if (Keyboard.GetState().IsKeyUp(Keys.Left) && Keyboard.GetState().IsKeyUp(Keys.Right) && Keyboard.GetState().IsKeyUp(Keys.Up) && Keyboard.GetState().IsKeyUp(Keys.Down))
+            if (
+                Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Left)
+                && Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Right)
+                && Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Up)
+                && Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Down))
             {
                 arrowKeyPressed = false;
             }

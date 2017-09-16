@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -147,18 +148,24 @@ namespace csharpgame
         {
             foreach (Tile t in TileList)
             {
-                int TileScreenX = t.gridX * 50;
-                int TileScreenY = t.gridY * 50;
-                int PlayerGridX = Player.currentPosition.gridX;
-                int PlayerGridY = Player.currentPosition.gridY;
-                int PlayerScreenX = PlayerGridX * 50;
-                int PlayerScreenY = PlayerGridY * 50;
+                int distance = Tile.distanceBetween(t, Player.currentPosition);
+                if ( distance <= 6)
+                {
+                    int TileScreenX = t.gridX * 50;
+                    int TileScreenY = t.gridY * 50;
+                    int PlayerGridX = Player.currentPosition.gridX;
+                    int PlayerGridY = Player.currentPosition.gridY;
+                    int PlayerScreenX = PlayerGridX * 50;
+                    int PlayerScreenY = PlayerGridY * 50;
 
-                Vector2 Location = new Vector2(
-                    (Game.GraphicsDevice.Viewport.Width / 2) + TileScreenX - PlayerScreenX,
-                    (Game.GraphicsDevice.Viewport.Height / 2) + TileScreenY - PlayerScreenY);
+                    Vector2 Location = new Vector2(
+                        (Game.GraphicsDevice.Viewport.Width / 2) + TileScreenX - PlayerScreenX,
+                        (Game.GraphicsDevice.Viewport.Height / 2) + TileScreenY - PlayerScreenY);
+                    
+                    float Alpha = 1F - (distance / 7F);
 
-                s.Draw(t.texture, Location, Color.White);
+                    s.Draw(t.texture, Location, Color.White * Alpha);
+                }
             }
         }
 
@@ -179,25 +186,31 @@ namespace csharpgame
 
             foreach (Character npc in NPCList)
             {
-                int NPCGridX = npc.currentPosition.gridX;
-                int NPCGridY = npc.currentPosition.gridY;
-                int PlayerGridX = Player.currentPosition.gridX;
-                int PlayerGridY = Player.currentPosition.gridY;
-                int NPCScreenX = (NPCGridX * 50) + 25;
-                int NPCScreenY = (NPCGridY * 50) + 25;
-                int PlayerScreenX = PlayerGridX * 50;
-                int PlayerScreenY = PlayerGridY * 50;
+                int distance = Tile.distanceBetween(npc.currentPosition, Player.currentPosition);
+                if (distance <= 6)
+                {
+                    int NPCGridX = npc.currentPosition.gridX;
+                    int NPCGridY = npc.currentPosition.gridY;
+                    int PlayerGridX = Player.currentPosition.gridX;
+                    int PlayerGridY = Player.currentPosition.gridY;
+                    int NPCScreenX = (NPCGridX * 50) + 25;
+                    int NPCScreenY = (NPCGridY * 50) + 25;
+                    int PlayerScreenX = PlayerGridX * 50;
+                    int PlayerScreenY = PlayerGridY * 50;
 
-                Vector2 Location = new Vector2(
-                    (Game.GraphicsDevice.Viewport.Width / 2) + NPCScreenX - PlayerScreenX,
-                    (Game.GraphicsDevice.Viewport.Height / 2) + NPCScreenY - PlayerScreenY);
-                Vector2 TextLocation = new Vector2(
-                    (Game.GraphicsDevice.Viewport.Width / 2) + NPCScreenX - PlayerScreenX - 25,
-                    (Game.GraphicsDevice.Viewport.Height / 2) + NPCScreenY - PlayerScreenY + 25);
-                Vector2 SpriteOrigin = new Vector2(npc.texture.Width / 2, npc.texture.Height / 2);
+                    Vector2 Location = new Vector2(
+                        (Game.GraphicsDevice.Viewport.Width / 2) + NPCScreenX - PlayerScreenX,
+                        (Game.GraphicsDevice.Viewport.Height / 2) + NPCScreenY - PlayerScreenY);
+                    Vector2 TextLocation = new Vector2(
+                        (Game.GraphicsDevice.Viewport.Width / 2) + NPCScreenX - PlayerScreenX - 25,
+                        (Game.GraphicsDevice.Viewport.Height / 2) + NPCScreenY - PlayerScreenY + 25);
+                    Vector2 SpriteOrigin = new Vector2(npc.texture.Width / 2, npc.texture.Height / 2);
 
-                s.Draw(npc.texture, Location, null, Color.White, npc.rotation, SpriteOrigin, 1F, SpriteEffects.None, 0f);
-                s.DrawString(FontList[0], npc.Name + "\r\n" + npc.CurrentHitpoints + "/" + npc.MaxHitpoints, TextLocation, Color.Red);
+                    float Alpha = 1F - (distance / 7F);
+
+                    s.Draw(npc.texture, Location, null, Color.White * Alpha, npc.rotation, SpriteOrigin, 1F, SpriteEffects.None, 0f);
+                    s.DrawString(FontList[0], npc.Name + "\r\n" + npc.CurrentHitpoints + "/" + npc.MaxHitpoints, TextLocation, Color.Red * Alpha);
+                }
             }
 
         }
@@ -206,21 +219,27 @@ namespace csharpgame
         {
             foreach (Corpse c in CorpseList)
             {
-                int CorpseGridX = c.Position.gridX;
-                int CorpseGridY = c.Position.gridY;
-                int PlayerGridX = Player.currentPosition.gridX;
-                int PlayerGridY = Player.currentPosition.gridY;
-                int CorpseScreenX = (CorpseGridX * 50) + 25;
-                int CorpseScreenY = (CorpseGridY * 50) + 25;
-                int PlayerScreenX = PlayerGridX * 50;
-                int PlayerScreenY = PlayerGridY * 50;
+                int distance = Tile.distanceBetween(c.Position, Player.currentPosition);
+                if (distance <= 6)
+                {
+                    int CorpseGridX = c.Position.gridX;
+                    int CorpseGridY = c.Position.gridY;
+                    int PlayerGridX = Player.currentPosition.gridX;
+                    int PlayerGridY = Player.currentPosition.gridY;
+                    int CorpseScreenX = (CorpseGridX * 50) + 25;
+                    int CorpseScreenY = (CorpseGridY * 50) + 25;
+                    int PlayerScreenX = PlayerGridX * 50;
+                    int PlayerScreenY = PlayerGridY * 50;
 
-                Vector2 Location = new Vector2(
-                    (Game.GraphicsDevice.Viewport.Width / 2) + CorpseScreenX - PlayerScreenX,
-                    (Game.GraphicsDevice.Viewport.Height / 2) + CorpseScreenY - PlayerScreenY);
-                Vector2 SpriteOrigin = new Vector2(c.Texture.Width / 2, c.Texture.Height / 2);
+                    Vector2 Location = new Vector2(
+                        (Game.GraphicsDevice.Viewport.Width / 2) + CorpseScreenX - PlayerScreenX,
+                        (Game.GraphicsDevice.Viewport.Height / 2) + CorpseScreenY - PlayerScreenY);
+                    Vector2 SpriteOrigin = new Vector2(c.Texture.Width / 2, c.Texture.Height / 2);
 
-                s.Draw(c.Texture, Location, null, Color.White, c.Rotation, SpriteOrigin, 1F, SpriteEffects.None, 0f);
+                    float Alpha = 1F - (distance / 7F);
+
+                    s.Draw(c.Texture, Location, null, Color.White * Alpha, c.Rotation, SpriteOrigin, 1F, SpriteEffects.None, 0f);
+                }
             }
         }
 
@@ -229,6 +248,67 @@ namespace csharpgame
             foreach (Text t in DecayingTextList)
             {
                 s.DrawString(FontList[0], t.Contents, new Vector2(t.XPos, t.YPos), Color.Black * t.Transparency);
+            }
+        }
+
+        public void ReadMap(String directory, List<Tuple<int, Action<Tile>>> WeightedSpawnerList)
+        {
+            StreamReader reader = new StreamReader(directory);
+            Environment env = Environment.Current();
+            int y = 0;
+            string currentRow;
+            while ((currentRow = reader.ReadLine()) != null)
+            {
+                for (int x = 0; x < currentRow.Length; x++)
+                {
+                    char currentTile = currentRow[x];
+                    Tile ThisTile = null ;
+
+                    if (Char.ToUpper(currentTile) == 'S')
+                    {
+                        ThisTile = new TileFloorStone(x, y);
+                        this.Add(ThisTile);
+                    }
+                    if (Char.ToUpper(currentTile) == 'W')
+                    {
+                        ThisTile = new TileWallStone(x, y);
+                        this.Add(ThisTile);
+                    }
+                    if (Char.ToUpper(currentTile) == 'G')
+                    {
+                        ThisTile = new TileWaterStagnant(x, y);
+                        this.Add(ThisTile);
+                    }
+                    if (Char.IsLower(currentTile) && ThisTile != null)
+                    {
+                        //sum all the weights
+                        int summedWeight = 0;
+                        foreach(Tuple<int, Action<Tile>> tuple in WeightedSpawnerList)
+                        {
+                            int weight = tuple.Item1;
+                            summedWeight = summedWeight + weight;
+                        }
+
+                        //roll a random number
+                        int rand = env.Random.Next(1, summedWeight + 1);
+
+                        //subtract weights from rand until 0 is reached
+                        bool found = false;
+                        for(int i=0;i<WeightedSpawnerList.Count;i++)
+                        {
+                            rand = rand - WeightedSpawnerList[i].Item1;
+                            Console.WriteLine(rand);
+                            if(rand <= 0)
+                            {
+                                Console.WriteLine("HIT");
+                                WeightedSpawnerList[i].Item2(ThisTile);
+                                found = true;
+                            }
+                            if (found) break;
+                        }
+                    }
+                }
+                y++;
             }
         }
     }

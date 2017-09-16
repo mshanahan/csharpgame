@@ -10,27 +10,15 @@ namespace csharpgame
 {
     public class Tile
     {
-        public enum Type { StoneFloor, StoneWall }
+        public enum Type { Wall, Floor, Liquid }
         public Type type { get; set; }
         public Texture2D texture { get; set; }
         public int gridX { get; set; }
         public int gridY { get; set; }
 
-        public Tile(Type type, Texture2D texture, int gridX, int gridY)
+        public Tile()
         {
-            this.type = type;
-            this.gridX = gridX;
-            this.gridY = gridY;
-            this.texture = texture;
-        }
 
-        public Tile(Type type, List<Texture2D> variantList, int gridX, int gridY)
-        {
-            Environment env = Environment.Current();
-            this.type = type;
-            this.gridX = gridX;
-            this.gridY = gridY;
-            this.texture = variantList[env.Random.Next(0, variantList.Count)];
         }
 
         public static int distanceBetween(Tile a, Tile b)

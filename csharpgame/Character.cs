@@ -29,16 +29,8 @@ namespace csharpgame
         public bool markedForDeath = false;
 
 
-        public Character(string Name, int hitpoints, int armor, int attack, int damage, Texture2D texture, Texture2D DeathTexture, Tile currentPosition)
+        public Character(Tile currentPosition)
         {
-            this.Name = Name;
-            this.CurrentHitpoints = hitpoints;
-            this.MaxHitpoints = hitpoints;
-            this.Armor = armor;
-            this.Attack = attack;
-            this.Damage = damage;
-            this.texture = texture;
-            this.DeathTexture = DeathTexture;
             this.currentPosition = currentPosition;
         }
 
@@ -64,10 +56,16 @@ namespace csharpgame
 
                     foundTile = true;
 
+                    if(t.type == Tile.Type.Wall || t.type == Tile.Type.Liquid)
+                    {
+                        foundTile = false;
+                        if(this.isPlayer) env.SoundFXList[0].Play(); //thunk
+                    }
+
                     if ((env.Player.currentPosition.gridX == newX && env.Player.currentPosition.gridY == newY))
                     {
                         this.AttackCharacter(env.Game.player);
-                        env.SoundFXList[0].Play();
+                        env.SoundFXList[0].Play(); //thunk
                         foundTile = false;
                     }
 
