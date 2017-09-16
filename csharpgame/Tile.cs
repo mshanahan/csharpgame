@@ -10,7 +10,7 @@ namespace csharpgame
 {
     public class Tile
     {
-        public enum Type { StoneFloor, StoneWall }
+        public enum Type { Wall, Floor }
         public Type type { get; set; }
         public Texture2D texture { get; set; }
         public int gridX { get; set; }

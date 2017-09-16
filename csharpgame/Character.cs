@@ -64,7 +64,7 @@ namespace csharpgame
 
                     foundTile = true;
 
-                    if(t.type == Tile.Type.StoneWall)
+                    if(t.type == Tile.Type.Wall)
                     {
                         foundTile = false;
                         if(this.isPlayer) env.SoundFXList[0].Play(); //thunk

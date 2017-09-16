@@ -264,11 +264,11 @@ namespace csharpgame
                     char currentTile = currentRow[i];
                     if(currentTile == 'S')
                     {
-                        this.Add(new Tile(Tile.Type.StoneFloor, StoneFloor, i, index));
+                        this.Add(new Tile(Tile.Type.Floor, StoneFloor, i, index));
                     }
                     if (currentTile == 'W')
                     {
-                        this.Add(new Tile(Tile.Type.StoneWall, StoneWall, i, index));
+                        this.Add(new Tile(Tile.Type.Wall, StoneWall, i, index));
                     }
                 }
                 index++;
