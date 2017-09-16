@@ -132,34 +132,43 @@ namespace csharpgame
                 characterSheetPressed = false;
             }
 
-
-            if (!arrowKeyPressed)
-            {
+            
                 if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                {
+                if (!arrowKeyPressed)
                 {
                     player.Move(0, -1);
                     arrowKeyPressed = true;
                     this.tick();
                 }
+                }
                 if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                {
+                if (!arrowKeyPressed)
                 {
                     player.Move(0, 1);
                     arrowKeyPressed = true;
                     this.tick();
                 }
+                }
                 if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                {
+                if (!arrowKeyPressed)
                 {
                     player.Move(1, 0);
                     arrowKeyPressed = true;
                     this.tick();
                 }
+                }
                 if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                {
+                if (!arrowKeyPressed)
                 {
                     player.Move(-1, 0);
                     arrowKeyPressed = true;
                     this.tick();
                 }
-            }
+                }
 
             if (Keyboard.GetState().IsKeyUp(Keys.Left) && Keyboard.GetState().IsKeyUp(Keys.Right) && Keyboard.GetState().IsKeyUp(Keys.Up) && Keyboard.GetState().IsKeyUp(Keys.Down))
             {
