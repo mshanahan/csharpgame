@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace csharpgame
 {
-    class Goblin : Character
+    class CharGoblin : Character
     {
         public static Texture2D GoblinImage { get; set; }
         public static Texture2D GoblinDeathImage { get; set; }
 
-        public Goblin(Tile t) : base (t)
+        public CharGoblin(Tile t) : base (t)
         {
             Environment env = Environment.Current();
             this.Name = "Goblin";
