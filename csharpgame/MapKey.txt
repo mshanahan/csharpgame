@@ -1,0 +1,3 @@
+﻿s = Stone Floor
+S = Stone Floor [Monster Spawner]
+W = Stone Wall

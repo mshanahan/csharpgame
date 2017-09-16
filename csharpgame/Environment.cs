@@ -148,7 +148,8 @@ namespace csharpgame
         {
             foreach (Tile t in TileList)
             {
-                if(Tile.distanceBetween(t,Player.currentPosition) <= 6)
+                int distance = Tile.distanceBetween(t, Player.currentPosition);
+                if ( distance <= 6)
                 {
                     int TileScreenX = t.gridX * 50;
                     int TileScreenY = t.gridY * 50;
@@ -160,8 +161,10 @@ namespace csharpgame
                     Vector2 Location = new Vector2(
                         (Game.GraphicsDevice.Viewport.Width / 2) + TileScreenX - PlayerScreenX,
                         (Game.GraphicsDevice.Viewport.Height / 2) + TileScreenY - PlayerScreenY);
+                    
+                    float Alpha = 1F - (distance / 7F);
 
-                    s.Draw(t.texture, Location, Color.White);
+                    s.Draw(t.texture, Location, Color.White * Alpha);
                 }
             }
         }
@@ -183,7 +186,8 @@ namespace csharpgame
 
             foreach (Character npc in NPCList)
             {
-                if(Tile.distanceBetween(npc.currentPosition,Player.currentPosition) <= 6)
+                int distance = Tile.distanceBetween(npc.currentPosition, Player.currentPosition);
+                if (distance <= 6)
                 {
                     int NPCGridX = npc.currentPosition.gridX;
                     int NPCGridY = npc.currentPosition.gridY;
@@ -202,8 +206,10 @@ namespace csharpgame
                         (Game.GraphicsDevice.Viewport.Height / 2) + NPCScreenY - PlayerScreenY + 25);
                     Vector2 SpriteOrigin = new Vector2(npc.texture.Width / 2, npc.texture.Height / 2);
 
-                    s.Draw(npc.texture, Location, null, Color.White, npc.rotation, SpriteOrigin, 1F, SpriteEffects.None, 0f);
-                    s.DrawString(FontList[0], npc.Name + "\r\n" + npc.CurrentHitpoints + "/" + npc.MaxHitpoints, TextLocation, Color.Red);
+                    float Alpha = 1F - (distance / 7F);
+
+                    s.Draw(npc.texture, Location, null, Color.White * Alpha, npc.rotation, SpriteOrigin, 1F, SpriteEffects.None, 0f);
+                    s.DrawString(FontList[0], npc.Name + "\r\n" + npc.CurrentHitpoints + "/" + npc.MaxHitpoints, TextLocation, Color.Red * Alpha);
                 }
             }
 
@@ -213,7 +219,8 @@ namespace csharpgame
         {
             foreach (Corpse c in CorpseList)
             {
-                if(Tile.distanceBetween(c.Position,Player.currentPosition) <= 6)
+                int distance = Tile.distanceBetween(c.Position, Player.currentPosition);
+                if (distance <= 6)
                 {
                     int CorpseGridX = c.Position.gridX;
                     int CorpseGridY = c.Position.gridY;
@@ -229,7 +236,9 @@ namespace csharpgame
                         (Game.GraphicsDevice.Viewport.Height / 2) + CorpseScreenY - PlayerScreenY);
                     Vector2 SpriteOrigin = new Vector2(c.Texture.Width / 2, c.Texture.Height / 2);
 
-                    s.Draw(c.Texture, Location, null, Color.White, c.Rotation, SpriteOrigin, 1F, SpriteEffects.None, 0f);
+                    float Alpha = 1F - (distance / 7F);
+
+                    s.Draw(c.Texture, Location, null, Color.White * Alpha, c.Rotation, SpriteOrigin, 1F, SpriteEffects.None, 0f);
                 }
             }
         }

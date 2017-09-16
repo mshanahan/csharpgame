@@ -74,6 +74,7 @@
     </Content>
     <Content Include="Content\SoundFX\thunk.wav" />
     <Content Include="Icon.ico" />
+    <Content Include="MapKey.txt" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
