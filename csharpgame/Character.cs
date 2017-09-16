@@ -37,6 +37,7 @@ namespace csharpgame
             this.Attack = attack;
             this.Damage = damage;
             this.texture = texture;
+            this.DeathTexture = DeathTexture;
             this.currentPosition = currentPosition;
         }
 
@@ -124,6 +125,12 @@ namespace csharpgame
             {
                 env.Add(new Text("Miss!", (env.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (env.Game.player.currentPosition.gridX * 50), (env.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (env.Game.player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
             }
+        }
+
+        public void KillCharacter(Character c)
+        {
+            Environment env = Environment.Current();
+            Corpse newCorpse = new Corpse(this.texture, this.currentPosition, this.rotation);
         }
 
         public void AIRoutine()

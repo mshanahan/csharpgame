@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace csharpgame
 {
-    class Corpse
+    public class Corpse
     {
         public Texture2D Texture { get; set;  }
         public Tile Position { get; set; }
