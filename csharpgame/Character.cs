@@ -149,18 +149,18 @@ namespace csharpgame
             Environment env = Environment.Current();
 
             //Alert behavior
-            if(this.behavior == Behavior.Alert)
+            if (this.behavior == Behavior.Alert)
             {
                 int xDiff = env.Player.currentPosition.gridX - this.currentPosition.gridX;
                 int xMult = 1;
-                if(xDiff < 0)
+                if (xDiff < 0)
                 {
                     xDiff = xDiff * -1;
                     xMult = -1;
                 }
                 int yDiff = env.Player.currentPosition.gridY - this.currentPosition.gridY;
                 int yMult = 1;
-                if(yDiff < 0)
+                if (yDiff < 0)
                 {
                     yDiff = yDiff * -1;
                     yMult = -1;
@@ -173,6 +173,13 @@ namespace csharpgame
                 else moveY = 1 * yMult;
                 Console.WriteLine(moveX + ", " + moveY);
                 this.Move(moveX, moveY);
+            }
+
+            //Idle behavior
+            if (this.behavior == Behavior.Idle)
+            {
+                int distanceToPlayer = Tile.distanceBetween(this.currentPosition, env.Player.currentPosition);
+                if (distanceToPlayer <= 6) this.behavior = Behavior.Alert;
             }
 
             //Wandering behavior
