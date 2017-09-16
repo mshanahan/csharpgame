@@ -251,9 +251,10 @@ namespace csharpgame
             }
         }
 
-        public void ReadMap(String directory, List<Tuple<int, Func<Character>>> WeightedSpawnerList)
+        public void ReadMap(String directory, List<Tuple<int, Action<Tile>>> WeightedSpawnerList)
         {
             StreamReader reader = new StreamReader(directory);
+            Environment env = Environment.Current();
             int y = 0;
             string currentRow;
             while ((currentRow = reader.ReadLine()) != null)
@@ -261,13 +262,46 @@ namespace csharpgame
                 for (int x = 0; x < currentRow.Length; x++)
                 {
                     char currentTile = currentRow[x];
-                    if (currentTile == 'S')
+                    Tile ThisTile = null ;
+
+                    if (Char.ToUpper(currentTile) == 'S')
                     {
-                        this.Add(new TileFloorStone(x,y));
+                        ThisTile = new TileFloorStone(x, y);
+                        this.Add(ThisTile);
                     }
-                    if (currentTile == 'W')
+                    if (Char.ToUpper(currentTile) == 'W')
                     {
-                        this.Add(new TileWallStone(x, y));
+                        ThisTile = new TileWallStone(x, y);
+                        this.Add(ThisTile);
+                    }
+
+                    if(Char.IsLower(currentTile) && ThisTile != null)
+                    {
+                        //sum all the weights
+                        int summedWeight = 0;
+                        foreach(Tuple<int, Action<Tile>> tuple in WeightedSpawnerList)
+                        {
+                            int weight = tuple.Item1;
+                            summedWeight = summedWeight + weight;
+                        }
+
+                        //roll a random number
+                        int rand = env.Random.Next(1, summedWeight + 1);
+
+                        //subtract weights from rand until 0 is reached
+                        bool found = false;
+                        for(int i=0;i<WeightedSpawnerList.Count;i++)
+                        {
+                            rand = rand - WeightedSpawnerList[i].Item1;
+                            Console.WriteLine(rand);
+                            if(rand <= 0)
+                            {
+                                Console.WriteLine("HIT");
+                                WeightedSpawnerList[i].Item2(ThisTile);
+                                found = true;
+                            }
+                            if (found) break;
+                        }
                     }
                 }
                 y++;

@@ -23,6 +23,17 @@ namespace csharpgame
             this.Damage = 1;
             this.texture = GoblinImage;
             this.DeathTexture = GoblinDeathImage;
+            this.behavior = Behavior.Wandering;
+        }
+
+        public static void Spawn(Tile t)
+        {
+            Environment env = Environment.Current();
+            int count = env.Random.Next(1, 9);
+            for(int i=0;i<count;i++)
+            {
+                env.Add(new CharGoblin(t));
+            }
         }
     }
 }

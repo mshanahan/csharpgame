@@ -103,9 +103,10 @@ namespace csharpgame
             //        env.Add(t);
             //    }
             //}
-
-            Tuple<char, Tile.Type, List<Texture2D>> StoneFloor = new Tuple<char, Tile.Type, List<Texture2D>>('S', Tile.Type.Floor, StoneFloorVariants);
-            env.ReadMap("Content/Maps/prototype.txt", null);
+            List<Tuple<int, Action < Tile >>> WeightList = new List<Tuple<int, Action<Tile>>>();
+            Tuple<int, Action<Tile>> GoblinWeight = new Tuple<int, Action<Tile>>(1, new Action<Tile>(CharGoblin.Spawn));
+            WeightList.Add(GoblinWeight);
+            env.ReadMap("Content/Maps/prototype.txt", WeightList);
 
             Tile randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
             player = new Character(env.TileList[1]);
@@ -120,13 +121,13 @@ namespace csharpgame
             player.DeathTexture = playerImage;
             env.Setup(this, player);
 
-            for (int i = 0; i < 20; i++)
-            {
-                randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
-                Character enemy = new CharGoblin(randomTile);
-                enemy.behavior = Character.Behavior.Wandering;
-                env.Add(enemy);
-            }
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
+            //    Character enemy = new CharGoblin(randomTile);
+            //    enemy.behavior = Character.Behavior.Wandering;
+            //    env.Add(enemy);
+            //}
 
         }
 
