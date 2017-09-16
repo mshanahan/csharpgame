@@ -24,5 +24,11 @@ namespace csharpgame
             this.gridY = gridY;
             this.texture = texture;
         }
+
+        public static int distanceBetween(Tile a, Tile b)
+        {
+            double distance = Math.Sqrt( Math.Pow(b.gridX - a.gridX,2) + Math.Pow(b.gridY - a.gridY,2) );
+            return (int) distance;
+        }
     }
 }
