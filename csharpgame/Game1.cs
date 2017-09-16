@@ -105,7 +105,7 @@ namespace csharpgame
             //}
 
             Tuple<char, Tile.Type, List<Texture2D>> StoneFloor = new Tuple<char, Tile.Type, List<Texture2D>>('S', Tile.Type.Floor, StoneFloorVariants);
-            env.ReadMap("Content/Maps/prototype.txt", StoneFloor, null);
+            env.ReadMap("Content/Maps/prototype.txt", null);
 
             Tile randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
             player = new Character(env.TileList[1]);

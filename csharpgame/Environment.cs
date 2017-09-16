@@ -251,55 +251,26 @@ namespace csharpgame
             }
         }
 
-        public void ReadMap(String directory, List<Tuple<char, Tile.Type, Texture2D>> TileList, List<Tuple<int, Func<Character>>> WeightedSpawnerList)
-        {
-            StreamReader reader = new StreamReader(directory);
-            int index = 0;
-            string currentRow;
-            while ((currentRow = reader.ReadLine()) != null)
-            {
-                for(int i=0;i<currentRow.Length;i++)
-                {
-                    char currentTile = currentRow[i];
-                    //if(currentTile == 'S')
-                    //{
-                    //    this.Add(new Tile(Tile.Type.Floor, StoneFloor, i, index));
-                    //}
-                    //if (currentTile == 'W')
-                    //{
-                    //    this.Add(new Tile(Tile.Type.Wall, StoneWall, i, index));
-                    //}
-                    foreach(Tuple<char,Tile.Type,Texture2D> t in TileList)
-                    {
-                        if(currentTile == t.Item1)
-                        {
-                            this.Add(new Tile(t.Item2, t.Item3, i, index));
-                        }
-                    }
-                }
-                index++;
-            }
-        }
         public void ReadMap(String directory, List<Tuple<int, Func<Character>>> WeightedSpawnerList)
         {
             StreamReader reader = new StreamReader(directory);
-            int index = 0;
+            int y = 0;
             string currentRow;
             while ((currentRow = reader.ReadLine()) != null)
             {
-                for (int i = 0; i < currentRow.Length; i++)
+                for (int x = 0; x < currentRow.Length; x++)
                 {
-                    char currentTile = currentRow[i];
+                    char currentTile = currentRow[x];
                     if (currentTile == 'S')
                     {
-                        this.Add(new Tile(Tile.Type.Floor, StoneFloor, i, index));
+                        this.Add(new TileFloorStone(x,y));
                     }
                     if (currentTile == 'W')
                     {
-                        this.Add(new Tile(Tile.Type.Wall, StoneWall, i, index));
+                        this.Add(new TileWallStone(x, y));
                     }
                 }
-                index++;
+                y++;
             }
         }
     }

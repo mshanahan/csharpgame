@@ -12,7 +12,7 @@ namespace csharpgame
         public static Texture2D Texture { get; set; }
         public TileWallStone(int x, int y)
         {
-            this.type = Tile.Type.Floor;
+            this.type = Tile.Type.Wall;
             this.texture = Texture;
             this.gridX = x;
             this.gridY = y;
