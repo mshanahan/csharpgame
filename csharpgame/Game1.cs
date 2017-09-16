@@ -49,8 +49,6 @@ namespace csharpgame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // LOADING: Tile Images
-            Texture2D dirtImage = Content.Load<Texture2D>("Graphics/TileDirt");
-            Texture2D stoneImage = Content.Load<Texture2D>("Graphics/TileRock");
             Texture2D StoneFloorTile = Content.Load<Texture2D>("Graphics/StoneFloorTile");
             Texture2D StoneWallTile = Content.Load<Texture2D>("Graphics/StoneWallTile");
 

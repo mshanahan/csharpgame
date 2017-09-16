@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/Graphics/StoneFloorTile.png</SourceFile>
-  <SourceTime>2017-09-16T10:12:43.7105981-05:00</SourceTime>
+  <SourceTime>2017-09-16T10:31:10.421975-05:00</SourceTime>
   <DestFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/bin/Windows/Graphics/StoneFloorTile.xnb</DestFile>
-  <DestTime>2017-09-16T10:12:52.8861241-05:00</DestTime>
+  <DestTime>2017-09-16T10:31:23.7787402-05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T09:05:36-06:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
