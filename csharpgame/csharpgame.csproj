@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Character.cs" />
+    <Compile Include="Corpse.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
@@ -59,6 +60,7 @@
   <ItemGroup>
     <Content Include="Content\Graphics\BeigeCard.png" />
     <Content Include="Content\Graphics\enemyToken.png" />
+    <Content Include="Content\Graphics\GoblinDead.png" />
     <Content Include="Content\Graphics\GoblinToken.png" />
     <Content Include="Content\Graphics\PlayerToken.png" />
     <Content Include="Content\Graphics\TileDirt.png" />

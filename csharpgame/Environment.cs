@@ -19,6 +19,7 @@ namespace csharpgame
         public List<Tile> TileList { get; set; }
         public Character Player { get; private set; }
         public List<Character> NPCList { get; private set; }
+        public List<Corpse> CorpseList { get; private set; }
         public List<SoundEffect> SoundFXList { get; private set; }
         public List<SpriteFont> FontList { get; private set; }
         public List<Texture2D> UIElementList { get; private set; }
@@ -43,6 +44,7 @@ namespace csharpgame
             this.TileList = new List<Tile>();
             this.Player = null;
             this.NPCList = new List<Character>();
+            this.CorpseList = new List<Corpse>();
             this.SoundFXList = new List<SoundEffect>();
             this.FontList = new List<SpriteFont>();
             this.UIElementList = new List<Texture2D>();
@@ -65,6 +67,15 @@ namespace csharpgame
         public void Add(Character c)
         {
             NPCList.Add(c);
+        }
+
+        /// <summary>
+        /// Adds a Corpse to the Environment.
+        /// </summary>
+        /// <param name="c">The Corpse to add</param>
+        public void Add(Corpse c)
+        {
+            CorpseList.Add(c);
         }
 
         /// <summary>
@@ -101,6 +112,15 @@ namespace csharpgame
         public void Add(Text t)
         {
             DecayingTextList.Add(t);
+        }
+
+        /// <summary>
+        /// Removes an NPC from the Environment
+        /// </summary>
+        /// <param name="c">The Character to remove</param>
+        public void Remove(Character c)
+        {
+            NPCList.Remove(c);
         }
 
         /// <summary>
@@ -180,6 +200,28 @@ namespace csharpgame
                 s.DrawString(FontList[0], npc.Name + "\r\n" + npc.CurrentHitpoints + "/" + npc.MaxHitpoints, TextLocation, Color.Red);
             }
 
+        }
+
+        public void DrawCorpses(SpriteBatch s)
+        {
+            foreach (Corpse c in CorpseList)
+            {
+                int CorpseGridX = c.Position.gridX;
+                int CorpseGridY = c.Position.gridY;
+                int PlayerGridX = Player.currentPosition.gridX;
+                int PlayerGridY = Player.currentPosition.gridY;
+                int CorpseScreenX = (CorpseGridX * 50) + 25;
+                int CorpseScreenY = (CorpseGridY * 50) + 25;
+                int PlayerScreenX = PlayerGridX * 50;
+                int PlayerScreenY = PlayerGridY * 50;
+
+                Vector2 Location = new Vector2(
+                    (Game.GraphicsDevice.Viewport.Width / 2) + CorpseScreenX - PlayerScreenX,
+                    (Game.GraphicsDevice.Viewport.Height / 2) + CorpseScreenY - PlayerScreenY);
+                Vector2 SpriteOrigin = new Vector2(c.Texture.Width / 2, c.Texture.Height / 2);
+
+                s.Draw(c.Texture, Location, null, Color.White, c.Rotation, SpriteOrigin, 1F, SpriteEffects.None, 0f);
+            }
         }
 
         public void DrawDecayingText(SpriteBatch s)
