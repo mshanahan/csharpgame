@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/Graphics/TileWaterStagnant.png</SourceFile>
-  <SourceTime>2017-09-16T16:44:01.690495-05:00</SourceTime>
+  <SourceTime>2017-09-16T18:55:29.6662054-05:00</SourceTime>
   <DestFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/bin/Windows/Graphics/TileWaterStagnant.xnb</DestFile>
-  <DestTime>2017-09-16T16:48:45.8827688-05:00</DestTime>
+  <DestTime>2017-09-17T00:17:49.1163021-05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T09:05:36-06:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

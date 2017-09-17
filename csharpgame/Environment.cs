@@ -300,8 +300,7 @@ namespace csharpgame
                             Console.WriteLine(rand);
                             if(rand <= 0)
                             {
-                                Console.WriteLine("HIT");
-                                WeightedSpawnerList[i].Item2(ThisTile);
+                                WeightedSpawnerList[i].Item2(ThisTile); //call spawn on the randomly chosen monster
                                 found = true;
                             }
                             if (found) break;

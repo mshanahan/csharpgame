@@ -87,24 +87,7 @@ namespace csharpgame
             //LOADING: Fonts
             SpriteFont arial = Content.Load<SpriteFont>("Arial");
             env.Add(arial);
-
-            //for (int i = 0; i < 50; i++)
-            //{
-            //    for (int j = 0; j < 50; j++)
-            //    {
-            //        int percentile = env.Random.Next(1, 101);
-            //        Tile t;
-            //        if (i == 0 || i == 49 || j == 0 || j == 49)
-            //        {
-            //            t = new Tile(Tile.Type.StoneWall, StoneWallTile, i, j);
-            //        }
-            //        else
-            //        {
-            //            t = new Tile(Tile.Type.StoneFloor, StoneFloorVariants, i, j);
-            //        }
-            //        env.Add(t);
-            //    }
-            //}
+            
             List<Tuple<int, Action < Tile >>> WeightList = new List<Tuple<int, Action<Tile>>>();
             Tuple<int, Action<Tile>> GoblinWeight = new Tuple<int, Action<Tile>>(1, new Action<Tile>(CharGoblin.Spawn));
             WeightList.Add(GoblinWeight);
@@ -122,14 +105,6 @@ namespace csharpgame
             player.texture = playerImage;
             player.DeathTexture = playerImage;
             env.Setup(this, player);
-
-            //for (int i = 0; i < 20; i++)
-            //{
-            //    randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
-            //    Character enemy = new CharGoblin(randomTile);
-            //    enemy.behavior = Character.Behavior.Wandering;
-            //    env.Add(enemy);
-            //}
 
         }
 
@@ -248,16 +223,6 @@ namespace csharpgame
             env.DrawPlayer(spriteBatch); //draw the Player...
             env.DrawNPCs(spriteBatch); //draw all NPCs in the Environment...
             env.DrawDecayingText(spriteBatch); //draw all Decaying Text in the Environment...
-
-            if (characterSheetPressed) //PLACEHOLDER: this can be cleaned up once UIElement is implemented
-            {
-                spriteBatch.Draw(env.UIElementList[0], new Vector2(0, 0), Color.White);
-                spriteBatch.DrawString(env.FontList[0], "Hit Points: " + player.CurrentHitpoints + "/" + player.MaxHitpoints, new Vector2(0, 0), Color.Black);
-                spriteBatch.DrawString(env.FontList[0], "Armor: " + player.Armor, new Vector2(0, 24), Color.Black);
-                spriteBatch.DrawString(env.FontList[0], "Damage: " + player.Damage, new Vector2(0, 48), Color.Black);
-                spriteBatch.DrawString(env.FontList[0], "Weapon: Shortsword", new Vector2(0, 96), Color.Black);
-                spriteBatch.DrawString(env.FontList[0], "Armor: None", new Vector2(0, 120), Color.Black);
-            }
 
             spriteBatch.End();
             base.Draw(gameTime);
