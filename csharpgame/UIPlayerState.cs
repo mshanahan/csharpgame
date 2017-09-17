@@ -12,6 +12,7 @@ namespace csharpgame
         private static UIPlayerState State { get; set; }
         public static Texture2D HealthBarBackground { get; set; }
         public static Texture2D HealthBar { get; set; }
+        public static Texture2D GoldGraphic { get; set; }
         public float HealthPercent { get; set; }
 
         public UIPlayerState()

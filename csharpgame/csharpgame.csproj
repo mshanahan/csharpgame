@@ -71,6 +71,7 @@
     <Content Include="Content\Graphics\enemyToken.png" />
     <Content Include="Content\Graphics\GoblinDead.png" />
     <Content Include="Content\Graphics\GoblinToken.png" />
+    <Content Include="Content\Graphics\Gold.png" />
     <Content Include="Content\Graphics\HealthBack.png" />
     <Content Include="Content\Graphics\HealthBar.png" />
     <Content Include="Content\Graphics\PlayerDead.png" />

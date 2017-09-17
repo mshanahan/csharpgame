@@ -87,8 +87,10 @@ namespace csharpgame
             //LOADING: misc
             Texture2D HealthBack = Content.Load<Texture2D>("Graphics/HealthBack");
             Texture2D HealthBar = Content.Load<Texture2D>("Graphics/HealthBar");
+            Texture2D GoldGraphic = Content.Load<Texture2D>("Graphics/Gold");
             UIPlayerState.HealthBarBackground = HealthBack;
             UIPlayerState.HealthBar = HealthBar;
+            UIPlayerState.GoldGraphic = GoldGraphic;
 
 
             //LOADING: Fonts
