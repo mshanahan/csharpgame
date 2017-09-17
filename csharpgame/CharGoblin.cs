@@ -16,7 +16,7 @@ namespace csharpgame
         {
             Environment env = Environment.Current();
             this.Name = "Goblin";
-            this.CurrentHitpoints = env.Random.Next(1, 5);
+            this.CurrentHitpoints = env.Random.Next(1, 7);
             this.MaxHitpoints = CurrentHitpoints;
             this.Armor = 12;
             this.Attack = 0;

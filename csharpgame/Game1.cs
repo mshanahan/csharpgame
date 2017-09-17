@@ -82,8 +82,10 @@ namespace csharpgame
             env.Add(thunk);
 
             //LOADING: misc
-            //Texture2D beigeCard = Content.Load<Texture2D>("Graphics/BeigeCard");
-            //env.Add(beigeCard);
+            Texture2D HealthBack = Content.Load<Texture2D>("Graphics/HealthBack");
+            Texture2D HealthBar = Content.Load<Texture2D>("Graphics/HealthBar");
+            UIPlayerState.HealthBarBackground = HealthBack;
+            UIPlayerState.HealthBar = HealthBar;
 
 
             //LOADING: Fonts

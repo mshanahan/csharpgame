@@ -15,6 +15,14 @@ namespace csharpgame
         public List<Tuple<Texture2D, int, int>> ElementImages { get; set; } //RELATIVE to background position
         public List<Tuple<string, int, int>> ElementText { get; set; } //RELATIVE to background position
 
+        public UIElement()
+        {
+            this.RenderBackground = false;
+            this.Background = new Tuple<Texture2D, int, int>(null, 0, 0);
+            this.ElementImages = new List<Tuple<Texture2D, int, int>>();
+            this.ElementText = new List<Tuple<string, int, int>>();
+        }
+
         public UIElement(Texture2D Texture, int x, int y)
         {
             this.RenderBackground = true;

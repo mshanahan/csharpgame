@@ -272,7 +272,20 @@ namespace csharpgame
                     int RelativeY = ScreenY + t.Item3;
                     s.DrawString(FontList[0],t.Item1, new Vector2(RelativeX, RelativeY), Color.Red);
                 }
+
             }
+
+            UIPlayerState.Update();
+            UIPlayerState PlayerState = UIPlayerState.GetState();
+            int StateScreenX = PlayerState.Background.Item2;
+            int StateScreenY = PlayerState.Background.Item3;
+            float BarPercent = PlayerState.HealthPercent;
+            int BarPixelWidth = (int) (300F * BarPercent);
+
+            s.Draw(UIPlayerState.HealthBarBackground, new Vector2(StateScreenX, StateScreenY), Color.White);
+            s.Draw(UIPlayerState.HealthBar, new Vector2(StateScreenX, StateScreenY), new Rectangle(StateScreenX, StateScreenY, BarPixelWidth, 10), Color.White);
+
+
         }
 
         public void ReadMap(String directory, List<Tuple<int, Action<Tile>>> WeightedSpawnerList)
