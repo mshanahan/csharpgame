@@ -19,6 +19,7 @@ namespace csharpgame
         public Character player;
 
         bool arrowKeyPressed = false;
+        int arrowKeyPressedConsecutive = 0;
         bool characterSheetPressed = false;
 
         public Game1()
@@ -81,8 +82,9 @@ namespace csharpgame
             env.Add(thunk);
 
             //LOADING: misc
-            Texture2D beigeCard = Content.Load<Texture2D>("Graphics/BeigeCard");
-            env.Add(beigeCard);
+            //Texture2D beigeCard = Content.Load<Texture2D>("Graphics/BeigeCard");
+            //env.Add(beigeCard);
+
 
             //LOADING: Fonts
             SpriteFont arial = Content.Load<SpriteFont>("Arial");
@@ -105,6 +107,17 @@ namespace csharpgame
             player.texture = playerImage;
             player.DeathTexture = playerImage;
             env.Setup(this, player);
+
+            //int UIX = this.GraphicsDevice.Viewport.Width - 200;
+            //int UIY = this.GraphicsDevice.Viewport.Height - 200;
+            //List<Tuple<string, int, int>> UITextList = new List<Tuple<string, int, int>>();
+            //Tuple<string, int, int> Health = new Tuple<string, int, int>("HP: " + env.Player.CurrentHitpoints + "/" + env.Player.MaxHitpoints, 0, 0);
+            //Tuple<string, int, int> Gold = new Tuple<string, int, int>("Gold: 0", 0, 12);
+            //UITextList.Add(Health);
+            //UITextList.Add(Gold);
+            //UIElement PlayerStats = new UIElement(UIX, UIY, UITextList);
+            //env.UIElementList.Add(PlayerStats);
+
 
         }
 
@@ -137,40 +150,45 @@ namespace csharpgame
                 characterSheetPressed = false;
             }
 
+            if (arrowKeyPressed) arrowKeyPressedConsecutive++;
 
             if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Up))
             {
-                if (!arrowKeyPressed)
+                if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
                 {
                     player.Move(0, -1);
                     arrowKeyPressed = true;
+                    arrowKeyPressedConsecutive++;
                     this.tick();
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Down))
             {
-                if (!arrowKeyPressed)
+                if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
                 {
                     player.Move(0, 1);
                     arrowKeyPressed = true;
+                    arrowKeyPressedConsecutive++;
                     this.tick();
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Right))
             {
-                if (!arrowKeyPressed)
+                if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
                 {
                     player.Move(1, 0);
                     arrowKeyPressed = true;
+                    arrowKeyPressedConsecutive++;
                     this.tick();
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Left))
             {
-                if (!arrowKeyPressed)
+                if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
                 {
                     player.Move(-1, 0);
                     arrowKeyPressed = true;
+                    arrowKeyPressedConsecutive++;
                     this.tick();
                 }
             }
@@ -182,6 +200,7 @@ namespace csharpgame
                 && Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Down))
             {
                 arrowKeyPressed = false;
+                arrowKeyPressedConsecutive = 0;
             }
 
             // TODO: Add your update logic here
@@ -223,6 +242,7 @@ namespace csharpgame
             env.DrawPlayer(spriteBatch); //draw the Player...
             env.DrawNPCs(spriteBatch); //draw all NPCs in the Environment...
             env.DrawDecayingText(spriteBatch); //draw all Decaying Text in the Environment...
+            env.DrawUIElements(spriteBatch); //draw all UI Elements in the Environment...
 
             spriteBatch.End();
             base.Draw(gameTime);

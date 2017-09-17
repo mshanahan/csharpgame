@@ -17,13 +17,13 @@ namespace csharpgame
         private static List<Environment> EnvironmentList = new List<Environment>();
 
         public Game1 Game { get; private set; }
-        public List<Tile> TileList { get; set; }
+        public List<Tile> TileList { get; private set; }
         public Character Player { get; private set; }
         public List<Character> NPCList { get; private set; }
         public List<Corpse> CorpseList { get; private set; }
         public List<SoundEffect> SoundFXList { get; private set; }
         public List<SpriteFont> FontList { get; private set; }
-        public List<Texture2D> UIElementList { get; private set; }
+        public List<UIElement> UIElementList { get; private set; }
         public List<Text> DecayingTextList { get; private set; }
         public object GraphicsDevice { get; private set; }
 
@@ -48,7 +48,7 @@ namespace csharpgame
             this.CorpseList = new List<Corpse>();
             this.SoundFXList = new List<SoundEffect>();
             this.FontList = new List<SpriteFont>();
-            this.UIElementList = new List<Texture2D>();
+            this.UIElementList = new List<UIElement>();
             this.DecayingTextList = new List<Text>();
         }
 
@@ -101,7 +101,7 @@ namespace csharpgame
         /// Adds a UI Element to the Environment
         /// </summary>
         /// <param name="u">The Texture2D to add</param>
-        public void Add(Texture2D u)
+        public void Add(UIElement u)
         {
             UIElementList.Add(u);
         }
@@ -248,6 +248,30 @@ namespace csharpgame
             foreach (Text t in DecayingTextList)
             {
                 s.DrawString(FontList[0], t.Contents, new Vector2(t.XPos, t.YPos), Color.Black * t.Transparency);
+            }
+        }
+
+        public void DrawUIElements(SpriteBatch s)
+        {
+            foreach(UIElement e in UIElementList)
+            {
+                int ScreenX = e.Background.Item2;
+                int ScreenY = e.Background.Item3;
+                if(e.RenderBackground) s.Draw(e.Background.Item1, new Vector2(ScreenX, ScreenY), Color.White);
+
+                foreach(Tuple<Texture2D,int,int> t in e.ElementImages)
+                {
+                    int RelativeX = ScreenX + t.Item2;
+                    int RelativeY = ScreenY + t.Item3;
+                    s.Draw(t.Item1, new Vector2(RelativeX, RelativeY), Color.White);
+                }
+
+                foreach(Tuple<string,int,int> t in e.ElementText)
+                {
+                    int RelativeX = ScreenX + t.Item2;
+                    int RelativeY = ScreenY + t.Item3;
+                    s.DrawString(FontList[0],t.Item1, new Vector2(RelativeX, RelativeY), Color.Red);
+                }
             }
         }
 
