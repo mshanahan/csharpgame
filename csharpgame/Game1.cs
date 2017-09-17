@@ -71,8 +71,9 @@ namespace csharpgame
 
             //LOADING: Character Images
             Texture2D playerImage = Content.Load<Texture2D>("Graphics/PlayerToken");
+            Texture2D PlayerDeathImage = Content.Load<Texture2D>("Graphics/PlayerDead");
             CharPlayer.PlayerImage = playerImage;
-            CharPlayer.PlayerDeathImage = playerImage;
+            CharPlayer.PlayerDeathImage = PlayerDeathImage;
 
             Texture2D goblinImage = Content.Load<Texture2D>("Graphics/GoblinToken");
             CharGoblin.GoblinImage = goblinImage;
@@ -125,67 +126,70 @@ namespace csharpgame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == Microsoft.Xna.Framework.Input.ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Escape))
                 Exit();
 
-
-            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.C))
+            if (CharPlayer.GetPlayer().CurrentHitpoints <= 0)
             {
-                characterSheetPressed = true;
-            }
-            if (Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.C))
-            {
-                characterSheetPressed = false;
-            }
-
-            if (arrowKeyPressed) arrowKeyPressedConsecutive++;
-
-            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Up))
-            {
-                if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
-                {
-                    player.Move(0, -1);
-                    arrowKeyPressed = true;
-                    arrowKeyPressedConsecutive++;
-                    this.tick();
-                }
-            }
-            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Down))
-            {
-                if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
-                {
-                    player.Move(0, 1);
-                    arrowKeyPressed = true;
-                    arrowKeyPressedConsecutive++;
-                    this.tick();
-                }
-            }
-            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Right))
-            {
-                if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
-                {
-                    player.Move(1, 0);
-                    arrowKeyPressed = true;
-                    arrowKeyPressedConsecutive++;
-                    this.tick();
-                }
-            }
-            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Left))
-            {
-                if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
-                {
-                    player.Move(-1, 0);
-                    arrowKeyPressed = true;
-                    arrowKeyPressedConsecutive++;
-                    this.tick();
-                }
+                CharPlayer.GetPlayer().Locked = true;
+                CharPlayer.GetPlayer().texture = CharPlayer.PlayerDeathImage;
+                List<Tuple<string, int, int>> GameOverList = new List<Tuple<string, int, int>>();
+                GameOverList.Add(new Tuple<string, int, int>("GAME OVER", 0, 0));
+                UIElement GameOver = new UIElement(env.Game.GraphicsDevice.Viewport.Width / 2, env.Game.GraphicsDevice.Viewport.Height / 2 - 50,GameOverList);
+                env.Add(GameOver);
             }
 
-            if (
-                Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Left)
-                && Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Right)
-                && Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Up)
-                && Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Down))
+ 
+            if (!CharPlayer.GetPlayer().Locked)
             {
-                arrowKeyPressed = false;
-                arrowKeyPressedConsecutive = 0;
+                if (arrowKeyPressed) arrowKeyPressedConsecutive++;
+                if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Up))
+                {
+                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
+                    {
+                        player.Move(0, -1);
+                        arrowKeyPressed = true;
+                        arrowKeyPressedConsecutive++;
+                        this.tick();
+                    }
+                }
+                if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Down))
+                {
+                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
+                    {
+                        player.Move(0, 1);
+                        arrowKeyPressed = true;
+                        arrowKeyPressedConsecutive++;
+                        this.tick();
+                    }
+                }
+                if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Right))
+                {
+                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
+                    {
+                        player.Move(1, 0);
+                        arrowKeyPressed = true;
+                        arrowKeyPressedConsecutive++;
+                        this.tick();
+                    }
+                }
+                if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Left))
+                {
+                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
+                    {
+                        player.Move(-1, 0);
+                        arrowKeyPressed = true;
+                        arrowKeyPressedConsecutive++;
+                        this.tick();
+                    }
+                }
+
+                if (
+                    Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Left)
+                    && Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Right)
+                    && Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Up)
+                    && Keyboard.GetState().IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Down))
+                {
+                    arrowKeyPressed = false;
+                    arrowKeyPressedConsecutive = 0;
+                }
             }
 
             // TODO: Add your update logic here

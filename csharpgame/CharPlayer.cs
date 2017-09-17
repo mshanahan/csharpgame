@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace csharpgame
 {
-    class CharPlayer : Character
+    public class CharPlayer : Character
     {
         private static CharPlayer Player { get; set; }
         public static Texture2D PlayerImage { get; set; }
         public static Texture2D PlayerDeathImage { get; set; }
+        public bool Locked { get; set; }
 
         public CharPlayer(Tile t) : base (t)
         {
@@ -25,6 +26,7 @@ namespace csharpgame
             this.Damage = 1;
             this.texture = PlayerImage;
             this.DeathTexture = PlayerDeathImage;
+            this.Locked = false;
         }
 
         public static CharPlayer GetPlayer()
