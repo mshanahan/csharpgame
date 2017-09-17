@@ -53,6 +53,7 @@
     <Compile Include="TileFloorStone.cs" />
     <Compile Include="TileWallStone.cs" />
     <Compile Include="TileWaterStagnant.cs" />
+    <Compile Include="UIElement.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
