@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Character.cs" />
+    <Compile Include="CharPlayer.cs" />
     <Compile Include="Corpse.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="Game1.cs" />
@@ -53,6 +54,8 @@
     <Compile Include="TileFloorStone.cs" />
     <Compile Include="TileWallStone.cs" />
     <Compile Include="TileWaterStagnant.cs" />
+    <Compile Include="UIElement.cs" />
+    <Compile Include="UIPlayerState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -68,6 +71,10 @@
     <Content Include="Content\Graphics\enemyToken.png" />
     <Content Include="Content\Graphics\GoblinDead.png" />
     <Content Include="Content\Graphics\GoblinToken.png" />
+    <Content Include="Content\Graphics\Gold.png" />
+    <Content Include="Content\Graphics\HealthBack.png" />
+    <Content Include="Content\Graphics\HealthBar.png" />
+    <Content Include="Content\Graphics\PlayerDead.png" />
     <Content Include="Content\Graphics\PlayerToken.png" />
     <Content Include="Content\Graphics\TileWaterStagnant.png" />
     <Content Include="Content\Graphics\StoneFloorTile.png" />
