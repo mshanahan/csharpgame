@@ -71,6 +71,8 @@ namespace csharpgame
 
             //LOADING: Character Images
             Texture2D playerImage = Content.Load<Texture2D>("Graphics/PlayerToken");
+            CharPlayer.PlayerImage = playerImage;
+            CharPlayer.PlayerDeathImage = playerImage;
 
             Texture2D goblinImage = Content.Load<Texture2D>("Graphics/GoblinToken");
             CharGoblin.GoblinImage = goblinImage;
@@ -98,27 +100,8 @@ namespace csharpgame
             env.ReadMap("Content/Maps/prototype2.txt", WeightList);
 
             Tile randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
-            player = new Character(env.TileList[1]);
-            player.Name = "Player";
-            player.Attack = 0;
-            player.Damage = 2;
-            player.Armor = 10;
-            player.CurrentHitpoints = 10;
-            player.MaxHitpoints = 10;
-            player.setPlayer();
-            player.texture = playerImage;
-            player.DeathTexture = playerImage;
+            player = CharPlayer.GetPlayer();
             env.Setup(this, player);
-
-            //int UIX = this.GraphicsDevice.Viewport.Width - 200;
-            //int UIY = this.GraphicsDevice.Viewport.Height - 200;
-            //List<Tuple<string, int, int>> UITextList = new List<Tuple<string, int, int>>();
-            //Tuple<string, int, int> Health = new Tuple<string, int, int>("HP: " + env.Player.CurrentHitpoints + "/" + env.Player.MaxHitpoints, 0, 0);
-            //Tuple<string, int, int> Gold = new Tuple<string, int, int>("Gold: 0", 0, 12);
-            //UITextList.Add(Health);
-            //UITextList.Add(Gold);
-            //UIElement PlayerStats = new UIElement(UIX, UIY, UITextList);
-            //env.UIElementList.Add(PlayerStats);
 
 
         }
