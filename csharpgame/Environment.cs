@@ -18,7 +18,7 @@ namespace csharpgame
 
         public Game1 Game { get; private set; }
         public List<Tile> TileList { get; private set; }
-        public Character Player { get; private set; }
+        public CharPlayer Player { get; private set; }
         public List<Character> NPCList { get; private set; }
         public List<Corpse> CorpseList { get; private set; }
         public List<SoundEffect> SoundFXList { get; private set; }
@@ -26,6 +26,8 @@ namespace csharpgame
         public List<UIElement> UIElementList { get; private set; }
         public List<Text> DecayingTextList { get; private set; }
         public object GraphicsDevice { get; private set; }
+
+        public bool DrawTradingScreen { get; set; } = false;
 
         public Random Random = new Random();
 
@@ -138,7 +140,7 @@ namespace csharpgame
         /// </summary>
         /// <param name="g">The Game</param>
         /// <param name="p">The Player</param>
-        public void Setup(Game1 g, Character p)
+        public void Setup(Game1 g, CharPlayer p)
         {
             this.Game = g;
             this.Player = p;
@@ -271,6 +273,29 @@ namespace csharpgame
                     int RelativeX = ScreenX + t.Item2;
                     int RelativeY = ScreenY + t.Item3;
                     s.DrawString(FontList[0],t.Item1, new Vector2(RelativeX, RelativeY), Color.Red);
+                }
+
+            }
+
+            if(DrawTradingScreen)
+            {
+                UIElement e = CharTrader.GetUpdatedPanel();
+                int ScreenX = e.Background.Item2;
+                int ScreenY = e.Background.Item3;
+                if (e.RenderBackground) s.Draw(e.Background.Item1, new Vector2(ScreenX, ScreenY), Color.White);
+
+                foreach (Tuple<Texture2D, int, int> t in e.ElementImages)
+                {
+                    int RelativeX = ScreenX + t.Item2;
+                    int RelativeY = ScreenY + t.Item3;
+                    s.Draw(t.Item1, new Vector2(RelativeX, RelativeY), Color.White);
+                }
+
+                foreach (Tuple<string, int, int> t in e.ElementText)
+                {
+                    int RelativeX = ScreenX + t.Item2;
+                    int RelativeY = ScreenY + t.Item3;
+                    s.DrawString(FontList[0], t.Item1, new Vector2(RelativeX, RelativeY), Color.Red);
                 }
 
             }

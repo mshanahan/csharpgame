@@ -64,7 +64,7 @@ namespace csharpgame
 
                     if ((env.Player.currentPosition.gridX == newX && env.Player.currentPosition.gridY == newY))
                     {
-                        this.AttackCharacter(env.Game.player);
+                        this.AttackCharacter(env.Player);
                         env.SoundFXList[0].Play(); //thunk
                         foundTile = false;
                     }
@@ -132,11 +132,11 @@ namespace csharpgame
             {
                 attacked.CurrentHitpoints = attacked.CurrentHitpoints - this.Damage;
                 if (attacked.CurrentHitpoints <= 0 && !attacked.isPlayer) attacked.markedForDeath = true;
-                env.Add(new Text("Hit! " + this.Damage + " damage", (env.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (env.Game.player.currentPosition.gridX * 50), (env.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (env.Game.player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
+                env.Add(new Text("Hit! " + this.Damage + " damage", (env.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (env.Player.currentPosition.gridX * 50), (env.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (env.Player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
             }
             else
             {
-                env.Add(new Text("Miss!", (env.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (env.Game.player.currentPosition.gridX * 50), (env.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (env.Game.player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
+                env.Add(new Text("Miss!", (env.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (env.Player.currentPosition.gridX * 50), (env.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (env.Player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
             }
         }
 
