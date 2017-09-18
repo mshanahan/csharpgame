@@ -189,8 +189,21 @@ namespace csharpgame
                 numberPressed = true;
                 if (env.Player.Gold >= 10 * CharTrader.AttackCount)
                 {
-                    env.Player.Gold = 10 * CharTrader.AttackCount);
+                    env.Player.Gold = 10 * CharTrader.AttackCount;
                     env.Player.Attack++;
+                }
+                else
+                {
+                    env.SoundFXList[0].Play(); //thunk
+                }
+            }
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D4) && !numberPressed && env.DrawTradingScreen) // upgrade damage
+            {
+                numberPressed = true;
+                if (env.Player.Gold >= 5 * CharTrader.DamageCount)
+                {
+                    env.Player.Gold = 5 * CharTrader.DamageCount;
+                    env.Player.Damage++;
                 }
                 else
                 {
