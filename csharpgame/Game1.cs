@@ -125,7 +125,20 @@ namespace csharpgame
             CharTrader trader = new CharTrader(env.TileList[2]);
             env.Add(trader);
 
+            CharTrader.ArmorProgression.Add(new ItemArmor("Padded Armor",4, 11));
+            CharTrader.ArmorProgression.Add(new ItemArmor("Leather Armor", 6, 12));
+            CharTrader.ArmorProgression.Add(new ItemArmor("Studded Leather Armor", 30, 13));
+            CharTrader.ArmorProgression.Add(new ItemArmor("Scale Mail", 50, 14));
+            CharTrader.ArmorProgression.Add(new ItemArmor("Chain Mail", 70, 15));
+            CharTrader.ArmorProgression.Add(new ItemArmor("Splint Mail", 75, 16));
+            CharTrader.ArmorProgression.Add(new ItemArmor("Banded Mail", 85, 17));
+            CharTrader.ArmorProgression.Add(new ItemArmor("Plate Mail", 450, 18));
 
+            CharTrader.WeaponProgression.Add(new ItemWeapon("Dagger", 5, 1, 4));
+            CharTrader.WeaponProgression.Add(new ItemWeapon("Shortsword", 19, 1, 6));
+            CharTrader.WeaponProgression.Add(new ItemWeapon("Broadsword", 32, 1, 8));
+            CharTrader.WeaponProgression.Add(new ItemWeapon("Longsword", 59, 1, 10));
+            CharTrader.WeaponProgression.Add(new ItemWeapon("Greatsword", 90, 2, 6));
         }
 
         /// <summary>
@@ -258,9 +271,9 @@ namespace csharpgame
             if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D7) && !numberPressed && env.DrawTradingScreen) // buy torch
             {
                 numberPressed = true;
-                if (env.Player.Gold >= 10)
+                if (env.Player.Gold >= 20)
                 {
-                    env.Player.Gold = env.Player.Gold - 10;
+                    env.Player.Gold = env.Player.Gold - 20;
                     env.Player.TorchCount++;
                 }
                 else

@@ -11,7 +11,7 @@ namespace csharpgame
     {
         public int Dice { get; set; }
         public int Sides { get; set; }
-        public ItemWeapon(int price, int dice, int sides) : base(price)
+        public ItemWeapon(string name, int price, int dice, int sides) : base(name, price)
         {
             this.Dice = dice;
             this.Sides = sides;

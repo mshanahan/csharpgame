@@ -10,7 +10,7 @@ namespace csharpgame
     {
         public int Armor { get; set; }
         
-        public ItemArmor(int price, int armor) : base(price)
+        public ItemArmor(string name, int price, int armor) : base(name, price)
         {
             this.Armor = armor;
         }

@@ -8,10 +8,12 @@ namespace csharpgame
 {
     public class Item
     {
+        public string Name { get; set; }
         public int Price { get; set; }
 
-        public Item(int Price)
+        public Item(string Name, int Price)
         {
+            this.Name = Name;
             this.Price = Price;
         }
     }
