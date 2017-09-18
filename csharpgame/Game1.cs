@@ -248,6 +248,19 @@ namespace csharpgame
                     env.SoundFXList[0].Play(); //thunk
                 }
             }
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D7) && !numberPressed && env.DrawTradingScreen) // buy torch
+            {
+                numberPressed = true;
+                if (env.Player.Gold >= 10)
+                {
+                    env.Player.Gold = env.Player.Gold - 10;
+                    env.Player.TorchCount++;
+                }
+                else
+                {
+                    env.SoundFXList[0].Play(); //thunk
+                }
+            }
 
             if (!CharPlayer.GetPlayer().Locked)
             {
@@ -310,7 +323,8 @@ namespace csharpgame
                     Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D3) ||
                     Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D4) ||
                     Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D5) ||
-                    Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D6);
+                    Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D6) ||
+                    Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D7);
 
             }
 
