@@ -81,6 +81,7 @@ namespace csharpgame
                                 this.AttackCharacter(e);
                                 if (e.markedForDeath)
                                 {
+                                    CharPlayer.GetPlayer().Gold = CharPlayer.GetPlayer().Gold + e.GiveGold();
                                     e.KillCharacter();
                                     i--;
                                 }
@@ -116,6 +117,11 @@ namespace csharpgame
             {
                 this.rotation = 0;
             }
+        }
+
+        public virtual int GiveGold()
+        {
+            return 0;
         }
 
         public void AttackCharacter(Character attacked)
