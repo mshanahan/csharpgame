@@ -82,6 +82,8 @@
     <Content Include="Content\Graphics\StoneFloorTileVar2.png" />
     <Content Include="Content\Graphics\StoneFloorTileVar3.png" />
     <Content Include="Content\Graphics\StoneWallTIle.png" />
+    <Content Include="Content\Graphics\TorchGraphicBack.png" />
+    <Content Include="Content\Graphics\TorchGraphicFront.png" />
     <Content Include="Content\Graphics\TraderGraphic.png" />
     <Content Include="Content\Graphics\TraderScreen.png" />
     <Content Include="Content\Maps\prototype.txt">

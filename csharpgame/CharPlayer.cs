@@ -14,6 +14,8 @@ namespace csharpgame
         public static Texture2D PlayerDeathImage { get; set; }
         public bool Locked { get; set; }
         public int Gold { get; set; }
+        public int TorchCount { get; set; }
+        public int TorchTicks { get; set; }
 
         public CharPlayer(Tile t) : base (t)
         {
@@ -29,6 +31,8 @@ namespace csharpgame
             this.DeathTexture = PlayerDeathImage;
             this.Locked = false;
             this.Gold = 0;
+            this.TorchCount = 6;
+            this.TorchTicks = 0;
         }
 
         public static CharPlayer GetPlayer()
