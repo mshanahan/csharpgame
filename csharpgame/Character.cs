@@ -23,6 +23,10 @@ namespace csharpgame
         public Texture2D texture { get; set; }
         public Texture2D DeathTexture { get; set; }
 
+        public ItemWeapon ItemWeapon { get; set; }
+        public ItemArmor ItemArmor { get; set; }
+
+
         public Behavior behavior { get; set; }
         private bool isPlayer = false;
         public float rotation = 0;

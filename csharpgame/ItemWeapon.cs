@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace csharpgame
 {
 
-    class ItemWeapon : Item
+    public class ItemWeapon : Item
     {
         public int Dice { get; set; }
         public int Sides { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace csharpgame
 {
-    class Item
+    public class Item
     {
         public int Price { get; set; }
 
