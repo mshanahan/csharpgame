@@ -211,7 +211,13 @@ namespace csharpgame
                     float Alpha = 1F - (distance / 7F);
 
                     s.Draw(npc.texture, Location, null, Color.White * Alpha, npc.rotation, SpriteOrigin, 1F, SpriteEffects.None, 0f);
-                    s.DrawString(FontList[0], npc.Name + "\r\n" + npc.CurrentHitpoints + "/" + npc.MaxHitpoints, TextLocation, Color.Red * Alpha);
+                    s.DrawString(FontList[0], npc.Name, TextLocation, Color.Red * Alpha);
+                    //s.DrawString(FontList[0], npc.Name + "\r\n" + npc.CurrentHitpoints + "/" + npc.MaxHitpoints, TextLocation, Color.Red * Alpha);
+                    float BarPercent = (float) npc.CurrentHitpoints / (float) npc.MaxHitpoints;
+                    int BarPixelWidth = (int)(50F * BarPercent);
+
+                    s.Draw(UIPlayerState.HealthBarBackground, new Vector2((Game.GraphicsDevice.Viewport.Width / 2) + NPCScreenX - PlayerScreenX - 25, (Game.GraphicsDevice.Viewport.Height / 2) + NPCScreenY - PlayerScreenY + 40), new Rectangle(0, 0, 50, 5), Color.White);
+                    s.Draw(UIPlayerState.HealthBar, new Vector2((Game.GraphicsDevice.Viewport.Width / 2) + NPCScreenX - PlayerScreenX - 25, (Game.GraphicsDevice.Viewport.Height / 2) + NPCScreenY - PlayerScreenY + 40), new Rectangle(0, 0, BarPixelWidth, 5), Color.White);
                 }
             }
 
