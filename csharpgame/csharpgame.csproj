@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Character.cs" />
     <Compile Include="CharPlayer.cs" />
+    <Compile Include="CharTrader.cs" />
     <Compile Include="Corpse.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="Game1.cs" />
