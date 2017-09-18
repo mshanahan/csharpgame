@@ -49,6 +49,7 @@ namespace csharpgame
             Tuple<string, int, int> UpgradeDamage = new Tuple<string, int, int>("4 - Upgrade Damage (" + (5 * DamageCount) + "GP)", 10, 180);
             Tuple<string, int, int> UpgradeDefense = new Tuple<string, int, int>("5 - Upgrade Defense (" + (20 * DefenseCount) + "GP)", 10, 220);
             Tuple<string, int, int> UpgradeHitpoints = new Tuple<string, int, int>("6 - Upgrade Hitpoints (" + (2 * HitpointCount) + "GP)", 10, 260);
+            Tuple<string, int, int> BuyTorch = new Tuple<string, int, int>("7 - Purchase Torch (10GP)", 260, 60);
 
             MiscStringList.Add(Welcome);
             MiscStringList.Add(SingleHeal);
@@ -57,6 +58,7 @@ namespace csharpgame
             MiscStringList.Add(UpgradeDamage);
             MiscStringList.Add(UpgradeDefense);
             MiscStringList.Add(UpgradeHitpoints);
+            MiscStringList.Add(BuyTorch);
 
             return new UIElement(TradingBackground, ScreenX, ScreenY, MiscTexList, MiscStringList);
         }

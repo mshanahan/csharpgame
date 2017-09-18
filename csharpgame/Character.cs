@@ -175,7 +175,6 @@ namespace csharpgame
 
                 if (xDiff > yDiff) moveX = 1 * xMult;
                 else moveY = 1 * yMult;
-                Console.WriteLine(moveX + ", " + moveY);
                 this.Move(moveX, moveY);
                 int distanceToPlayer = Tile.distanceBetween(this.currentPosition, env.Player.currentPosition);
                 if (distanceToPlayer > 5) this.behavior = Behavior.Wandering;

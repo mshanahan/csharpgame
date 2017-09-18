@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Character.cs" />
+    <Compile Include="CharKobold.cs" />
     <Compile Include="CharPlayer.cs" />
     <Compile Include="CharTrader.cs" />
     <Compile Include="Corpse.cs" />
@@ -75,6 +76,8 @@
     <Content Include="Content\Graphics\Gold.png" />
     <Content Include="Content\Graphics\HealthBack.png" />
     <Content Include="Content\Graphics\HealthBar.png" />
+    <Content Include="Content\Graphics\KoboldDead.png" />
+    <Content Include="Content\Graphics\KoboldToken.png" />
     <Content Include="Content\Graphics\PlayerDead.png" />
     <Content Include="Content\Graphics\PlayerToken.png" />
     <Content Include="Content\Graphics\TileWaterStagnant.png" />
@@ -82,12 +85,17 @@
     <Content Include="Content\Graphics\StoneFloorTileVar2.png" />
     <Content Include="Content\Graphics\StoneFloorTileVar3.png" />
     <Content Include="Content\Graphics\StoneWallTIle.png" />
+    <Content Include="Content\Graphics\TorchGraphicBack.png" />
+    <Content Include="Content\Graphics\TorchGraphicFront.png" />
     <Content Include="Content\Graphics\TraderGraphic.png" />
     <Content Include="Content\Graphics\TraderScreen.png" />
     <Content Include="Content\Maps\prototype.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Maps\prototype2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Maps\prototype3.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\SoundFX\thunk.wav" />

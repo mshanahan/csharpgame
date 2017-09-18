@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/Graphics/TraderGraphic.png</SourceFile>
-  <SourceTime>2017-09-17T21:07:01.8145265-05:00</SourceTime>
-  <DestFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/bin/Windows/Graphics/TraderGraphic.xnb</DestFile>
-  <DestTime>2017-09-17T21:39:47.9021162-05:00</DestTime>
+  <SourceFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/Graphics/TorchGraphicFront.png</SourceFile>
+  <SourceTime>2017-09-17T21:34:21.8964469-05:00</SourceTime>
+  <DestFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/bin/Windows/Graphics/TorchGraphicFront.xnb</DestFile>
+  <DestTime>2017-09-17T21:39:47.9501187-05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T09:05:36-06:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

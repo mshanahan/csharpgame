@@ -148,11 +148,20 @@ namespace csharpgame
 
         public void DrawTiles(SpriteBatch s)
         {
-            foreach (Tile t in TileList)
+            foreach(Tile t in TileList) //raycasting pass
             {
                 int distance = Tile.distanceBetween(t, Player.currentPosition);
-                if ( distance <= 6)
+                if (distance <= 6) Tile.Line(Player.currentPosition.gridX, Player.currentPosition.gridY, t.gridX, t.gridY, Tile.CheckVisibility);
+                //if (distance == 6) Tile.Line(t.gridX, t.gridY, Player.currentPosition.gridX, Player.currentPosition.gridY, Tile.CheckVisibility);
+            }
+
+            foreach (Tile t in TileList) //drawing pass
+            {
+                int distance = Tile.distanceBetween(t, Player.currentPosition);
+
+                if ( t.Draw )
                 {
+                    t.Draw = false;
                     int TileScreenX = t.gridX * 50;
                     int TileScreenY = t.gridY * 50;
                     int PlayerGridX = Player.currentPosition.gridX;
@@ -211,7 +220,13 @@ namespace csharpgame
                     float Alpha = 1F - (distance / 7F);
 
                     s.Draw(npc.texture, Location, null, Color.White * Alpha, npc.rotation, SpriteOrigin, 1F, SpriteEffects.None, 0f);
-                    s.DrawString(FontList[0], npc.Name + "\r\n" + npc.CurrentHitpoints + "/" + npc.MaxHitpoints, TextLocation, Color.Red * Alpha);
+                    s.DrawString(FontList[0], npc.Name, TextLocation, Color.Red * Alpha);
+                    //s.DrawString(FontList[0], npc.Name + "\r\n" + npc.CurrentHitpoints + "/" + npc.MaxHitpoints, TextLocation, Color.Red * Alpha);
+                    float BarPercent = (float) npc.CurrentHitpoints / (float) npc.MaxHitpoints;
+                    int BarPixelWidth = (int)(50F * BarPercent);
+
+                    s.Draw(UIPlayerState.HealthBarBackground, new Vector2((Game.GraphicsDevice.Viewport.Width / 2) + NPCScreenX - PlayerScreenX - 25, (Game.GraphicsDevice.Viewport.Height / 2) + NPCScreenY - PlayerScreenY + 40), new Rectangle(0, 0, 50, 5), Color.White);
+                    s.Draw(UIPlayerState.HealthBar, new Vector2((Game.GraphicsDevice.Viewport.Width / 2) + NPCScreenX - PlayerScreenX - 25, (Game.GraphicsDevice.Viewport.Height / 2) + NPCScreenY - PlayerScreenY + 40), new Rectangle(0, 0, BarPixelWidth, 5), Color.White);
                 }
             }
 
@@ -297,7 +312,6 @@ namespace csharpgame
                     int RelativeY = ScreenY + t.Item3;
                     s.DrawString(FontList[0], t.Item1, new Vector2(RelativeX, RelativeY), Color.Red);
                 }
-
             }
 
             UIPlayerState.Update();
@@ -314,6 +328,11 @@ namespace csharpgame
 
             s.Draw(UIPlayerState.GoldGraphic, new Vector2(StateScreenX + 310, StateScreenY), Color.White);
             s.DrawString(FontList[0]," x " + CharPlayer.GetPlayer().Gold, new Vector2(StateScreenX + 325, StateScreenY), Color.Gold);
+
+            s.Draw(UIPlayerState.TorchGraphicFront, new Vector2(StateScreenX - 80, StateScreenY - 25), Color.White);
+            int TorchPercent = (int) (((CharPlayer.MaxTicks - Player.TorchTicks) / (float) CharPlayer.MaxTicks) * 50);
+            s.Draw(UIPlayerState.TorchGraphicBack, new Vector2(StateScreenX - 80, StateScreenY - 25), new Rectangle(0, 0, 20, 50 - TorchPercent), Color.White);
+            s.DrawString(FontList[0], " x " + CharPlayer.GetPlayer().TorchCount, new Vector2(StateScreenX -50, StateScreenY), Color.Gold);
         }
 
         public void ReadMap(String directory, List<Tuple<int, Action<Tile>>> WeightedSpawnerList)
@@ -362,7 +381,6 @@ namespace csharpgame
                         for(int i=0;i<WeightedSpawnerList.Count;i++)
                         {
                             rand = rand - WeightedSpawnerList[i].Item1;
-                            Console.WriteLine(rand);
                             if(rand <= 0)
                             {
                                 WeightedSpawnerList[i].Item2(ThisTile); //call spawn on the randomly chosen monster
