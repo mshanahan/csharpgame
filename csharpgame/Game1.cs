@@ -20,6 +20,7 @@ namespace csharpgame
         bool arrowKeyPressed = false;
         int arrowKeyPressedConsecutive = 0;
         bool numberPressed = false;
+        bool AllDark = false;
 
         public Game1()
         {
@@ -93,9 +94,13 @@ namespace csharpgame
             Texture2D HealthBack = Content.Load<Texture2D>("Graphics/HealthBack");
             Texture2D HealthBar = Content.Load<Texture2D>("Graphics/HealthBar");
             Texture2D GoldGraphic = Content.Load<Texture2D>("Graphics/Gold");
+            Texture2D TorchGraphicFront = Content.Load<Texture2D>("Graphics/TorchGraphicFront");
+            Texture2D TorchGraphicBack = Content.Load<Texture2D>("Graphics/TorchGraphicBack");
             UIPlayerState.HealthBarBackground = HealthBack;
             UIPlayerState.HealthBar = HealthBar;
             UIPlayerState.GoldGraphic = GoldGraphic;
+            UIPlayerState.TorchGraphicFront = TorchGraphicFront;
+            UIPlayerState.TorchGraphicBack = TorchGraphicBack;
 
 
             //LOADING: Fonts
@@ -355,6 +360,14 @@ namespace csharpgame
         //called each time the player moves
         public void tick()
         {
+            env = Environment.Current();
+            env.Player.TorchTicks++;
+            Console.WriteLine(env.Player.TorchTicks);
+            if(env.Player.TorchTicks == 60)
+            {
+                env.Player.TorchTicks = 0;
+                env.Player.TorchCount--;
+            }
             foreach (Character e in env.NPCList)
             {
                 e.AIRoutine();

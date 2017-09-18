@@ -297,7 +297,6 @@ namespace csharpgame
                     int RelativeY = ScreenY + t.Item3;
                     s.DrawString(FontList[0], t.Item1, new Vector2(RelativeX, RelativeY), Color.Red);
                 }
-
             }
 
             UIPlayerState.Update();
@@ -314,6 +313,11 @@ namespace csharpgame
 
             s.Draw(UIPlayerState.GoldGraphic, new Vector2(StateScreenX + 310, StateScreenY), Color.White);
             s.DrawString(FontList[0]," x " + CharPlayer.GetPlayer().Gold, new Vector2(StateScreenX + 325, StateScreenY), Color.Gold);
+
+            s.Draw(UIPlayerState.TorchGraphicFront, new Vector2(StateScreenX - 80, StateScreenY - 25), Color.White);
+            int TorchPercent = (int) (((60 - Player.TorchTicks) / 60F) * 50);
+            s.Draw(UIPlayerState.TorchGraphicBack, new Vector2(StateScreenX - 80, StateScreenY - 25), new Rectangle(0, 0, 20, 50 - TorchPercent), Color.White);
+            s.DrawString(FontList[0], " x " + CharPlayer.GetPlayer().TorchCount, new Vector2(StateScreenX -50, StateScreenY), Color.Gold);
         }
 
         public void ReadMap(String directory, List<Tuple<int, Action<Tile>>> WeightedSpawnerList)
