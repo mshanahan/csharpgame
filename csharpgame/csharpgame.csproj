@@ -59,6 +59,7 @@
     <Compile Include="TileWaterStagnant.cs" />
     <Compile Include="UIElement.cs" />
     <Compile Include="UIPlayerState.cs" />
+    <Compile Include="ItemWeapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
