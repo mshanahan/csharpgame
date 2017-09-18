@@ -16,11 +16,10 @@ namespace csharpgame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Environment env;
-        public Character player;
 
         bool arrowKeyPressed = false;
         int arrowKeyPressedConsecutive = 0;
-        bool characterSheetPressed = false;
+        bool numberPressed = false;
 
         public Game1()
         {
@@ -80,6 +79,12 @@ namespace csharpgame
             Texture2D goblinCorpseImage = Content.Load<Texture2D>("Graphics/GoblinDead");
             CharGoblin.GoblinDeathImage = goblinCorpseImage;
 
+            Texture2D TraderImage = Content.Load<Texture2D>("Graphics/TraderGraphic");
+            Texture2D TraderScreen = Content.Load<Texture2D>("Graphics/TraderScreen");
+            CharTrader.TraderImage = TraderImage;
+            CharTrader.TraderDeathImage = TraderImage;
+            CharTrader.TradingBackground = TraderScreen;
+
             //LOADING: Sound Effects
             SoundEffect thunk = Content.Load<SoundEffect>("SoundFX/thunk");
             env.Add(thunk);
@@ -101,10 +106,12 @@ namespace csharpgame
             Tuple<int, Action<Tile>> GoblinWeight = new Tuple<int, Action<Tile>>(1, new Action<Tile>(CharGoblin.Spawn));
             WeightList.Add(GoblinWeight);
             env.ReadMap("Content/Maps/prototype2.txt", WeightList);
-
-            Tile randomTile = env.TileList[env.Random.Next(0, env.TileList.Count)];
-            player = CharPlayer.GetPlayer();
+            
+            CharPlayer player = CharPlayer.GetPlayer();
             env.Setup(this, player);
+
+            CharTrader trader = new CharTrader(env.TileList[2]);
+            env.Add(trader);
 
 
         }
@@ -139,24 +146,121 @@ namespace csharpgame
             }
 
  
+
+
+                env.DrawTradingScreen = false;
+                foreach(CharTrader t in CharTrader.TraderList)
+                {
+                    if(Tile.distanceBetween(t.currentPosition,env.Player.currentPosition) <= 1)
+                    {
+                        env.DrawTradingScreen = true;
+                    }
+                }
+
+
+                if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D1) && !numberPressed && env.DrawTradingScreen) // heal 1
+                {
+                    numberPressed = true;
+                    if (env.Player.CurrentHitpoints < env.Player.MaxHitpoints && env.Player.Gold > 0)
+                    {
+                        env.Player.Gold--;
+                        env.Player.CurrentHitpoints++;
+                    }
+                    else
+                    {
+                        env.SoundFXList[0].Play(); //thunk
+                    }
+                }
+                if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D2) && !numberPressed && env.DrawTradingScreen) // heal all
+                {
+                    numberPressed = true;
+                    if (env.Player.CurrentHitpoints < env.Player.MaxHitpoints && env.Player.Gold >= env.Player.MaxHitpoints - env.Player.CurrentHitpoints)
+                    {
+                        env.Player.Gold = env.Player.Gold - (env.Player.MaxHitpoints - env.Player.CurrentHitpoints);
+                        env.Player.CurrentHitpoints = env.Player.MaxHitpoints;
+                    }
+                    else
+                    {
+                        env.SoundFXList[0].Play(); //thunk
+                    }
+                }
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D3) && !numberPressed && env.DrawTradingScreen) // upgrade attack
+            {
+                numberPressed = true;
+                if (env.Player.Gold >= 10 * CharTrader.AttackCount)
+                {
+                    env.Player.Gold = env.Player.Gold - 10 * CharTrader.AttackCount;
+                    env.Player.Attack++;
+                    CharTrader.AttackCount++;
+                }
+                else
+                {
+                    env.SoundFXList[0].Play(); //thunk
+                }
+            }
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D4) && !numberPressed && env.DrawTradingScreen) // upgrade damage
+            {
+                numberPressed = true;
+                if (env.Player.Gold >= 5 * CharTrader.DamageCount)
+                {
+                    env.Player.Gold = env.Player.Gold - 5 * CharTrader.DamageCount;
+                    env.Player.Damage++;
+                    CharTrader.DamageCount++;
+                }
+                else
+                {
+                    env.SoundFXList[0].Play(); //thunk
+                }
+            }
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D5) && !numberPressed && env.DrawTradingScreen) // upgrade defense
+            {
+                numberPressed = true;
+                if (env.Player.Gold >= 20 * CharTrader.DefenseCount)
+                {
+                    env.Player.Gold = env.Player.Gold - 20 * CharTrader.DefenseCount;
+                    env.Player.Armor++;
+                    CharTrader.DefenseCount++;
+                }
+                else
+                {
+                    env.SoundFXList[0].Play(); //thunk
+                }
+            }
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D6) && !numberPressed && env.DrawTradingScreen) // upgrade hitpoints
+            {
+                numberPressed = true;
+                if (env.Player.Gold >= 2 * CharTrader.HitpointCount)
+                {
+                    env.Player.Gold = env.Player.Gold - 2 * CharTrader.HitpointCount;
+                    env.Player.CurrentHitpoints++;
+                    env.Player.MaxHitpoints++;
+                    CharTrader.HitpointCount++;
+                }
+                else
+                {
+                    env.SoundFXList[0].Play(); //thunk
+                }
+            }
+
             if (!CharPlayer.GetPlayer().Locked)
             {
                 if (arrowKeyPressed) arrowKeyPressedConsecutive++;
                 if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Up))
                 {
-                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
+                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 10 == 0)
                     {
-                        player.Move(0, -1);
+                        env.Player.Move(0, -1);
                         arrowKeyPressed = true;
                         arrowKeyPressedConsecutive++;
                         this.tick();
                     }
                 }
+
                 if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Down))
                 {
-                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
+                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 10 == 0)
                     {
-                        player.Move(0, 1);
+                        env.Player.Move(0, 1);
                         arrowKeyPressed = true;
                         arrowKeyPressedConsecutive++;
                         this.tick();
@@ -164,9 +268,9 @@ namespace csharpgame
                 }
                 if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Right))
                 {
-                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
+                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 10 == 0)
                     {
-                        player.Move(1, 0);
+                        env.Player.Move(1, 0);
                         arrowKeyPressed = true;
                         arrowKeyPressedConsecutive++;
                         this.tick();
@@ -174,9 +278,9 @@ namespace csharpgame
                 }
                 if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Left))
                 {
-                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
+                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 10 == 0)
                     {
-                        player.Move(-1, 0);
+                        env.Player.Move(-1, 0);
                         arrowKeyPressed = true;
                         arrowKeyPressedConsecutive++;
                         this.tick();
@@ -192,6 +296,15 @@ namespace csharpgame
                     arrowKeyPressed = false;
                     arrowKeyPressedConsecutive = 0;
                 }
+
+                numberPressed =
+                    Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D1) ||
+                    Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D2) ||
+                    Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D3) ||
+                    Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D4) ||
+                    Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D5) ||
+                    Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D6);
+
             }
 
             // TODO: Add your update logic here

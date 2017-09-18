@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/Graphics/Gold.png</SourceFile>
-  <SourceTime>2017-09-17T17:46:47.0674927-05:00</SourceTime>
+  <SourceTime>2017-09-17T17:52:54.2605199-05:00</SourceTime>
   <DestFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/bin/Windows/Graphics/Gold.xnb</DestFile>
-  <DestTime>2017-09-17T17:49:55.638291-05:00</DestTime>
+  <DestTime>2017-09-17T19:20:03.3669691-05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T09:05:36-06:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

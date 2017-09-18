@@ -26,6 +26,12 @@ namespace csharpgame
             this.behavior = Behavior.Wandering;
         }
 
+        public override int GiveGold()
+        {
+            Environment env = Environment.Current();
+            return env.Random.Next(1, 9);
+        }
+
         public static void Spawn(Tile t)
         {
             Environment env = Environment.Current();

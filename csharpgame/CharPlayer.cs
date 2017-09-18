@@ -22,7 +22,7 @@ namespace csharpgame
             this.setPlayer();
             this.CurrentHitpoints = 10;
             this.MaxHitpoints = CurrentHitpoints;
-            this.Armor = 12;
+            this.Armor = 10;
             this.Attack = 0;
             this.Damage = 1;
             this.texture = PlayerImage;

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/Graphics/HealthBack.png</SourceFile>
-  <SourceTime>2017-09-17T17:52:54.2615201-05:00</SourceTime>
-  <DestFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/bin/Windows/Graphics/HealthBack.xnb</DestFile>
-  <DestTime>2017-09-17T19:20:03.3089659-05:00</DestTime>
+  <SourceFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/Graphics/TraderScreen.png</SourceFile>
+  <SourceTime>2017-09-17T20:10:38.9158024-05:00</SourceTime>
+  <DestFile>C:/Users/mshanahan/source/repos/csharpgame/csharpgame/Content/bin/Windows/Graphics/TraderScreen.xnb</DestFile>
+  <DestTime>2017-09-17T20:11:50.8009186-05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T09:05:36-06:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
