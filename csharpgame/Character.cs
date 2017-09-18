@@ -132,11 +132,12 @@ namespace csharpgame
         {
             Environment env = Environment.Current();
             int attackRoll = env.Random.Next(1, 21);
-            if (attackRoll > attacked.Armor)
+            if (attackRoll > attacked.ItemArmor.Armor + attacked.Armor)
             {
-                attacked.CurrentHitpoints = attacked.CurrentHitpoints - this.Damage;
+                int damage = this.ItemWeapon.RollDamage();
+                attacked.CurrentHitpoints = attacked.CurrentHitpoints - (damage + this.Damage);
                 if (attacked.CurrentHitpoints <= 0 && !attacked.isPlayer) attacked.markedForDeath = true;
-                env.Add(new Text("Hit! " + this.Damage + " damage", (env.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (env.Player.currentPosition.gridX * 50), (env.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (env.Player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
+                env.Add(new Text("Hit! " + (damage + this.Damage) + " damage", (env.Game.GraphicsDevice.Viewport.Width / 2) + (this.currentPosition.gridX * 50) - (env.Player.currentPosition.gridX * 50), (env.Game.GraphicsDevice.Viewport.Height / 2) + (this.currentPosition.gridY * 50) - (env.Player.currentPosition.gridY * 50), 0.01F, 0, -0.5F));
             }
             else
             {

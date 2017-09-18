@@ -36,6 +36,9 @@ namespace csharpgame
             this.DeathTexture = TraderDeathImage;
             this.behavior = Behavior.None;
             TraderList.Add(this);
+
+            this.ItemArmor = new ItemArmor("Trader Armor", 1337, 420);
+            this.ItemWeapon = new ItemWeapon("Trader Weapon", 5, 2, 20);
         }
 
         public static UIElement GetUpdatedPanel()

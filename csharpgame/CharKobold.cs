@@ -18,12 +18,15 @@ namespace csharpgame
             this.Name = "Kobold";
             this.CurrentHitpoints = env.Random.Next(1, 5);
             this.MaxHitpoints = CurrentHitpoints;
-            this.Armor = 10;
+            this.Armor = 0;
             this.Attack = 0;
-            this.Damage = 1;
+            this.Damage = 0;
             this.texture = Image;
             this.DeathTexture = DeathImage;
             this.behavior = Behavior.Wandering;
+
+            this.ItemArmor = new ItemArmor("Kobold Armor", 0, 10);
+            this.ItemWeapon = new ItemWeapon("Kobold Dagger", 0, 1, 4);
         }
 
         public override int GiveGold()
