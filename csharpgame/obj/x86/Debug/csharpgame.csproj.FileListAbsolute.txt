@@ -44,3 +44,5 @@ C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Cont
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\TraderScreen.xnb
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\TorchGraphicBack.xnb
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\TorchGraphicFront.xnb
+C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\KoboldDead.xnb
+C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\KoboldToken.xnb

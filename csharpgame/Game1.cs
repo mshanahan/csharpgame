@@ -80,6 +80,11 @@ namespace csharpgame
             Texture2D goblinCorpseImage = Content.Load<Texture2D>("Graphics/GoblinDead");
             CharGoblin.GoblinDeathImage = goblinCorpseImage;
 
+            Texture2D KoboldImage = Content.Load<Texture2D>("Graphics/KoboldToken");
+            CharKobold.Image = KoboldImage;
+            Texture2D KoboldDeathImage = Content.Load<Texture2D>("Graphics/KoboldDead");
+            CharKobold.DeathImage = KoboldDeathImage;
+
             Texture2D TraderImage = Content.Load<Texture2D>("Graphics/TraderGraphic");
             Texture2D TraderScreen = Content.Load<Texture2D>("Graphics/TraderScreen");
             CharTrader.TraderImage = TraderImage;
@@ -110,6 +115,8 @@ namespace csharpgame
             List<Tuple<int, Action < Tile >>> WeightList = new List<Tuple<int, Action<Tile>>>();
             Tuple<int, Action<Tile>> GoblinWeight = new Tuple<int, Action<Tile>>(1, new Action<Tile>(CharGoblin.Spawn));
             WeightList.Add(GoblinWeight);
+            Tuple<int, Action<Tile>> KoboldWeight = new Tuple<int, Action<Tile>>(2, new Action<Tile>(CharKobold.Spawn));
+            WeightList.Add(KoboldWeight);
             env.ReadMap("Content/Maps/prototype2.txt", WeightList);
             
             CharPlayer player = CharPlayer.GetPlayer();
