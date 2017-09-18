@@ -189,8 +189,9 @@ namespace csharpgame
                 numberPressed = true;
                 if (env.Player.Gold >= 10 * CharTrader.AttackCount)
                 {
-                    env.Player.Gold = 10 * CharTrader.AttackCount;
+                    env.Player.Gold = env.Player.Gold - 10 * CharTrader.AttackCount;
                     env.Player.Attack++;
+                    CharTrader.AttackCount++;
                 }
                 else
                 {
@@ -202,8 +203,38 @@ namespace csharpgame
                 numberPressed = true;
                 if (env.Player.Gold >= 5 * CharTrader.DamageCount)
                 {
-                    env.Player.Gold = 5 * CharTrader.DamageCount;
+                    env.Player.Gold = env.Player.Gold - 5 * CharTrader.DamageCount;
                     env.Player.Damage++;
+                    CharTrader.DamageCount++;
+                }
+                else
+                {
+                    env.SoundFXList[0].Play(); //thunk
+                }
+            }
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D5) && !numberPressed && env.DrawTradingScreen) // upgrade defense
+            {
+                numberPressed = true;
+                if (env.Player.Gold >= 20 * CharTrader.DefenseCount)
+                {
+                    env.Player.Gold = env.Player.Gold - 20 * CharTrader.DefenseCount;
+                    env.Player.Armor++;
+                    CharTrader.DefenseCount++;
+                }
+                else
+                {
+                    env.SoundFXList[0].Play(); //thunk
+                }
+            }
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D5) && !numberPressed && env.DrawTradingScreen) // upgrade hitpoints
+            {
+                numberPressed = true;
+                if (env.Player.Gold >= 2 * CharTrader.HitpointCount)
+                {
+                    env.Player.Gold = env.Player.Gold - 2 * CharTrader.HitpointCount;
+                    env.Player.CurrentHitpoints++;
+                    env.Player.MaxHitpoints++;
+                    CharTrader.HitpointCount++;
                 }
                 else
                 {
