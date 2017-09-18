@@ -146,19 +146,7 @@ namespace csharpgame
             }
 
  
-            if (!CharPlayer.GetPlayer().Locked)
-            {
-                if (arrowKeyPressed) arrowKeyPressedConsecutive++;
-                if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Up))
-                {
-                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
-                    {
-                        env.Player.Move(0, -1);
-                        arrowKeyPressed = true;
-                        arrowKeyPressedConsecutive++;
-                        this.tick();
-                    }
-                }
+
 
                 env.DrawTradingScreen = false;
                 foreach(CharTrader t in CharTrader.TraderList)
@@ -183,10 +171,50 @@ namespace csharpgame
                         env.SoundFXList[0].Play(); //thunk
                     }
                 }
+                if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D2) && !numberPressed && env.DrawTradingScreen) // heal all
+                {
+                    numberPressed = true;
+                    if (env.Player.CurrentHitpoints < env.Player.MaxHitpoints && env.Player.Gold >= env.Player.MaxHitpoints - env.Player.CurrentHitpoints)
+                    {
+                        env.Player.Gold = env.Player.Gold - (env.Player.MaxHitpoints - env.Player.CurrentHitpoints);
+                        env.Player.CurrentHitpoints = env.Player.MaxHitpoints;
+                    }
+                    else
+                    {
+                        env.SoundFXList[0].Play(); //thunk
+                    }
+                }
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D3) && !numberPressed && env.DrawTradingScreen) // upgrade attack
+            {
+                numberPressed = true;
+                if (env.Player.Gold >= 10 * CharTrader.AttackCount)
+                {
+                    env.Player.Gold = 10 * CharTrader.AttackCount);
+                    env.Player.Attack++;
+                }
+                else
+                {
+                    env.SoundFXList[0].Play(); //thunk
+                }
+            }
+
+            if (!CharPlayer.GetPlayer().Locked)
+            {
+                if (arrowKeyPressed) arrowKeyPressedConsecutive++;
+                if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Up))
+                {
+                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 10 == 0)
+                    {
+                        env.Player.Move(0, -1);
+                        arrowKeyPressed = true;
+                        arrowKeyPressedConsecutive++;
+                        this.tick();
+                    }
+                }
 
                 if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Down))
                 {
-                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
+                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 10 == 0)
                     {
                         env.Player.Move(0, 1);
                         arrowKeyPressed = true;
@@ -196,7 +224,7 @@ namespace csharpgame
                 }
                 if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Right))
                 {
-                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
+                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 10 == 0)
                     {
                         env.Player.Move(1, 0);
                         arrowKeyPressed = true;
@@ -206,7 +234,7 @@ namespace csharpgame
                 }
                 if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Left))
                 {
-                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 15 == 0)
+                    if (!arrowKeyPressed || arrowKeyPressedConsecutive % 10 == 0)
                     {
                         env.Player.Move(-1, 0);
                         arrowKeyPressed = true;
