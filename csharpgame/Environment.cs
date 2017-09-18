@@ -310,6 +310,8 @@ namespace csharpgame
             s.Draw(UIPlayerState.HealthBarBackground, new Vector2(StateScreenX, StateScreenY), Color.White);
             s.Draw(UIPlayerState.HealthBar, new Vector2(StateScreenX, StateScreenY), new Rectangle(StateScreenX, StateScreenY, BarPixelWidth, 10), Color.White);
 
+            s.DrawString(FontList[0], "ATK: " + Player.Attack + " DAM: " + Player.Damage + " DEF: " + Player.Armor + " HP: " + Player.MaxHitpoints, new Vector2(StateScreenX + 50, StateScreenY + 20), Color.Red);
+
             s.Draw(UIPlayerState.GoldGraphic, new Vector2(StateScreenX + 310, StateScreenY), Color.White);
             s.DrawString(FontList[0]," x " + CharPlayer.GetPlayer().Gold, new Vector2(StateScreenX + 325, StateScreenY), Color.Gold);
         }

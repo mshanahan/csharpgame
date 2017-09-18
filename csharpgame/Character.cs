@@ -177,13 +177,15 @@ namespace csharpgame
                 else moveY = 1 * yMult;
                 Console.WriteLine(moveX + ", " + moveY);
                 this.Move(moveX, moveY);
+                int distanceToPlayer = Tile.distanceBetween(this.currentPosition, env.Player.currentPosition);
+                if (distanceToPlayer > 5) this.behavior = Behavior.Wandering;
             }
 
             //Idle behavior
             if (this.behavior == Behavior.Idle)
             {
                 int distanceToPlayer = Tile.distanceBetween(this.currentPosition, env.Player.currentPosition);
-                if (distanceToPlayer <= 6) this.behavior = Behavior.Alert;
+                if (distanceToPlayer <= 4) this.behavior = Behavior.Alert;
             }
 
             //Wandering behavior
@@ -208,7 +210,7 @@ namespace csharpgame
                 }
 
                 int distanceToPlayer = Tile.distanceBetween(this.currentPosition, env.Player.currentPosition);
-                if (distanceToPlayer <= 6) this.behavior = Behavior.Alert;
+                if (distanceToPlayer <= 4) this.behavior = Behavior.Alert;
             }
         }
     }

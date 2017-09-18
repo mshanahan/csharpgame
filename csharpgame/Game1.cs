@@ -226,7 +226,7 @@ namespace csharpgame
                     env.SoundFXList[0].Play(); //thunk
                 }
             }
-            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D5) && !numberPressed && env.DrawTradingScreen) // upgrade hitpoints
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D6) && !numberPressed && env.DrawTradingScreen) // upgrade hitpoints
             {
                 numberPressed = true;
                 if (env.Player.Gold >= 2 * CharTrader.HitpointCount)

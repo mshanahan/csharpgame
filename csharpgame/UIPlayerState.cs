@@ -19,7 +19,7 @@ namespace csharpgame
         {
             Environment env = Environment.Current();
             int PosX = (env.Game.GraphicsDevice.Viewport.Width / 2) - 150;
-            int PosY = (env.Game.GraphicsDevice.Viewport.Height) - 150;
+            int PosY = (env.Game.GraphicsDevice.Viewport.Height) - 75;
             this.Background = new Tuple<Texture2D, int, int>(UIPlayerState.HealthBarBackground, PosX, PosY);
         }
 
