@@ -148,11 +148,20 @@ namespace csharpgame
 
         public void DrawTiles(SpriteBatch s)
         {
-            foreach (Tile t in TileList)
+            foreach(Tile t in TileList) //raycasting pass
             {
                 int distance = Tile.distanceBetween(t, Player.currentPosition);
-                if ( distance <= 6)
+                if (distance <= 6) Tile.Line(Player.currentPosition.gridX, Player.currentPosition.gridY, t.gridX, t.gridY, Tile.CheckVisibility);
+                //if (distance == 6) Tile.Line(t.gridX, t.gridY, Player.currentPosition.gridX, Player.currentPosition.gridY, Tile.CheckVisibility);
+            }
+
+            foreach (Tile t in TileList) //drawing pass
+            {
+                int distance = Tile.distanceBetween(t, Player.currentPosition);
+
+                if ( t.Draw )
                 {
+                    t.Draw = false;
                     int TileScreenX = t.gridX * 50;
                     int TileScreenY = t.gridY * 50;
                     int PlayerGridX = Player.currentPosition.gridX;
@@ -372,7 +381,6 @@ namespace csharpgame
                         for(int i=0;i<WeightedSpawnerList.Count;i++)
                         {
                             rand = rand - WeightedSpawnerList[i].Item1;
-                            Console.WriteLine(rand);
                             if(rand <= 0)
                             {
                                 WeightedSpawnerList[i].Item2(ThisTile); //call spawn on the randomly chosen monster

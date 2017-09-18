@@ -117,7 +117,7 @@ namespace csharpgame
             WeightList.Add(GoblinWeight);
             Tuple<int, Action<Tile>> KoboldWeight = new Tuple<int, Action<Tile>>(2, new Action<Tile>(CharKobold.Spawn));
             WeightList.Add(KoboldWeight);
-            env.ReadMap("Content/Maps/prototype3.txt", WeightList);
+            env.ReadMap("Content/Maps/prototype2.txt", WeightList);
             
             CharPlayer player = CharPlayer.GetPlayer();
             env.Setup(this, player);

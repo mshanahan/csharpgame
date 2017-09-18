@@ -12,6 +12,7 @@ namespace csharpgame
         private static CharPlayer Player { get; set; }
         public static Texture2D PlayerImage { get; set; }
         public static Texture2D PlayerDeathImage { get; set; }
+        public static int MaxTicks { get; set; }
         public bool Locked { get; set; }
         public int Gold { get; set; }
         public int TorchCount { get; set; }
@@ -24,7 +25,7 @@ namespace csharpgame
             this.setPlayer();
             this.CurrentHitpoints = 10;
             this.MaxHitpoints = CurrentHitpoints;
-            this.Armor = 10;
+            this.Armor = 100;
             this.Attack = 0;
             this.Damage = 1;
             this.texture = PlayerImage;
