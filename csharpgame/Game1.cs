@@ -387,11 +387,11 @@ namespace csharpgame
         {
             env = Environment.Current();
             env.Player.TorchTicks++;
-            if(env.Player.TorchTicks == 75)
+            if(env.Player.TorchTicks == CharPlayer.MaxTicks)
             {
                 env.Player.TorchTicks = 0;
                 env.Player.TorchCount--;
-                if(env.Player.TorchCount <= 0)
+                if(env.Player.TorchCount < 0)
                 {
                     this.AllDark = true;
                 }

@@ -12,7 +12,7 @@ namespace csharpgame
         private static CharPlayer Player { get; set; }
         public static Texture2D PlayerImage { get; set; }
         public static Texture2D PlayerDeathImage { get; set; }
-        public static int MaxTicks { get; set; }
+        public static int MaxTicks { get; } = 360;
         public bool Locked { get; set; }
         public int Gold { get; set; }
         public int TorchCount { get; set; }
@@ -32,7 +32,7 @@ namespace csharpgame
             this.DeathTexture = PlayerDeathImage;
             this.Locked = false;
             this.Gold = 0;
-            this.TorchCount = 6;
+            this.TorchCount = 1;
             this.TorchTicks = 0;
         }
 
