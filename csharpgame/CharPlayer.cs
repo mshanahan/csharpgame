@@ -31,7 +31,7 @@ namespace csharpgame
             this.DeathTexture = PlayerDeathImage;
             this.Locked = false;
             this.Gold = 0;
-            this.TorchCount = 12;
+            this.TorchCount = 6;
             this.TorchTicks = 0;
         }
 

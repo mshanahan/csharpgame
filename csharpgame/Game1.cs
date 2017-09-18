@@ -140,12 +140,14 @@ namespace csharpgame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == Microsoft.Xna.Framework.Input.ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Escape))
                 Exit();
 
-            if (CharPlayer.GetPlayer().CurrentHitpoints <= 0)
+            if (CharPlayer.GetPlayer().CurrentHitpoints <= 0 || AllDark)
             {
                 CharPlayer.GetPlayer().Locked = true;
                 CharPlayer.GetPlayer().texture = CharPlayer.PlayerDeathImage;
                 List<Tuple<string, int, int>> GameOverList = new List<Tuple<string, int, int>>();
                 GameOverList.Add(new Tuple<string, int, int>("GAME OVER", 0, 0));
+                GameOverList.Add(new Tuple<string, int, int>("YOU HAVE DIED", 0, 20));
+                if (AllDark) GameOverList.Add(new Tuple<string, int, int>("YOU RAN OUT OF TORCHES", 0, 40));
                 UIElement GameOver = new UIElement(env.Game.GraphicsDevice.Viewport.Width / 2, env.Game.GraphicsDevice.Viewport.Height / 2 - 50,GameOverList);
                 env.Add(GameOver);
             }
@@ -346,11 +348,13 @@ namespace csharpgame
 
             spriteBatch.Begin();
 
-            env.DrawTiles(spriteBatch); //draw all Tiles in the Environment...
-            env.DrawCorpses(spriteBatch); //draw all Corpses in the Environment...
-            env.DrawPlayer(spriteBatch); //draw the Player...
-            env.DrawNPCs(spriteBatch); //draw all NPCs in the Environment...
-            env.DrawDecayingText(spriteBatch); //draw all Decaying Text in the Environment...
+            if(!AllDark) {
+                env.DrawTiles(spriteBatch); //draw all Tiles in the Environment...
+                env.DrawCorpses(spriteBatch); //draw all Corpses in the Environment...
+                env.DrawPlayer(spriteBatch); //draw the Player...
+                env.DrawNPCs(spriteBatch); //draw all NPCs in the Environment...
+                env.DrawDecayingText(spriteBatch); //draw all Decaying Text in the Environment...
+            }
             env.DrawUIElements(spriteBatch); //draw all UI Elements in the Environment...
 
             spriteBatch.End();
@@ -362,11 +366,14 @@ namespace csharpgame
         {
             env = Environment.Current();
             env.Player.TorchTicks++;
-            Console.WriteLine(env.Player.TorchTicks);
-            if(env.Player.TorchTicks == 60)
+            if(env.Player.TorchTicks == 120)
             {
                 env.Player.TorchTicks = 0;
                 env.Player.TorchCount--;
+                if(env.Player.TorchCount <= 0)
+                {
+                    this.AllDark = true;
+                }
             }
             foreach (Character e in env.NPCList)
             {
