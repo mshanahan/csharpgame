@@ -125,7 +125,20 @@ namespace csharpgame
             CharTrader trader = new CharTrader(env.TileList[2]);
             env.Add(trader);
 
+            CharTrader.ArmorProgression.Add(new ItemArmor("Padded Armor",4, 11));
+            CharTrader.ArmorProgression.Add(new ItemArmor("Leather Armor", 6, 12));
+            CharTrader.ArmorProgression.Add(new ItemArmor("Studded Leather Armor", 30, 13));
+            CharTrader.ArmorProgression.Add(new ItemArmor("Scale Mail", 50, 14));
+            CharTrader.ArmorProgression.Add(new ItemArmor("Chain Mail", 70, 15));
+            CharTrader.ArmorProgression.Add(new ItemArmor("Splint Mail", 75, 16));
+            CharTrader.ArmorProgression.Add(new ItemArmor("Banded Mail", 85, 17));
+            CharTrader.ArmorProgression.Add(new ItemArmor("Plate Mail", 450, 18));
 
+            CharTrader.WeaponProgression.Add(new ItemWeapon("Dagger", 5, 1, 4));
+            CharTrader.WeaponProgression.Add(new ItemWeapon("Shortsword", 19, 1, 6));
+            CharTrader.WeaponProgression.Add(new ItemWeapon("Broadsword", 32, 1, 8));
+            CharTrader.WeaponProgression.Add(new ItemWeapon("Longsword", 59, 1, 10));
+            CharTrader.WeaponProgression.Add(new ItemWeapon("Greatsword", 90, 2, 6));
         }
 
         /// <summary>
@@ -201,9 +214,9 @@ namespace csharpgame
             if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D3) && !numberPressed && env.DrawTradingScreen) // upgrade attack
             {
                 numberPressed = true;
-                if (env.Player.Gold >= 10 * CharTrader.AttackCount)
+                if (env.Player.Gold >= (int) Math.Pow(CharTrader.AttackCount, 3))
                 {
-                    env.Player.Gold = env.Player.Gold - 10 * CharTrader.AttackCount;
+                    env.Player.Gold = env.Player.Gold - (int) Math.Pow(CharTrader.AttackCount, 3);
                     env.Player.Attack++;
                     CharTrader.AttackCount++;
                 }
@@ -215,9 +228,9 @@ namespace csharpgame
             if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D4) && !numberPressed && env.DrawTradingScreen) // upgrade damage
             {
                 numberPressed = true;
-                if (env.Player.Gold >= 5 * CharTrader.DamageCount)
+                if (env.Player.Gold >= (int) Math.Pow(CharTrader.DamageCount,3))
                 {
-                    env.Player.Gold = env.Player.Gold - 5 * CharTrader.DamageCount;
+                    env.Player.Gold = env.Player.Gold - (int) Math.Pow(CharTrader.AttackCount, 3);
                     env.Player.Damage++;
                     CharTrader.DamageCount++;
                 }
@@ -229,9 +242,9 @@ namespace csharpgame
             if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D5) && !numberPressed && env.DrawTradingScreen) // upgrade defense
             {
                 numberPressed = true;
-                if (env.Player.Gold >= 20 * CharTrader.DefenseCount)
+                if (env.Player.Gold >= (int) Math.Pow(CharTrader.DefenseCount,3))
                 {
-                    env.Player.Gold = env.Player.Gold - 20 * CharTrader.DefenseCount;
+                    env.Player.Gold = env.Player.Gold - (int)Math.Pow(CharTrader.DefenseCount, 3);
                     env.Player.Armor++;
                     CharTrader.DefenseCount++;
                 }
@@ -258,9 +271,9 @@ namespace csharpgame
             if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D7) && !numberPressed && env.DrawTradingScreen) // buy torch
             {
                 numberPressed = true;
-                if (env.Player.Gold >= 10)
+                if (env.Player.Gold >= 20)
                 {
-                    env.Player.Gold = env.Player.Gold - 10;
+                    env.Player.Gold = env.Player.Gold - 20;
                     env.Player.TorchCount++;
                 }
                 else
@@ -268,6 +281,35 @@ namespace csharpgame
                     env.SoundFXList[0].Play(); //thunk
                 }
             }
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D8) && !numberPressed && env.DrawTradingScreen) // buy armor
+            {
+                numberPressed = true;
+                if (env.Player.Gold >= CharTrader.ArmorProgression[CharTrader.ArmorCount].Price)
+                {
+                    env.Player.Gold = env.Player.Gold - CharTrader.ArmorProgression[CharTrader.ArmorCount].Price;
+                    env.Player.ItemArmor = CharTrader.ArmorProgression[CharTrader.ArmorCount];
+                    CharTrader.ArmorCount++;
+                }
+                else
+                {
+                    env.SoundFXList[0].Play(); //thunk
+                }
+            }
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D9) && !numberPressed && env.DrawTradingScreen) // buy weapon
+            {
+                numberPressed = true;
+                if (env.Player.Gold >= CharTrader.WeaponProgression[CharTrader.WeaponCount].Price)
+                {
+                    env.Player.Gold = env.Player.Gold - CharTrader.WeaponProgression[CharTrader.WeaponCount].Price;
+                    env.Player.ItemWeapon = CharTrader.WeaponProgression[CharTrader.WeaponCount];
+                    CharTrader.WeaponCount++;
+                }
+                else
+                {
+                    env.SoundFXList[0].Play(); //thunk
+                }
+            }
+
 
             if (!CharPlayer.GetPlayer().Locked)
             {
@@ -331,7 +373,9 @@ namespace csharpgame
                     Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D4) ||
                     Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D5) ||
                     Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D6) ||
-                    Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D7);
+                    Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D7) ||
+                    Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D8) ||
+                    Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D9);
 
             }
 
@@ -370,11 +414,13 @@ namespace csharpgame
             spriteBatch.Begin();
 
             if(!AllDark) {
+                env.RayCast(); //mark tiles in line of site for drawing
                 env.DrawTiles(spriteBatch); //draw all Tiles in the Environment...
                 env.DrawCorpses(spriteBatch); //draw all Corpses in the Environment...
                 env.DrawPlayer(spriteBatch); //draw the Player...
                 env.DrawNPCs(spriteBatch); //draw all NPCs in the Environment...
                 env.DrawDecayingText(spriteBatch); //draw all Decaying Text in the Environment...
+                env.ResetDrawState(); //remove the tile draw mark
             }
             env.DrawUIElements(spriteBatch); //draw all UI Elements in the Environment...
 

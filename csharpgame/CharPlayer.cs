@@ -25,15 +25,17 @@ namespace csharpgame
             this.setPlayer();
             this.CurrentHitpoints = 10;
             this.MaxHitpoints = CurrentHitpoints;
-            this.Armor = 100;
+            this.Armor = 0;
             this.Attack = 0;
-            this.Damage = 1;
+            this.Damage = 0;
             this.texture = PlayerImage;
             this.DeathTexture = PlayerDeathImage;
             this.Locked = false;
             this.Gold = 0;
             this.TorchCount = 1;
             this.TorchTicks = 0;
+            this.ItemArmor = new ItemArmor("Clothing", 0, 10);
+            this.ItemWeapon = new ItemWeapon("Stick", 0, 1, 3);
         }
 
         public static CharPlayer GetPlayer()

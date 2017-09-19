@@ -18,12 +18,15 @@ namespace csharpgame
             this.Name = "Goblin";
             this.CurrentHitpoints = env.Random.Next(1, 7);
             this.MaxHitpoints = CurrentHitpoints;
-            this.Armor = 12;
+            this.Armor = 2;
             this.Attack = 0;
-            this.Damage = 1;
+            this.Damage = 0;
             this.texture = GoblinImage;
             this.DeathTexture = GoblinDeathImage;
             this.behavior = Behavior.Wandering;
+
+            this.ItemArmor = new ItemArmor("Goblin Armor", 0, 10);
+            this.ItemWeapon = new ItemWeapon("Goblin Spear", 0, 1, 6);
         }
 
         public override int GiveGold()
