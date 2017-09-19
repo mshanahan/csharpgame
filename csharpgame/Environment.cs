@@ -384,6 +384,12 @@ namespace csharpgame
             RoomList.Add(RoomMedium);
             Room RoomSmall = new Room("Content/Rooms/RoomSmall.txt");
             RoomList.Add(RoomSmall);
+            Room RoomCircleHuge = new Room("Content/Rooms/RoomCircleHuge.txt");
+            RoomList.Add(RoomCircleHuge);
+            Room RoomCircleHugeWithPool = new Room("Content/Rooms/RoomCircleHugeWithPool.txt");
+            RoomList.Add(RoomCircleHugeWithPool);
+            Room RoomHugePartition1 = new Room("Content/Rooms/RoomHugePartition1.txt");
+            RoomList.Add(RoomHugePartition1);
 
             for(int i=0;i<roomsX;i++)
             {
