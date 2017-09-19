@@ -215,9 +215,9 @@ namespace csharpgame
             if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D3) && !numberPressed && env.DrawTradingScreen) // upgrade attack
             {
                 numberPressed = true;
-                if (env.Player.Gold >= (int) Math.Pow(CharTrader.AttackCount, 3))
+                if (env.Player.Gold >= (int) Math.Pow(CharTrader.AttackCount, 2))
                 {
-                    env.Player.Gold = env.Player.Gold - (int) Math.Pow(CharTrader.AttackCount, 3);
+                    env.Player.Gold = env.Player.Gold - (int) Math.Pow(CharTrader.AttackCount, 2);
                     env.Player.Attack++;
                     CharTrader.AttackCount++;
                 }
