@@ -52,61 +52,56 @@ namespace csharpgame
             int newX = curX + xDiff;
             int newY = curY + yDiff;
 
-            bool foundTile = false;
-            foreach (Tile t in env.TileList)
+            bool foundTile = true;
+            if ((newY >= 0 && newY < env.TileList.Count) && (newX >= 0 && newX < env.TileList[newY].Count))
             {
-                if (t.gridX == newX && t.gridY == newY)
+               Tile t = env.TileList[newX][newY];
+                if (t.type == Tile.Type.Wall || t.type == Tile.Type.Liquid)
                 {
-
-                    foundTile = true;
-
-                    if(t.type == Tile.Type.Wall || t.type == Tile.Type.Liquid)
-                    {
-                        foundTile = false;
-                        if(this.isPlayer) env.SoundFXList[0].Play(); //thunk
-                    }
-
-                    if ((env.Player.currentPosition.gridX == newX && env.Player.currentPosition.gridY == newY))
-                    {
-                        this.AttackCharacter(env.Player);
-                        env.SoundFXList[0].Play(); //thunk
-                        foundTile = false;
-                    }
-
-                    //foreach (Character e in env.NPCList)
-                    for(int i=0;i<env.NPCList.Count;i++)
-                    {
-                        Character e = env.NPCList[i];
-                        if ((e.currentPosition.gridX == newX && e.currentPosition.gridY == newY))
-                        {
-                            foundTile = false;
-                            if (this.isPlayer)
-                            {
-                                this.AttackCharacter(e);
-                                if (e.markedForDeath)
-                                {
-                                    CharPlayer.GetPlayer().Gold = CharPlayer.GetPlayer().Gold + e.GiveGold();
-                                    e.KillCharacter();
-                                    i--;
-                                }
-                            }
-                            break;
-                        }
-                    }
-
-                    if (foundTile)
-                    {
-                        this.currentPosition = t;
-                    }
-
-
+                    foundTile = false;
+                    if (this.isPlayer) env.SoundFXList[0].Play(); //thunk
                 }
+
+                if ((env.Player.currentPosition.gridX == newX && env.Player.currentPosition.gridY == newY))
+                {
+                    this.AttackCharacter(env.Player);
+                    env.SoundFXList[0].Play(); //thunk
+                    foundTile = false;
+                }
+
+                //foreach (Character e in env.NPCList)
+                for (int i = 0; i < env.NPCList.Count; i++)
+                {
+                    Character e = env.NPCList[i];
+                    if ((e.currentPosition.gridX == newX && e.currentPosition.gridY == newY))
+                    {
+                        foundTile = false;
+                        if (this.isPlayer)
+                        {
+                            this.AttackCharacter(e);
+                            if (e.markedForDeath)
+                            {
+                                CharPlayer.GetPlayer().Gold = CharPlayer.GetPlayer().Gold + e.GiveGold();
+                                e.KillCharacter();
+                                i--;
+                            }
+                        }
+                        break;
+                    }
+                }
+
+                if (foundTile)
+                {
+                    this.currentPosition = t;
+                }
+
+
             }
             if (!foundTile && this.isPlayer)
             {
                 env.SoundFXList[0].Play();
-            }
-            if (newX < curX)
+    }
+            if (newX<curX)
             {
                 this.rotation = 1.57079632679F;
             }
@@ -114,7 +109,7 @@ namespace csharpgame
             {
                 this.rotation = 4.71238898038F;
             }
-            if (newY < curY)
+            if (newY<curY)
             {
                 this.rotation = 3.14159265359F;
             }

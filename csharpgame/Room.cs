@@ -32,17 +32,17 @@ namespace csharpgame
                     if (Char.ToUpper(currentTile) == 'S')
                     {
                         ThisTile = new TileFloorStone(x + offsetX, y + offsetY);
-                        env.Add(ThisTile);
+                        env.Add(ThisTile, x + offsetX, y + offsetY);
                     }
                     if (Char.ToUpper(currentTile) == 'W')
                     {
                         ThisTile = new TileWallStone(x + offsetX, y + offsetY);
-                        env.Add(ThisTile);
+                        env.Add(ThisTile, x + offsetX, y + offsetY);
                     }
                     if (Char.ToUpper(currentTile) == 'G')
                     {
                         ThisTile = new TileWaterStagnant(x + offsetX, y + offsetY);
-                        env.Add(ThisTile);
+                        env.Add(ThisTile, x + offsetX, y + offsetY);
                     }
                     if (Char.IsLower(currentTile) && ThisTile != null)
                     {

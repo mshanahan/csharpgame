@@ -17,7 +17,7 @@ namespace csharpgame
         private static List<Environment> EnvironmentList = new List<Environment>();
 
         public Game1 Game { get; private set; }
-        public List<Tile> TileList { get; private set; }
+        public List<List<Tile>> TileList { get; private set; }
         public CharPlayer Player { get; private set; }
         public List<Character> NPCList { get; private set; }
         public List<Corpse> CorpseList { get; private set; }
@@ -44,7 +44,7 @@ namespace csharpgame
 
         public Environment()
         {
-            this.TileList = new List<Tile>();
+            this.TileList = new List<List<Tile>>();
             this.Player = null;
             this.NPCList = new List<Character>();
             this.CorpseList = new List<Corpse>();
@@ -58,9 +58,9 @@ namespace csharpgame
         /// Adds a Tile to the Enviromnet.
         /// </summary>
         /// <param name="t">The Tile to add</param>
-        public void Add(Tile t)
+        public void Add(Tile t, int x, int y)
         {
-            TileList.Add(t);
+            TileList[x][y] = t;
         }
 
         /// <summary>
@@ -148,36 +148,42 @@ namespace csharpgame
 
         public void RayCast()
         {
-            foreach (Tile t in TileList)
+            foreach(List<Tile> TL in TileList)
             {
-                int distance = Tile.distanceBetween(t, Player.currentPosition);
-                if (distance <= 6) Tile.Line(Player.currentPosition.gridX, Player.currentPosition.gridY, t.gridX, t.gridY, Tile.CheckVisibility);
+                foreach (Tile t in TL)
+                {
+                    int distance = Tile.distanceBetween(t, Player.currentPosition);
+                    if (distance <= 6) Tile.Line(Player.currentPosition.gridX, Player.currentPosition.gridY, t.gridX, t.gridY, Tile.CheckVisibility);
+                }
             }
         }
 
         public void DrawTiles(SpriteBatch s)
         {
- 
-            foreach (Tile t in TileList) //drawing pass
+
+            foreach (List<Tile> TL in TileList)
             {
-                int distance = Tile.distanceBetween(t, Player.currentPosition);
-
-                if ( t.Draw )
+                foreach (Tile t in TL) //drawing pass
                 {
-                    int TileScreenX = t.gridX * 50;
-                    int TileScreenY = t.gridY * 50;
-                    int PlayerGridX = Player.currentPosition.gridX;
-                    int PlayerGridY = Player.currentPosition.gridY;
-                    int PlayerScreenX = PlayerGridX * 50;
-                    int PlayerScreenY = PlayerGridY * 50;
+                    int distance = Tile.distanceBetween(t, Player.currentPosition);
 
-                    Vector2 Location = new Vector2(
-                        (Game.GraphicsDevice.Viewport.Width / 2) + TileScreenX - PlayerScreenX,
-                        (Game.GraphicsDevice.Viewport.Height / 2) + TileScreenY - PlayerScreenY);
-                    
-                    float Alpha = 1F - (distance / 7F);
+                    if (t.Draw)
+                    {
+                        int TileScreenX = t.gridX * 50;
+                        int TileScreenY = t.gridY * 50;
+                        int PlayerGridX = Player.currentPosition.gridX;
+                        int PlayerGridY = Player.currentPosition.gridY;
+                        int PlayerScreenX = PlayerGridX * 50;
+                        int PlayerScreenY = PlayerGridY * 50;
 
-                    s.Draw(t.texture, Location, Color.White * Alpha);
+                        Vector2 Location = new Vector2(
+                            (Game.GraphicsDevice.Viewport.Width / 2) + TileScreenX - PlayerScreenX,
+                            (Game.GraphicsDevice.Viewport.Height / 2) + TileScreenY - PlayerScreenY);
+
+                        float Alpha = 1F - (distance / 7F);
+
+                        s.Draw(t.texture, Location, Color.White * Alpha);
+                    }
                 }
             }
         }
@@ -339,14 +345,33 @@ namespace csharpgame
 
         public void ResetDrawState()
         {
-            foreach (Tile t in TileList)
+            foreach(List<Tile> TL in TileList)
             {
-                t.Draw = false;
+                foreach (Tile t in TL)
+                {
+                    t.Draw = false;
+                }
             }
+
         }
 
         public void GenerateDungeon(int roomsX, int roomsY, List<Tuple<int, Action<Tile>>> WeightedSpawnerList)
         {
+            TileList.Capacity = roomsY * 16;
+            foreach(List<Tile> TL in TileList)
+            {
+                TL.Capacity = roomsX * 16;
+            }
+
+            for(int i=0;i<roomsY*16;i++)
+            {
+                TileList.Add(new List<Tile>());
+                for(int j=0;j<roomsX*16;j++)
+                {
+                    TileList[i].Add(new TileWallStone(j,i));
+                }
+            }
+
             List<Room> RoomList = new List<Room>();
             Room Hallway = new Room("Content/Rooms/Hallway.txt");
             RoomList.Add(Hallway);
