@@ -53,7 +53,7 @@ namespace csharpgame
             Tuple<string, int, int> Welcome = new Tuple<string, int, int>("Greetings! I am Snapio Bagelles.\r\nI will upgrade your equipment, for a price.", 10, 0);
             Tuple<string, int, int> SingleHeal = new Tuple<string, int, int>("1 - Heal 1 (1GP)", 10, 60);
             Tuple<string, int, int> AllHeal = new Tuple<string, int, int>("2 - Heal All (" + (env.Player.MaxHitpoints - env.Player.CurrentHitpoints) + "GP)", 10, 100);
-            Tuple<string, int, int> UpgradeAttack = new Tuple<string, int, int>("3 - Train Precision (" + (Math.Pow(AttackCount,3)) + "GP)", 10, 140);
+            Tuple<string, int, int> UpgradeAttack = new Tuple<string, int, int>("3 - Train Precision (" + (Math.Pow(AttackCount,2)) + "GP)", 10, 140);
             Tuple<string, int, int> UpgradeDamage = new Tuple<string, int, int>("4 - Train Strength (" + (Math.Pow(DamageCount,3)) + "GP)", 10, 180);
             Tuple<string, int, int> UpgradeDefense = new Tuple<string, int, int>("5 - Train Dodging (" + (Math.Pow(DefenseCount,3)) + "GP)", 10, 220);
             Tuple<string, int, int> UpgradeHitpoints = new Tuple<string, int, int>("6 - Upgrade Hitpoints (" + (2 * HitpointCount) + "GP)", 10, 260);

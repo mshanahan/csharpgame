@@ -47,3 +47,10 @@ C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Cont
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\KoboldDead.xnb
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Graphics\KoboldToken.xnb
 C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Maps\prototype3.txt
+C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Rooms\Hallway.txt
+C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Rooms\RoomHuge.txt
+C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Rooms\RoomMedium.txt
+C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Rooms\RoomSmall.txt
+C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Rooms\RoomCircleHuge.txt
+C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Rooms\RoomCircleHugeWithPool.txt
+C:\Users\mshanahan\source\repos\csharpgame\csharpgame\bin\Windows\x86\Debug\Content\Rooms\RoomHugePartition1.txt

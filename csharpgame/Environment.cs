@@ -17,7 +17,7 @@ namespace csharpgame
         private static List<Environment> EnvironmentList = new List<Environment>();
 
         public Game1 Game { get; private set; }
-        public List<Tile> TileList { get; private set; }
+        public List<List<Tile>> TileList { get; private set; }
         public CharPlayer Player { get; private set; }
         public List<Character> NPCList { get; private set; }
         public List<Corpse> CorpseList { get; private set; }
@@ -44,7 +44,7 @@ namespace csharpgame
 
         public Environment()
         {
-            this.TileList = new List<Tile>();
+            this.TileList = new List<List<Tile>>();
             this.Player = null;
             this.NPCList = new List<Character>();
             this.CorpseList = new List<Corpse>();
@@ -58,9 +58,9 @@ namespace csharpgame
         /// Adds a Tile to the Enviromnet.
         /// </summary>
         /// <param name="t">The Tile to add</param>
-        public void Add(Tile t)
+        public void Add(Tile t, int x, int y)
         {
-            TileList.Add(t);
+            TileList[x][y] = t;
         }
 
         /// <summary>
@@ -148,36 +148,42 @@ namespace csharpgame
 
         public void RayCast()
         {
-            foreach (Tile t in TileList)
+            foreach(List<Tile> TL in TileList)
             {
-                int distance = Tile.distanceBetween(t, Player.currentPosition);
-                if (distance <= 6) Tile.Line(Player.currentPosition.gridX, Player.currentPosition.gridY, t.gridX, t.gridY, Tile.CheckVisibility);
+                foreach (Tile t in TL)
+                {
+                    int distance = Tile.distanceBetween(t, Player.currentPosition);
+                    if (distance <= 6) Tile.Line(Player.currentPosition.gridX, Player.currentPosition.gridY, t.gridX, t.gridY, Tile.CheckVisibility);
+                }
             }
         }
 
         public void DrawTiles(SpriteBatch s)
         {
- 
-            foreach (Tile t in TileList) //drawing pass
+
+            foreach (List<Tile> TL in TileList)
             {
-                int distance = Tile.distanceBetween(t, Player.currentPosition);
-
-                if ( t.Draw )
+                foreach (Tile t in TL) //drawing pass
                 {
-                    int TileScreenX = t.gridX * 50;
-                    int TileScreenY = t.gridY * 50;
-                    int PlayerGridX = Player.currentPosition.gridX;
-                    int PlayerGridY = Player.currentPosition.gridY;
-                    int PlayerScreenX = PlayerGridX * 50;
-                    int PlayerScreenY = PlayerGridY * 50;
+                    int distance = Tile.distanceBetween(t, Player.currentPosition);
 
-                    Vector2 Location = new Vector2(
-                        (Game.GraphicsDevice.Viewport.Width / 2) + TileScreenX - PlayerScreenX,
-                        (Game.GraphicsDevice.Viewport.Height / 2) + TileScreenY - PlayerScreenY);
-                    
-                    float Alpha = 1F - (distance / 7F);
+                    if (t.Draw)
+                    {
+                        int TileScreenX = t.gridX * 50;
+                        int TileScreenY = t.gridY * 50;
+                        int PlayerGridX = Player.currentPosition.gridX;
+                        int PlayerGridY = Player.currentPosition.gridY;
+                        int PlayerScreenX = PlayerGridX * 50;
+                        int PlayerScreenY = PlayerGridY * 50;
 
-                    s.Draw(t.texture, Location, Color.White * Alpha);
+                        Vector2 Location = new Vector2(
+                            (Game.GraphicsDevice.Viewport.Width / 2) + TileScreenX - PlayerScreenX,
+                            (Game.GraphicsDevice.Viewport.Height / 2) + TileScreenY - PlayerScreenY);
+
+                        float Alpha = 1F - (distance / 7F);
+
+                        s.Draw(t.texture, Location, Color.White * Alpha);
+                    }
                 }
             }
         }
@@ -331,6 +337,9 @@ namespace csharpgame
             s.Draw(UIPlayerState.GoldGraphic, new Vector2(StateScreenX + 310, StateScreenY), Color.White);
             s.DrawString(FontList[0]," x " + CharPlayer.GetPlayer().Gold, new Vector2(StateScreenX + 325, StateScreenY), Color.Gold);
 
+            s.DrawString(FontList[0], "Enemies Remaining: " + (this.NPCList.Count - 1), new Vector2(StateScreenX + 375, StateScreenY - 50), Color.Red);
+
+
             s.Draw(UIPlayerState.TorchGraphicFront, new Vector2(StateScreenX - 80, StateScreenY - 25), Color.White);
             int TorchPercent = (int) (((CharPlayer.MaxTicks - Player.TorchTicks) / (float) CharPlayer.MaxTicks) * 50);
             s.Draw(UIPlayerState.TorchGraphicBack, new Vector2(StateScreenX - 80, StateScreenY - 25), new Rectangle(0, 0, 20, 50 - TorchPercent), Color.White);
@@ -339,69 +348,123 @@ namespace csharpgame
 
         public void ResetDrawState()
         {
-            foreach (Tile t in TileList)
+            foreach(List<Tile> TL in TileList)
             {
-                t.Draw = false;
+                foreach (Tile t in TL)
+                {
+                    t.Draw = false;
+                }
             }
+
         }
 
-        public void ReadMap(String directory, List<Tuple<int, Action<Tile>>> WeightedSpawnerList)
+        public void GenerateDungeon(int roomsX, int roomsY, List<Tuple<int, Action<Tile>>> WeightedSpawnerList)
         {
-            StreamReader reader = new StreamReader(directory);
-            Environment env = Environment.Current();
-            int y = 0;
-            string currentRow;
-            while ((currentRow = reader.ReadLine()) != null)
+            TileList.Capacity = roomsY * 16;
+            foreach(List<Tile> TL in TileList)
             {
-                for (int x = 0; x < currentRow.Length; x++)
+                TL.Capacity = roomsX * 16;
+            }
+
+            for(int i=0;i<roomsY*16;i++)
+            {
+                TileList.Add(new List<Tile>());
+                for(int j=0;j<roomsX*16;j++)
                 {
-                    char currentTile = currentRow[x];
-                    Tile ThisTile = null ;
+                    TileList[i].Add(new TileWallStone(j,i));
+                }
+            }
 
-                    if (Char.ToUpper(currentTile) == 'S')
-                    {
-                        ThisTile = new TileFloorStone(x, y);
-                        this.Add(ThisTile);
-                    }
-                    if (Char.ToUpper(currentTile) == 'W')
-                    {
-                        ThisTile = new TileWallStone(x, y);
-                        this.Add(ThisTile);
-                    }
-                    if (Char.ToUpper(currentTile) == 'G')
-                    {
-                        ThisTile = new TileWaterStagnant(x, y);
-                        this.Add(ThisTile);
-                    }
-                    if (Char.IsLower(currentTile) && ThisTile != null)
-                    {
-                        //sum all the weights
-                        int summedWeight = 0;
-                        foreach(Tuple<int, Action<Tile>> tuple in WeightedSpawnerList)
-                        {
-                            int weight = tuple.Item1;
-                            summedWeight = summedWeight + weight;
-                        }
+            List<Room> RoomList = new List<Room>();
+            Room Hallway = new Room("Content/Rooms/Hallway.txt");
+            RoomList.Add(Hallway);
+            Room RoomHuge = new Room("Content/Rooms/RoomHuge.txt");
+            RoomList.Add(RoomHuge);
+            Room RoomMedium = new Room("Content/Rooms/RoomMedium.txt");
+            RoomList.Add(RoomMedium);
+            Room RoomSmall = new Room("Content/Rooms/RoomSmall.txt");
+            RoomList.Add(RoomSmall);
+            Room RoomCircleHuge = new Room("Content/Rooms/RoomCircleHuge.txt");
+            RoomList.Add(RoomCircleHuge);
+            Room RoomCircleHugeWithPool = new Room("Content/Rooms/RoomCircleHugeWithPool.txt");
+            RoomList.Add(RoomCircleHugeWithPool);
+            Room RoomHugePartition1 = new Room("Content/Rooms/RoomHugePartition1.txt");
+            RoomList.Add(RoomHugePartition1);
 
-                        //roll a random number
-                        int rand = env.Random.Next(1, summedWeight + 1);
-
-                        //subtract weights from rand until 0 is reached
-                        bool found = false;
-                        for(int i=0;i<WeightedSpawnerList.Count;i++)
-                        {
-                            rand = rand - WeightedSpawnerList[i].Item1;
-                            if(rand <= 0)
-                            {
-                                WeightedSpawnerList[i].Item2(ThisTile); //call spawn on the randomly chosen monster
-                                found = true;
-                            }
-                            if (found) break;
-                        }
+            for(int i=0;i<roomsX;i++)
+            {
+                for(int j=0;j<roomsY;j++)
+                {
+                    if(i==0 && j==0)
+                    {
+                        RoomList[1].Make(i * 16, j * 16, WeightedSpawnerList, false);
+                    }
+                    else
+                    {
+                        int RandomRoom = this.Random.Next(0, RoomList.Count);
+                        RoomList[RandomRoom].Make(i * 16, j * 16, WeightedSpawnerList, true);
                     }
                 }
-                y++;
             }
         }
+
+        //public void ReadMap(String directory, List<Tuple<int, Action<Tile>>> WeightedSpawnerList)
+        //{
+        //    StreamReader reader = new StreamReader(directory);
+        //    Environment env = Environment.Current();
+        //    int y = 0;
+        //    string currentRow;
+        //    while ((currentRow = reader.ReadLine()) != null)
+        //    {
+        //        for (int x = 0; x < currentRow.Length; x++)
+        //        {
+        //            char currentTile = currentRow[x];
+        //            Tile ThisTile = null ;
+
+        //            if (Char.ToUpper(currentTile) == 'S')
+        //            {
+        //                ThisTile = new TileFloorStone(x, y);
+        //                this.Add(ThisTile);
+        //            }
+        //            if (Char.ToUpper(currentTile) == 'W')
+        //            {
+        //                ThisTile = new TileWallStone(x, y);
+        //                this.Add(ThisTile);
+        //            }
+        //            if (Char.ToUpper(currentTile) == 'G')
+        //            {
+        //                ThisTile = new TileWaterStagnant(x, y);
+        //                this.Add(ThisTile);
+        //            }
+        //            if (Char.IsLower(currentTile) && ThisTile != null)
+        //            {
+        //                //sum all the weights
+        //                int summedWeight = 0;
+        //                foreach(Tuple<int, Action<Tile>> tuple in WeightedSpawnerList)
+        //                {
+        //                    int weight = tuple.Item1;
+        //                    summedWeight = summedWeight + weight;
+        //                }
+
+        //                //roll a random number
+        //                int rand = env.Random.Next(1, summedWeight + 1);
+
+        //                //subtract weights from rand until 0 is reached
+        //                bool found = false;
+        //                for(int i=0;i<WeightedSpawnerList.Count;i++)
+        //                {
+        //                    rand = rand - WeightedSpawnerList[i].Item1;
+        //                    if(rand <= 0)
+        //                    {
+        //                        WeightedSpawnerList[i].Item2(ThisTile); //call spawn on the randomly chosen monster
+        //                        found = true;
+        //                    }
+        //                    if (found) break;
+        //                }
+        //            }
+        //        }
+        //        y++;
+        //    }
+        //}
     }
 }

@@ -31,14 +31,7 @@ namespace csharpgame
         public static Tile FindTile(int x, int y)
         {
             Environment env = Environment.Current();
-            foreach (Tile t in env.TileList)
-            {
-                if (t.gridX == x && t.gridY == y)
-                {
-                    return t;
-                }
-            }
-            return null;
+            return env.TileList[x][y];
         }
 
         public static bool CheckVisibility(int x, int y)

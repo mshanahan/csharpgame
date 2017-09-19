@@ -43,7 +43,41 @@ namespace csharpgame
             if(Player == null)
             {
                 Environment env = Environment.Current();
-                Player = new CharPlayer(env.TileList[0]);
+                //foreach(Tile t in env.TileList)
+                //{
+                //    if(t.type == Tile.Type.Floor)
+                //    {
+                //        Player = new CharPlayer(t);
+                //        break;
+                //    }
+                //}
+
+                bool PlayerSpawned = false;
+                bool TraderSpawned = false;
+                for(int i=0;i<env.TileList.Count;i++)
+                {
+                    for(int j=0;j<env.TileList.Count;j++)
+                    {
+                        Tile t = env.TileList[i][j];
+
+                        if (t.type == Tile.Type.Floor && PlayerSpawned && !TraderSpawned)
+                        {
+                            CharTrader Trader = new CharTrader(t);
+                            env.Add(Trader);
+                            TraderSpawned = true;
+                        }
+
+                        if (t.type == Tile.Type.Floor && !PlayerSpawned)
+                        {
+                            Player = new CharPlayer(t);
+                            PlayerSpawned = true;
+                            i+=2;
+                            //j += 2;
+                        }
+
+                        if (TraderSpawned && PlayerSpawned) break;
+                    }
+                }
             }
             return Player;
         }

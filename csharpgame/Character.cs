@@ -52,60 +52,56 @@ namespace csharpgame
             int newX = curX + xDiff;
             int newY = curY + yDiff;
 
-            bool foundTile = false;
-            foreach (Tile t in env.TileList)
+            bool foundTile = true;
+            if ((newY >= 0 && newY < env.TileList.Count) && (newX >= 0 && newX < env.TileList[newY].Count))
             {
-                if (t.gridX == newX && t.gridY == newY)
+               Tile t = env.TileList[newX][newY];
+                if (t.type == Tile.Type.Wall || t.type == Tile.Type.Liquid)
                 {
+                    foundTile = false;
+                    if (this.isPlayer) env.SoundFXList[0].Play(); //thunk
+                }
 
-                    foundTile = true;
+                if ((env.Player.currentPosition.gridX == newX && env.Player.currentPosition.gridY == newY))
+                {
+                    this.AttackCharacter(env.Player);
+                    env.SoundFXList[0].Play(); //thunk
+                    foundTile = false;
+                }
 
-                    if(t.type == Tile.Type.Wall || t.type == Tile.Type.Liquid)
+                //foreach (Character e in env.NPCList)
+                for (int i = 0; i < env.NPCList.Count; i++)
+                {
+                    Character e = env.NPCList[i];
+                    if ((e.currentPosition.gridX == newX && e.currentPosition.gridY == newY))
                     {
                         foundTile = false;
-                        if(this.isPlayer) env.SoundFXList[0].Play(); //thunk
-                    }
-
-                    if ((env.Player.currentPosition.gridX == newX && env.Player.currentPosition.gridY == newY))
-                    {
-                        this.AttackCharacter(env.Player);
-                        env.SoundFXList[0].Play(); //thunk
-                        foundTile = false;
-                    }
-
-                    //foreach (Character e in env.NPCList)
-                    for(int i=0;i<env.NPCList.Count;i++)
-                    {
-                        Character e = env.NPCList[i];
-                        if ((e.currentPosition.gridX == newX && e.currentPosition.gridY == newY))
+                        if (this.isPlayer)
                         {
-                            foundTile = false;
-                            if (this.isPlayer)
+                            this.AttackCharacter(e);
+                            if (e.markedForDeath)
                             {
-                                this.AttackCharacter(e);
-                                if (e.markedForDeath)
-                                {
-                                    CharPlayer.GetPlayer().Gold = CharPlayer.GetPlayer().Gold + e.GiveGold();
-                                    e.KillCharacter();
-                                    i--;
-                                }
+                                CharPlayer.GetPlayer().Gold = CharPlayer.GetPlayer().Gold + e.GiveGold();
+                                e.KillCharacter();
+                                i--;
                             }
                         }
+                        break;
                     }
-
-                    if (foundTile)
-                    {
-                        this.currentPosition = t;
-                    }
-
-
                 }
+
+                if (foundTile)
+                {
+                    this.currentPosition = t;
+                }
+
+
             }
             if (!foundTile && this.isPlayer)
             {
                 env.SoundFXList[0].Play();
-            }
-            if (newX < curX)
+    }
+            if (newX<curX)
             {
                 this.rotation = 1.57079632679F;
             }
@@ -113,7 +109,7 @@ namespace csharpgame
             {
                 this.rotation = 4.71238898038F;
             }
-            if (newY < curY)
+            if (newY<curY)
             {
                 this.rotation = 3.14159265359F;
             }
@@ -156,65 +152,68 @@ namespace csharpgame
         public void AIRoutine()
         {
             Environment env = Environment.Current();
+            int distanceToPlayer = Tile.distanceBetween(this.currentPosition, env.Player.currentPosition);
 
-            //Alert behavior
-            if (this.behavior == Behavior.Alert)
+            if (distanceToPlayer <= 160)
             {
-                int xDiff = env.Player.currentPosition.gridX - this.currentPosition.gridX;
-                int xMult = 1;
-                if (xDiff < 0)
+
+
+                //Alert behavior
+                if (this.behavior == Behavior.Alert)
                 {
-                    xDiff = xDiff * -1;
-                    xMult = -1;
-                }
-                int yDiff = env.Player.currentPosition.gridY - this.currentPosition.gridY;
-                int yMult = 1;
-                if (yDiff < 0)
-                {
-                    yDiff = yDiff * -1;
-                    yMult = -1;
+                    int xDiff = env.Player.currentPosition.gridX - this.currentPosition.gridX;
+                    int xMult = 1;
+                    if (xDiff < 0)
+                    {
+                        xDiff = xDiff * -1;
+                        xMult = -1;
+                    }
+                    int yDiff = env.Player.currentPosition.gridY - this.currentPosition.gridY;
+                    int yMult = 1;
+                    if (yDiff < 0)
+                    {
+                        yDiff = yDiff * -1;
+                        yMult = -1;
+                    }
+
+                    int moveX = 0;
+                    int moveY = 0;
+
+                    if (xDiff > yDiff) moveX = 1 * xMult;
+                    else moveY = 1 * yMult;
+                    this.Move(moveX, moveY);
+                    if (distanceToPlayer > 5) this.behavior = Behavior.Wandering;
                 }
 
-                int moveX = 0;
-                int moveY = 0;
-
-                if (xDiff > yDiff) moveX = 1 * xMult;
-                else moveY = 1 * yMult;
-                this.Move(moveX, moveY);
-                int distanceToPlayer = Tile.distanceBetween(this.currentPosition, env.Player.currentPosition);
-                if (distanceToPlayer > 5) this.behavior = Behavior.Wandering;
-            }
-
-            //Idle behavior
-            if (this.behavior == Behavior.Idle)
-            {
-                int distanceToPlayer = Tile.distanceBetween(this.currentPosition, env.Player.currentPosition);
-                if (distanceToPlayer <= 4) this.behavior = Behavior.Alert;
-            }
-
-            //Wandering behavior
-            if (this.behavior == Behavior.Wandering)
-            {
-                int movementDirection = env.Random.Next(0, 4);
-                if (movementDirection == 0)
+                //Idle behavior
+                if (this.behavior == Behavior.Idle)
                 {
-                    this.Move(1, 0);
-                }
-                if (movementDirection == 1)
-                {
-                    this.Move(-1, 0);
-                }
-                if (movementDirection == 2)
-                {
-                    this.Move(0, 1);
-                }
-                if (movementDirection == 3)
-                {
-                    this.Move(0, -1);
+                    if (distanceToPlayer <= 4) this.behavior = Behavior.Alert;
                 }
 
-                int distanceToPlayer = Tile.distanceBetween(this.currentPosition, env.Player.currentPosition);
-                if (distanceToPlayer <= 4) this.behavior = Behavior.Alert;
+                //Wandering behavior
+                if (this.behavior == Behavior.Wandering)
+                {
+                    int movementDirection = env.Random.Next(0, 4);
+                    if (movementDirection == 0)
+                    {
+                        this.Move(1, 0);
+                    }
+                    if (movementDirection == 1)
+                    {
+                        this.Move(-1, 0);
+                    }
+                    if (movementDirection == 2)
+                    {
+                        this.Move(0, 1);
+                    }
+                    if (movementDirection == 3)
+                    {
+                        this.Move(0, -1);
+                    }
+
+                    if (distanceToPlayer <= 4) this.behavior = Behavior.Alert;
+                }
             }
         }
     }

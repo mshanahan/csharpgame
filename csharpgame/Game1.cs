@@ -117,13 +117,14 @@ namespace csharpgame
             WeightList.Add(GoblinWeight);
             Tuple<int, Action<Tile>> KoboldWeight = new Tuple<int, Action<Tile>>(2, new Action<Tile>(CharKobold.Spawn));
             WeightList.Add(KoboldWeight);
-            env.ReadMap("Content/Maps/prototype2.txt", WeightList);
+            //env.ReadMap("Content/Maps/prototype2.txt", WeightList);
+            env.GenerateDungeon(3, 3, WeightList);
             
             CharPlayer player = CharPlayer.GetPlayer();
             env.Setup(this, player);
 
-            CharTrader trader = new CharTrader(env.TileList[2]);
-            env.Add(trader);
+            //CharTrader trader = new CharTrader(env.TileList[2]);
+            //env.Add(trader);
 
             CharTrader.ArmorProgression.Add(new ItemArmor("Padded Armor",4, 11));
             CharTrader.ArmorProgression.Add(new ItemArmor("Leather Armor", 6, 12));
@@ -214,9 +215,9 @@ namespace csharpgame
             if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D3) && !numberPressed && env.DrawTradingScreen) // upgrade attack
             {
                 numberPressed = true;
-                if (env.Player.Gold >= (int) Math.Pow(CharTrader.AttackCount, 3))
+                if (env.Player.Gold >= (int) Math.Pow(CharTrader.AttackCount, 2))
                 {
-                    env.Player.Gold = env.Player.Gold - (int) Math.Pow(CharTrader.AttackCount, 3);
+                    env.Player.Gold = env.Player.Gold - (int) Math.Pow(CharTrader.AttackCount, 2);
                     env.Player.Attack++;
                     CharTrader.AttackCount++;
                 }
@@ -230,7 +231,7 @@ namespace csharpgame
                 numberPressed = true;
                 if (env.Player.Gold >= (int) Math.Pow(CharTrader.DamageCount,3))
                 {
-                    env.Player.Gold = env.Player.Gold - (int) Math.Pow(CharTrader.AttackCount, 3);
+                    env.Player.Gold = env.Player.Gold - (int) Math.Pow(CharTrader.DamageCount, 3);
                     env.Player.Damage++;
                     CharTrader.DamageCount++;
                 }
