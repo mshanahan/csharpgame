@@ -101,6 +101,12 @@
     <Content Include="Content\Maps\prototype3.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Rooms\Hallway.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Rooms\PlainRoom.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\SoundFX\thunk.wav" />
     <Content Include="Icon.ico" />
     <Content Include="MapKey.txt" />
