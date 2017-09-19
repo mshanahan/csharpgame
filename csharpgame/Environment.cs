@@ -146,22 +146,24 @@ namespace csharpgame
             this.Player = p;
         }
 
-        public void DrawTiles(SpriteBatch s)
+        public void RayCast()
         {
-            foreach(Tile t in TileList) //raycasting pass
+            foreach (Tile t in TileList)
             {
                 int distance = Tile.distanceBetween(t, Player.currentPosition);
                 if (distance <= 6) Tile.Line(Player.currentPosition.gridX, Player.currentPosition.gridY, t.gridX, t.gridY, Tile.CheckVisibility);
-                //if (distance == 6) Tile.Line(t.gridX, t.gridY, Player.currentPosition.gridX, Player.currentPosition.gridY, Tile.CheckVisibility);
             }
+        }
 
+        public void DrawTiles(SpriteBatch s)
+        {
+ 
             foreach (Tile t in TileList) //drawing pass
             {
                 int distance = Tile.distanceBetween(t, Player.currentPosition);
 
                 if ( t.Draw )
                 {
-                    t.Draw = false;
                     int TileScreenX = t.gridX * 50;
                     int TileScreenY = t.gridY * 50;
                     int PlayerGridX = Player.currentPosition.gridX;
@@ -198,7 +200,7 @@ namespace csharpgame
             foreach (Character npc in NPCList)
             {
                 int distance = Tile.distanceBetween(npc.currentPosition, Player.currentPosition);
-                if (distance <= 6)
+                if (npc.currentPosition.Draw)
                 {
                     int NPCGridX = npc.currentPosition.gridX;
                     int NPCGridY = npc.currentPosition.gridY;
@@ -237,7 +239,7 @@ namespace csharpgame
             foreach (Corpse c in CorpseList)
             {
                 int distance = Tile.distanceBetween(c.Position, Player.currentPosition);
-                if (distance <= 6)
+                if (c.Position.Draw)
                 {
                     int CorpseGridX = c.Position.gridX;
                     int CorpseGridY = c.Position.gridY;
@@ -333,6 +335,14 @@ namespace csharpgame
             int TorchPercent = (int) (((CharPlayer.MaxTicks - Player.TorchTicks) / (float) CharPlayer.MaxTicks) * 50);
             s.Draw(UIPlayerState.TorchGraphicBack, new Vector2(StateScreenX - 80, StateScreenY - 25), new Rectangle(0, 0, 20, 50 - TorchPercent), Color.White);
             s.DrawString(FontList[0], " x " + CharPlayer.GetPlayer().TorchCount, new Vector2(StateScreenX -50, StateScreenY), Color.Gold);
+        }
+
+        public void ResetDrawState()
+        {
+            foreach (Tile t in TileList)
+            {
+                t.Draw = false;
+            }
         }
 
         public void ReadMap(String directory, List<Tuple<int, Action<Tile>>> WeightedSpawnerList)
