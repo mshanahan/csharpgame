@@ -71,8 +71,8 @@ namespace csharpgame
                         {
                             Player = new CharPlayer(t);
                             PlayerSpawned = true;
-                            i += 4;
-                            j += 4;
+                            i++;
+                            j++;
                         }
 
                         if (TraderSpawned && PlayerSpawned) break;

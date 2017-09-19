@@ -386,8 +386,15 @@ namespace csharpgame
             {
                 for(int j=0;j<roomsY;j++)
                 {
-                    int RandomRoom = this.Random.Next(0, RoomList.Count);
-                    RoomList[RandomRoom].Make(i * 16, j * 16, WeightedSpawnerList);
+                    if(i==0 && j==0)
+                    {
+                        RoomList[1].Make(i * 16, j * 16, WeightedSpawnerList, false);
+                    }
+                    else
+                    {
+                        int RandomRoom = this.Random.Next(0, RoomList.Count);
+                        RoomList[RandomRoom].Make(i * 16, j * 16, WeightedSpawnerList, true);
+                    }
                 }
             }
         }

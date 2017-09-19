@@ -16,7 +16,7 @@ namespace csharpgame
             this.Directory = directory;
         }
 
-        public void Make(int offsetX, int offsetY, List<Tuple<int, Action<Tile>>> WeightedSpawnerList)
+        public void Make(int offsetX, int offsetY, List<Tuple<int, Action<Tile>>> WeightedSpawnerList, bool SpawnMonsters)
         {
             StreamReader reader = new StreamReader(this.Directory);
             Environment env = Environment.Current();
@@ -44,7 +44,7 @@ namespace csharpgame
                         ThisTile = new TileWaterStagnant(x + offsetX, y + offsetY);
                         env.Add(ThisTile, x + offsetX, y + offsetY);
                     }
-                    if (Char.IsLower(currentTile) && ThisTile != null)
+                    if (Char.IsLower(currentTile) && ThisTile != null && SpawnMonsters)
                     {
                         //sum all the weights
                         int summedWeight = 0;
