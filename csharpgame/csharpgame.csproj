@@ -53,6 +53,7 @@
     <Compile Include="ItemArmor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Room.cs" />
     <Compile Include="Text.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TileFloorStone.cs" />
@@ -104,7 +105,13 @@
     <Content Include="Content\Rooms\Hallway.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Rooms\PlainRoom.txt">
+    <Content Include="Content\Rooms\RoomHuge.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Rooms\RoomMedium.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Rooms\RoomSmall.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\SoundFX\thunk.wav" />

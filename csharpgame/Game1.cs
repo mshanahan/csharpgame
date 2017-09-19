@@ -117,13 +117,14 @@ namespace csharpgame
             WeightList.Add(GoblinWeight);
             Tuple<int, Action<Tile>> KoboldWeight = new Tuple<int, Action<Tile>>(2, new Action<Tile>(CharKobold.Spawn));
             WeightList.Add(KoboldWeight);
-            env.ReadMap("Content/Maps/prototype2.txt", WeightList);
+            //env.ReadMap("Content/Maps/prototype2.txt", WeightList);
+            env.GenerateDungeon(8, 8, WeightList);
             
             CharPlayer player = CharPlayer.GetPlayer();
             env.Setup(this, player);
 
-            CharTrader trader = new CharTrader(env.TileList[2]);
-            env.Add(trader);
+            //CharTrader trader = new CharTrader(env.TileList[2]);
+            //env.Add(trader);
 
             CharTrader.ArmorProgression.Add(new ItemArmor("Padded Armor",4, 11));
             CharTrader.ArmorProgression.Add(new ItemArmor("Leather Armor", 6, 12));

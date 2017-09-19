@@ -90,6 +90,7 @@ namespace csharpgame
                                     i--;
                                 }
                             }
+                            break;
                         }
                     }
 

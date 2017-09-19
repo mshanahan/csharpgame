@@ -345,63 +345,85 @@ namespace csharpgame
             }
         }
 
-        public void ReadMap(String directory, List<Tuple<int, Action<Tile>>> WeightedSpawnerList)
+        public void GenerateDungeon(int roomsX, int roomsY, List<Tuple<int, Action<Tile>>> WeightedSpawnerList)
         {
-            StreamReader reader = new StreamReader(directory);
-            Environment env = Environment.Current();
-            int y = 0;
-            string currentRow;
-            while ((currentRow = reader.ReadLine()) != null)
+            List<Room> RoomList = new List<Room>();
+            Room Hallway = new Room("Content/Rooms/Hallway.txt");
+            RoomList.Add(Hallway);
+            Room RoomHuge = new Room("Content/Rooms/RoomHuge.txt");
+            RoomList.Add(RoomHuge);
+            Room RoomMedium = new Room("Content/Rooms/RoomMedium.txt");
+            RoomList.Add(RoomMedium);
+            Room RoomSmall = new Room("Content/Rooms/RoomSmall.txt");
+            RoomList.Add(RoomSmall);
+
+            for(int i=0;i<roomsX;i++)
             {
-                for (int x = 0; x < currentRow.Length; x++)
+                for(int j=0;j<roomsY;j++)
                 {
-                    char currentTile = currentRow[x];
-                    Tile ThisTile = null ;
-
-                    if (Char.ToUpper(currentTile) == 'S')
-                    {
-                        ThisTile = new TileFloorStone(x, y);
-                        this.Add(ThisTile);
-                    }
-                    if (Char.ToUpper(currentTile) == 'W')
-                    {
-                        ThisTile = new TileWallStone(x, y);
-                        this.Add(ThisTile);
-                    }
-                    if (Char.ToUpper(currentTile) == 'G')
-                    {
-                        ThisTile = new TileWaterStagnant(x, y);
-                        this.Add(ThisTile);
-                    }
-                    if (Char.IsLower(currentTile) && ThisTile != null)
-                    {
-                        //sum all the weights
-                        int summedWeight = 0;
-                        foreach(Tuple<int, Action<Tile>> tuple in WeightedSpawnerList)
-                        {
-                            int weight = tuple.Item1;
-                            summedWeight = summedWeight + weight;
-                        }
-
-                        //roll a random number
-                        int rand = env.Random.Next(1, summedWeight + 1);
-
-                        //subtract weights from rand until 0 is reached
-                        bool found = false;
-                        for(int i=0;i<WeightedSpawnerList.Count;i++)
-                        {
-                            rand = rand - WeightedSpawnerList[i].Item1;
-                            if(rand <= 0)
-                            {
-                                WeightedSpawnerList[i].Item2(ThisTile); //call spawn on the randomly chosen monster
-                                found = true;
-                            }
-                            if (found) break;
-                        }
-                    }
+                    int RandomRoom = this.Random.Next(0, RoomList.Count);
+                    RoomList[RandomRoom].Make(i * 16, j * 16, WeightedSpawnerList);
                 }
-                y++;
             }
         }
+
+        //public void ReadMap(String directory, List<Tuple<int, Action<Tile>>> WeightedSpawnerList)
+        //{
+        //    StreamReader reader = new StreamReader(directory);
+        //    Environment env = Environment.Current();
+        //    int y = 0;
+        //    string currentRow;
+        //    while ((currentRow = reader.ReadLine()) != null)
+        //    {
+        //        for (int x = 0; x < currentRow.Length; x++)
+        //        {
+        //            char currentTile = currentRow[x];
+        //            Tile ThisTile = null ;
+
+        //            if (Char.ToUpper(currentTile) == 'S')
+        //            {
+        //                ThisTile = new TileFloorStone(x, y);
+        //                this.Add(ThisTile);
+        //            }
+        //            if (Char.ToUpper(currentTile) == 'W')
+        //            {
+        //                ThisTile = new TileWallStone(x, y);
+        //                this.Add(ThisTile);
+        //            }
+        //            if (Char.ToUpper(currentTile) == 'G')
+        //            {
+        //                ThisTile = new TileWaterStagnant(x, y);
+        //                this.Add(ThisTile);
+        //            }
+        //            if (Char.IsLower(currentTile) && ThisTile != null)
+        //            {
+        //                //sum all the weights
+        //                int summedWeight = 0;
+        //                foreach(Tuple<int, Action<Tile>> tuple in WeightedSpawnerList)
+        //                {
+        //                    int weight = tuple.Item1;
+        //                    summedWeight = summedWeight + weight;
+        //                }
+
+        //                //roll a random number
+        //                int rand = env.Random.Next(1, summedWeight + 1);
+
+        //                //subtract weights from rand until 0 is reached
+        //                bool found = false;
+        //                for(int i=0;i<WeightedSpawnerList.Count;i++)
+        //                {
+        //                    rand = rand - WeightedSpawnerList[i].Item1;
+        //                    if(rand <= 0)
+        //                    {
+        //                        WeightedSpawnerList[i].Item2(ThisTile); //call spawn on the randomly chosen monster
+        //                        found = true;
+        //                    }
+        //                    if (found) break;
+        //                }
+        //            }
+        //        }
+        //        y++;
+        //    }
+        //}
     }
 }
