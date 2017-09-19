@@ -231,7 +231,7 @@ namespace csharpgame
                 numberPressed = true;
                 if (env.Player.Gold >= (int) Math.Pow(CharTrader.DamageCount,3))
                 {
-                    env.Player.Gold = env.Player.Gold - (int) Math.Pow(CharTrader.AttackCount, 3);
+                    env.Player.Gold = env.Player.Gold - (int) Math.Pow(CharTrader.DamageCount, 3);
                     env.Player.Damage++;
                     CharTrader.DamageCount++;
                 }
