@@ -32,7 +32,7 @@ namespace csharpgame
         public override int GiveGold()
         {
             Environment env = Environment.Current();
-            return env.Random.Next(1, 7);
+            return env.Random.Next(1, 4) + env.Random.Next(1,4);
         }
 
         public static void Spawn(Tile t)
