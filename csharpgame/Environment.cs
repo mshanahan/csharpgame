@@ -337,6 +337,9 @@ namespace csharpgame
             s.Draw(UIPlayerState.GoldGraphic, new Vector2(StateScreenX + 310, StateScreenY), Color.White);
             s.DrawString(FontList[0]," x " + CharPlayer.GetPlayer().Gold, new Vector2(StateScreenX + 325, StateScreenY), Color.Gold);
 
+            s.DrawString(FontList[0], "Enemies Remaining: " + (this.NPCList.Count - 1), new Vector2(StateScreenX + 375, StateScreenY - 50), Color.Red);
+
+
             s.Draw(UIPlayerState.TorchGraphicFront, new Vector2(StateScreenX - 80, StateScreenY - 25), Color.White);
             int TorchPercent = (int) (((CharPlayer.MaxTicks - Player.TorchTicks) / (float) CharPlayer.MaxTicks) * 50);
             s.Draw(UIPlayerState.TorchGraphicBack, new Vector2(StateScreenX - 80, StateScreenY - 25), new Rectangle(0, 0, 20, 50 - TorchPercent), Color.White);
