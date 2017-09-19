@@ -46,7 +46,7 @@ namespace csharpgame
             Tile t = Tile.FindTile(x, y);
             if (t == null || (t != null && t.type == Type.Wall))
             {
-                t.Draw = true;
+                if(t != null) t.Draw = true;
                 return false;
             }
             t.Draw = true;
