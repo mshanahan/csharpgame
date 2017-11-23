@@ -55,6 +55,29 @@ namespace csharpgame
         }
 
         /// <summary>
+        /// Resets this environment, building a new one from scratch.
+        /// </summary>
+        public void ResetEnvironment()
+        {
+            this.TileList = new List<List<Tile>>();
+            this.Player = null;
+            CharPlayer.RemovePlayer();
+            this.NPCList = new List<Character>();
+            this.CorpseList = new List<Corpse>();
+            this.UIElementList = new List<UIElement>();
+
+
+            List<Tuple<int, Action<Tile>>> WeightList = new List<Tuple<int, Action<Tile>>>();
+            Tuple<int, Action<Tile>> GoblinWeight = new Tuple<int, Action<Tile>>(1, new Action<Tile>(CharGoblin.Spawn));
+            WeightList.Add(GoblinWeight);
+            Tuple<int, Action<Tile>> KoboldWeight = new Tuple<int, Action<Tile>>(2, new Action<Tile>(CharKobold.Spawn));
+            WeightList.Add(KoboldWeight);
+            this.GenerateDungeon(3, 3, WeightList);
+            CharPlayer player = CharPlayer.GetPlayer();
+            this.Setup(this.Game, player);
+        }
+
+        /// <summary>
         /// Adds a Tile to the Enviromnet.
         /// </summary>
         /// <param name="t">The Tile to add</param>
