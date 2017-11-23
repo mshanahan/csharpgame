@@ -21,6 +21,7 @@ namespace csharpgame
         int arrowKeyPressedConsecutive = 0;
         bool numberPressed = false;
         bool AllDark = false;
+        int respawnMillis = 3000;
 
         public Game1()
         {
@@ -163,14 +164,24 @@ namespace csharpgame
 
             if (CharPlayer.GetPlayer().CurrentHitpoints <= 0 || AllDark)
             {
-                CharPlayer.GetPlayer().Locked = true;
-                CharPlayer.GetPlayer().texture = CharPlayer.PlayerDeathImage;
-                List<Tuple<string, int, int>> GameOverList = new List<Tuple<string, int, int>>();
-                GameOverList.Add(new Tuple<string, int, int>("GAME OVER", 0, 0));
-                GameOverList.Add(new Tuple<string, int, int>("YOU HAVE DIED", 0, 20));
-                if (AllDark) GameOverList.Add(new Tuple<string, int, int>("YOU RAN OUT OF TORCHES", 0, 40));
-                UIElement GameOver = new UIElement(env.Game.GraphicsDevice.Viewport.Width / 2, env.Game.GraphicsDevice.Viewport.Height / 2 - 50,GameOverList);
-                env.Add(GameOver);
+                respawnMillis -= gameTime.ElapsedGameTime.Milliseconds;
+                if (respawnMillis > 0)
+                {
+                    CharPlayer.GetPlayer().Locked = true;
+                    CharPlayer.GetPlayer().texture = CharPlayer.PlayerDeathImage;
+                    List<Tuple<string, int, int>> GameOverList = new List<Tuple<string, int, int>>();
+                    GameOverList.Add(new Tuple<string, int, int>("GAME OVER - RESTART IN 3 SECONDS", 0, 0));
+                    GameOverList.Add(new Tuple<string, int, int>("YOU HAVE DIED", 0, 20));
+                    if (AllDark) GameOverList.Add(new Tuple<string, int, int>("YOU RAN OUT OF TORCHES", 0, 40));
+                    UIElement GameOver = new UIElement(env.Game.GraphicsDevice.Viewport.Width / 2, env.Game.GraphicsDevice.Viewport.Height / 2 - 50, GameOverList);
+                    env.Add(GameOver);
+                }
+                else
+                {
+                    respawnMillis = 3000;
+                    this.AllDark = false;
+                    env.ResetEnvironment();
+                }
             }
 
  

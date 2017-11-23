@@ -38,6 +38,14 @@ namespace csharpgame
             this.ItemWeapon = new ItemWeapon("Stick", 0, 1, 3);
         }
 
+        /// <summary>
+        /// Sets the current player to null.
+        /// </summary>
+        public static void RemovePlayer()
+        {
+            CharPlayer.Player = null;
+        }
+
         public static CharPlayer GetPlayer()
         {
             if(Player == null)
