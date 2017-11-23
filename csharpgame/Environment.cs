@@ -55,6 +55,14 @@ namespace csharpgame
         }
 
         /// <summary>
+        /// Resets this environment, building a new one from scratch.
+        /// </summary>
+        public void ResetEnvironment()
+        {
+
+        }
+
+        /// <summary>
         /// Adds a Tile to the Enviromnet.
         /// </summary>
         /// <param name="t">The Tile to add</param>
